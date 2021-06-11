@@ -1,0 +1,16 @@
+.nav-links {
+    /* display: inline-block; */
+    height: 40px;
+    font-size: 100%;
+    background-color:white;/*will change background-color of element */
+    color: rgb(15, 15, 15); /*will change color of text within the element */ 
+    font-family:fantasy;
+    font-style: inherit;
+    }
+    
+    .nav-links:hover {
+    background-color:pink; /*will change background-color of element on hover */
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+     /*will change color of text within the element on hover */
+    }
