@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -14,11 +14,10 @@ const products = [
   { name: 'Shipping', desc: '', price: 'Free' },
 ];
 const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
+
 const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
+  { name: 'Payment Method', detail: 'Cash on delivery' },
+ 
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -33,25 +32,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review() {
+export default function Review(props) {
   const classes = useStyles();
+  const [order,setOrder]  =useState(JSON.parse(localStorage.getItem("cartItems")));
+  const [totalPrice,setTotal]=useState(JSON.parse(localStorage.getItem("cartTotalPrice")));
+
+  // const [orders,setOrders]=useState(props.products)
+
+  useEffect(() => {
+    console.log("checkOut",order)
+   
+  },[]);
 
   return (
+  
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+      {order.allcarts.map((product) => (
+          <ListItem className={classes.listItem} key={product.title}>
+            <ListItemText primary={product.title} />
+            <Typography variant="body2">L.B.P {product.price} </Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            L.B.P {totalPrice}
           </Typography>
         </ListItem>
       </List>

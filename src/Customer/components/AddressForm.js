@@ -37,21 +37,13 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label="Address line-Street"
             fullWidth
             autoComplete="shipping address-line1"
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
+      
+        <Grid item xs={12} sm={4}>
           <TextField
             required
             id="city"
@@ -61,35 +53,20 @@ export default function AddressForm() {
             autoComplete="shipping address-level2"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <TextField
             required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
+            id="building"
+            name="building"
+            label="Building"
             fullWidth
-            autoComplete="shipping postal-code"
+            autoComplete="shipping address-level2"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-          />
+        <Grid item xs={12} sm={4}>
+          <TextField id="floor" name="floor" label="Floor" fullWidth type="number"/>
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
-        </Grid>
+       
       </Grid>
     </React.Fragment>
   );

@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     backgroundColor:'#F2CBCB',
-    padding:'4%'
-
+    padding:'4%',
    
   },
   details: {
@@ -57,7 +56,7 @@ export default function MediaControlCardBlack() {
     const posterBlack=BlackImg;
 
   return (
-      <div align="center">
+    <div alignItems="left">
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>

@@ -1,0 +1,20 @@
+button {
+    border-radius: 5px;
+    border: 1px solid rgb(197, 115, 128);
+    padding: 10px;
+    background: transparent;
+    transition: 0.15s ease-in-out;
+    margin: 10px 0;
+    // background: whitesmoke;
+    background: rgb(197, 115, 128);
+
+    color: whitesmoke;
+    margin-left: 22px;
+    
+
+    &:hover {
+        cursor: pointer;
+        background: whitesmoke;
+        color: rgb(197, 115, 128);
+    }
+}

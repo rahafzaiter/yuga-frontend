@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 //Filter:
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+
+import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ProductDetails.scss'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,13 +34,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function ProductDetails({ card, addItem }) {
+export default function ProductDetails({additem}) {
   const classes = useStyles();
 
   // const products=props.product
-  // const [product,setProduct]  =useState(" ");
-  const [count, setCount] = useState(0);
-
+  const [Product,setProductt]  =useState(JSON.parse(localStorage.getItem("product")));
+  // console.log(prodName)
   const [state, setState] = useState({
 
 
@@ -63,7 +65,6 @@ export default function ProductDetails({ card, addItem }) {
       inStock: true,
     }
 
-
   });
 
   const handleChangeColor = (event) => {
@@ -74,60 +75,80 @@ export default function ProductDetails({ card, addItem }) {
     });
   };
 
-  // useEffect(() => {
-  //   setProduct (p);
-  // });
+  
+
+  useEffect(() => {
+    // console.log(prodname)
+    // console.log(productid)
+   // setProductt({Product:JSON.parse(localStorage.getItem("product"))})
+    
+    // console.log(props.card);
+  },[] );
+
+ 
+ 
+
 
   return (
+   
     <div className="container" style={{ width: '80%' }}>
       <Grid container spacing={3}>
         <Grid item xs={12} height="20%">
-          <img src={state.product.image} style={{ width: '50%', height: '300px', }} />
+          <img src={Product.card.image} style={{ width: '50%', height: '300px', }} />
         </Grid>
         <Grid item xs={7} >
 
           <Paper className={classes.paper} bold >
-            <h3 align="left" marginButton="2px"> {state.product.title}</h3>
-            <h5 align="left" marginButton="2px"> Product Info</h5>
-            <p align="left" marginButton="2px">{state.product.description}</p>
-            <p align="left" marginButton="2px">{state.product.collection}</p>
+            <h3 align="left" marginButton="2px"> {Product.card.title}</h3>
+            <h5 align="left" marginButton="2px"> Product Info
+            </h5>
+            <p align="left" marginButton="2px"> {Product.card.decription}</p>
+            <p align="left" marginButton="2px">{Product.card.collection}</p>
           </Paper>
         </Grid>
         <Grid item xs={5} style={{ align: "left", display: 'flex' }} >
           <Paper className={classes.paper}>
-            <p align="left">{state.product.price} L.L.P</p>
+            <p align="left">{Product.card.price} L.L.P</p>
             <p align="left">Quantity: </p>
-            <div><input type="number" style={{ align: "left" }} /></div>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-native-simple">Select Size</InputLabel>
-              <Select
-                native
-                value={state.collection}
-                onChange={handleChangeColor}
-                inputProps={{
-                  name: 'collection',
-                  id: 'age-native-simple',
-                }}
-                style={{ align: "left", width: "100%" }}
+            <div><input type="number" style={{ align: "left" }}  required
+           /></div>
 
-              >
-                <option aria-label="None" value="" />
-                <option value={"S"}>S</option>
-                <option value={"M"}>M</option>
-                <option value={"L"}>L</option>
-                <option value={"XL"}>MXL</option>
-                <option value={"XXL"}>XXL</option>
+            <form onSubmit={e => e.preventDefault()}
+             noValidate>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="age-native-simple">Select Size</InputLabel>
+                <Select
+                  native
+                  value={state.collection}
+                  onChange={handleChangeColor}
+                  required
+                  inputProps={{
+                    name: 'collection',
+                    id: 'age-native-simple',
+                   
+                  }}
+                  style={{ align: "left", width: "100%" }}
 
-              </Select>
-            </FormControl>
+                >
+                  <option aria-label="None" value="" />
+                  <option value={"S"}>S</option>
+                  <option value={"M"}>M</option>
+                  <option value={"L"}>L</option>
+                  <option value={"XL"}>MXL</option>
+                  <option value={"XXL"}>XXL</option>
 
-           <Link href="/Customer/CustCart"> 
-           <button display="block" onClick={() => props.addItem(state.product)}>
-              Add to Cart</button>
-            </Link>
+                </Select>
+              </FormControl>
+
+              <Link to={`/Customer/CustCart`}>
+                <button display="block" onClick={() =>
+                  additem(Product.card)}  >
+                  Add to Cart
+              {/* {prodname} */}
+                </button>
+              </Link>
+            </form>
           </Paper>
-
-
         </Grid>
 
       </Grid>
