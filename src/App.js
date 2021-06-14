@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Admin from './components/Admin'
 import Customer from './components/Customer'
 ////////////////////////////////////////////////////////////////////////
+import Feedback from './Customer/components/Feedback'
 
 //AdminHome:
 import HomePageAdmin from './HomePageAdmin'
@@ -104,19 +105,13 @@ const useStyles = makeStyles({
 
 
 function App() {
+
   const [cart, setCart] = useState([]);
   //Styles:(
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [user, setUser] = useState(null);
 
-
-  const defaultProps = {
-    // bgcolor: 'background.paper',
-    m: 1,
-    borderColor: 'grey',
-  };
-  const items = [];
   const addItem = item => {
     const newList = cart.concat(item);
     setCart(newList)
@@ -128,67 +123,24 @@ function App() {
 
   return (
 
+
     <div className="App" style={{ width: '100%' }}>
-
-
-      {/* <Navigation cart={cart} /> */}
-
-      {/* <HomePageAdmin/> */}
-
-      <div>
         <Switch>
           <Route path="/Customer">
             <Customer user={user} setUser={setUser}
             /> 
              </Route>
 
-
-            {/* https://bezkoder.com/react-crud-web-api/ */}
-            {/* <Route  path={["/", "/CustHomePage/"]} component={HomePageCustomer} user={user} setUser={setUser}/>
-           
-            <Route path={["/Admin/"]} component={HomePageAdmin} />
-            <Route path={["/CustAuthentication/"]} component={SignInSide} />
-
-            <Route  path="/SignUp" >
-              <SignUp user={user} setUser={setUser}/>
-            </Route>
-
-            <Route  path={["/CustProductGallery"]} component={Album} >
-               <Album  addItem={addItem} /></Route>
-            <Route path={["/CustShipping"]} component={ShippingDetails}/>
-          
-            <Route path="/ProductDetails/:id" > 
-            <ProductDetails addItem={addItem} />
-            </Route>
-
-            <Route path={["/Checkout"]} component={Checkout}/>
-            <Route path="/CustCart" >
-				     <ShoppingCart cart={cart} />
-			       </Route> */}
-
-        
           {/* Admin */}
-
           <Route path="/Admin">
             <Admin 
-            user={user} setUser={setUser}/>
-            {/* <Route exact path={["/AdminLogin/"]} component={SignInSideAdmin} />
-          <Route exact path={["/Admin/", "/tutorials"]} component={TutorialsList} />
-          <Route exact path="/add" component={AddTutorial} />
-          <Route path="/tutorials/:id" component={Tutorial} />
-          <Route exact path="/Product/EditUser/:id" component={EditProduct} />
-          <Route path="/categoryList" component={CategoryList} />
-          <Route path="/orders" component={OrdersCust} />
-          <Route path="/nameForm" component={NameForm} />  
-          <Route path="/logout" component={LogoutControl} />   */}
+            user={user} setUser={setUser}/>       
           </Route>
 
         </Switch>
 
         <footer style={{ background: '#1E1D1D', marginTop: '1%', padding: '2%', color: '#FFFFFF' }}>@2021 by Yuga</footer>
-      </div>
-
-
+    
     </div>
 
 

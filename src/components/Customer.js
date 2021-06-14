@@ -16,8 +16,17 @@ import Checkout from '../Customer/components/Checkout'
 import ShoppingCart from '../Customer/components/ShoppingCart';
 import SignInSideAdmin from '../Admin/components/SignInAdmin'
 import Review from '../Customer/components/Review'
+import Feedback from '../Customer/components/Feedback'
+
+//Scratch:
+import HookCounterTwo from '../Customer/components/HookCounterTwo'
+import HookCounterThree from '../Customer/components/HookCounterThree'
+import HookCounterFour from '../Customer/components/HookCounterFour'
+import HookCounterOne from '../Customer/components/HookCounterOne'
+
+
 //switch
-import { BrowserRouter as Router, Switch, Route, Link, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -36,16 +45,33 @@ export default function Customer() {
     {id:5,title:"boyfriend pant",decription:" Relaxed fit trousers with adjustable waistband and Tsuki logo embroidery.  Felix wears a size 30. Looking for Marzia's fit? That's our Black Moon trousers in Slim Fit.",color:"black",collection:"black",categoryId:1,price:200,image:'https://i.pinimg.com/564x/88/dc/5a/88dc5a987913a12049e5d50c3e0d3a1c.jpg',inStock:false},
     {id:6,title:"Jumpsuit",decription:"The ultimate statement alternative to a maxi dress, the One Shoulder Cape Sleeve Jumpsuit is all you need to master the glam dress code this season. Make sure you’re the best-dressed guest for a stylish wedding, races or VIP party in our dramatic Cape Sleeve Jumpsuit worked in a classic black and cinched at the waist to flatter your curves. Where to WearThis jumpsuit is perfect for nights out, graduation, or special occasions. Style With Elongate your legs by wearing this wide-leg jumpsuit with a killer heel and a chic low pony for maximum impact. Underwear SolutionsNude Lace Be Honest Bra.Product DetailsStretch Jersey (95% Polyester 5% Elastane)Stretch Factor: Stretchy Model is 5’8 ",color:"black",categoryId:3,price:300,image:'https://i.pinimg.com/564x/2b/ec/89/2bec89c1e051e2fcd4b9c740c1b28a0f.jpg',inStock:true},
 ]);
-
-    const [cart, setCart] = useState([]);
+const [categories,setCategories]=useState(
+    [
+        {id: '1', name: 'Pant'},
+        {id: '2', name: 'Chemis'},
+        {id: '3', name: 'Set'},
+        {id: '4', name: 'Dress'},
+        {id: '5', name: 'Short'},
+        {id: '6', name: 'Skirt'},
+        {id: '7', name: 'Jacket'}
+    ]
+)
+    const [cart, setCart] = useState([
+    ]);
     //Styles:(
     const classes = useStyles();
+    const history=useHistory();
     const [value, setValue] = useState(0);
     const [user, setUser] = useState(null);
 
     const addItem = item => {
+    // if (!user){
         const newList = cart.concat(item);
         setCart(newList)
+        history.push("/Customer/CustCart")
+    // }else{
+    //     alert("please login")
+    // }
         // add the given item to the cart
     };
     
@@ -53,7 +79,6 @@ export default function Customer() {
 
 
     const defaultProps = {
-        // bgcolor: 'background.paper',
         m: 1,
         borderColor: 'grey',
     };
@@ -77,7 +102,7 @@ export default function Customer() {
                     </Route>
 
                     <Route path={["/Customer/CustProductGallery"]}>
-                        <Album addItem={addItem} products={products} /></Route>
+                        <Album cat={categories} addItem={addItem} products={products} /></Route>
 
                     <Route path={["/Customer/CustShipping"]} component={ShippingDetails} />
 
@@ -93,19 +118,26 @@ export default function Customer() {
                     <Route  path={["/Customer/CheckOutReview"]} component={Review} >
                         <Review check={cart} />
                     </Route>
+                    <Route  path={["/Customer/CustFeedback"]} >
+                        <Feedback categ={categories}/>
+                    </Route>
+                    {/* Scratch */}
+                    <Route  path={["/Customer/HookCounterTwo"]} >
+                        <HookCounterTwo/>
+                    </Route>
+                    <Route  path={["/Customer/HookCounterThree"]} >
+                        <HookCounterThree/>
+                    </Route>
+                    <Route  path={["/Customer/HookCounterFour"]} >
+                        <HookCounterFour/>
+                    </Route>
+                    <Route  path={["/Customer/HookCounterOne"]} >
+                        <HookCounterOne/>
+                    </Route>
                 </Switch>
             </Router>
         </div>
 
 
     );
-
-  
 }
-
-//  function MyProductDetails(){
-
-//     let {productid}=useParams();
-//     return <ProductDetails  productid={productid}/>
-
-//  }

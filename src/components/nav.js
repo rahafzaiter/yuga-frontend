@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Logo from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/logoPinkDress.jpeg"
 //const path='/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/';
-
+import Grid from '@material-ui/core/Grid';
 //Customer Pages:
 import { NavLink } from 'react-router-dom';
 //icons:
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
       fontSize: 30,
       m: 1,
       borderColor: 'grey',
-      height:"30%",
+      height:"40%",
       }
       
 
@@ -59,7 +59,7 @@ function Navigation(props){
     
 
     return(  
-      <div className="container">
+      <Grid className="container" xs={10}>
 
         <Box className={classes.NavBox} align="left">
          <span class="logo">
@@ -96,11 +96,12 @@ function Navigation(props){
     <BottomNavigationAction   className="nav-links" icon={<LocalMallIcon/>}  align="right" component={Link} 
     to="/Customer/CustCart" >Cart</BottomNavigationAction>
     
+    
     </BottomNavigation>
     </Typography>
     </Box>
     
-  </div>
+  </Grid>
 
      );
 }

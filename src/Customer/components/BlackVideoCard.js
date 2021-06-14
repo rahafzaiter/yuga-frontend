@@ -60,12 +60,12 @@ export default function MediaControlCardBlack() {
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-          Colors
+          <Typography component="h3" variant="h3">
+          Black
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography variant="subtitle1" color="textSecondary" >
           Black Collection
-          <p>Blackyyyy! where are you elegant ladies? We have also got black collection for you  </p>
+          <p >Blackyyyy! where are you elegant ladies? We have also got black collection for you  </p>
           </Typography>
         </CardContent>
        

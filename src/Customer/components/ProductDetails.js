@@ -37,52 +37,65 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductDetails({additem}) {
   const classes = useStyles();
 
-  // const products=props.product
-  const [Product,setProductt]  =useState(JSON.parse(localStorage.getItem("product")));
-  // console.log(prodName)
+
+  const [Product,setProduct]  =useState(JSON.parse(localStorage.getItem("product")));
+  const [size,setSize]=useState('');
+  const [quantity,setQuantity]=useState('');
+  const [item,setItem]=useState(
+    {
+       Product,
+       size:' ',
+       quantity:' '
+   }
+  );
+
   const [state, setState] = useState({
 
 
-    product: {
-      id: 1,
-      title: 'jeans Skirt',
-      price: 220,
-      description: 'This flared pintucked denim skirt is a staff favoriteâ€¦ So we produced it in another quality denim fabric! The elegant lines and stitching make for a slenderizing silhouette, and the denim wash can easily be matched with anything. Stylish and flattering, pair it with any of our tunics, tops, or blouses. Note: This design is an Inventory Item, ready for immediate despatch.',
-      image: 'https://i.pinimg.com/564x/97/62/0f/97620f26c8f6ea7d2f00f9476e9876ed.jpg',
-      collection: 'color',
-      quantity: {
-        id: null,
-        XS: '1',
-        S: '3',
-        M: '2',
-        L: '3',
-        XL: '5'
-      },
-      category: {
-        id: null,
-        name: 'skirt'
-      },
-      inStock: true,
-    }
+    // product: {
+    //   id: 1,
+    //   title: 'jeans Skirt',
+    //   price: 220,
+    //   description: 'This flared pintucked denim skirt is a staff favoriteâ€¦ So we produced it in another quality denim fabric! The elegant lines and stitching make for a slenderizing silhouette, and the denim wash can easily be matched with anything. Stylish and flattering, pair it with any of our tunics, tops, or blouses. Note: This design is an Inventory Item, ready for immediate despatch.',
+    //   image: 'https://i.pinimg.com/564x/97/62/0f/97620f26c8f6ea7d2f00f9476e9876ed.jpg',
+    //   collection: 'color',
+    //   quantity: {
+    //     id: null,
+    //     XS: '1',
+    //     S: '3',
+    //     M: '2',
+    //     L: '3',
+    //     XL: '5'
+    //   },
+    //   category: {
+    //     id: null,
+    //     name: 'skirt'
+    //   },
+    //   inStock: true,
+    // }
 
   });
 
-  const handleChangeColor = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+  const handleChangeSize= (event) => {
+    setSize(event.target.value)
+    const { name, value } = event.target;
+    setItem({ ...item, size:value });
+    
+  };
+
+  const handleChangeQuantity= (event) => {
+    setQuantity(event.target.value)
+    const { name, value } = event.target;
+    setItem({ ...item,quantity: value });
   };
 
   
 
   useEffect(() => {
-    // console.log(prodname)
-    // console.log(productid)
-   // setProductt({Product:JSON.parse(localStorage.getItem("product"))})
+    // setItem({ ...item, Product: Product });
+
     
-    // console.log(props.card);
+  
   },[] );
 
  
@@ -110,7 +123,8 @@ export default function ProductDetails({additem}) {
           <Paper className={classes.paper}>
             <p align="left">{Product.card.price} L.L.P</p>
             <p align="left">Quantity: </p>
-            <div><input type="number" style={{ align: "left" }}  required
+
+            <div><input type="number" style={{ align: "left" }} name="quantity" required onChange={handleChangeQuantity}
            /></div>
 
             <form onSubmit={e => e.preventDefault()}
@@ -119,11 +133,11 @@ export default function ProductDetails({additem}) {
                 <InputLabel htmlFor="age-native-simple">Select Size</InputLabel>
                 <Select
                   native
-                  value={state.collection}
-                  onChange={handleChangeColor}
+                  value={size}
+                  onChange={handleChangeSize}
                   required
                   inputProps={{
-                    name: 'collection',
+                    name: 'size',
                     id: 'age-native-simple',
                    
                   }}
@@ -134,19 +148,28 @@ export default function ProductDetails({additem}) {
                   <option value={"S"}>S</option>
                   <option value={"M"}>M</option>
                   <option value={"L"}>L</option>
-                  <option value={"XL"}>MXL</option>
+                  <option value={"XL"}>XL</option>
                   <option value={"XXL"}>XXL</option>
 
                 </Select>
               </FormControl>
 
-              <Link to={`/Customer/CustCart`}>
-                <button display="block" onClick={() =>
-                  additem(Product.card)}  >
+              {/* <Link to={`/Customer/CustCart`}> */}
+              <button display="block" onClick={() =>{
+                if (!size || !quantity){
+                  alert("please fill size and quantity")
+                  return 
+                }else{
+                   console.log(item)
+                  // additem(Product.card)
+                  additem(item)
+                }
+                  
+                  }} >
                   Add to Cart
               {/* {prodname} */}
                 </button>
-              </Link>
+              {/* </Link> */}
             </form>
           </Paper>
         </Grid>

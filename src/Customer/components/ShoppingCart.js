@@ -5,18 +5,23 @@ import {Link} from 'react-router-dom';
 
 //https://github.com/LambdaSchool/react-shopping-cart/tree/master/src 
 
-function ShoppingCart(props){
+function ShoppingCart({cart}){
+    const [allcarts,setAllCarts]=useState(cart);
+    const [cartProduct,setCartProduct]=useState(cart.Product);
+    const [cartSize,setCartSize]=useState(cart.size);
 
     const getCartTotal = () => {
-		return props.cart.reduce((acc, value) => {
+		return cart.reduce((acc, value) => {
 			return acc + value.price;
 		}, 0).toFixed(2)
 	};
 
-    const [allcarts,setAllCarts]=useState(props.cart);
-
+    
+   
     useEffect(() => {
-        console.log(props.cart)
+        console.log("cart",cart)
+        console.log(cartProduct)
+        console.log(cartSize)
        
       },[]);
 
@@ -28,7 +33,7 @@ function ShoppingCart(props){
 
 return (
     <div className="shopping-cart">
-        {props.cart.map(item => (
+        {allcarts.map(item => (
             <Item key={item.id} {...item} />
         ))}
 

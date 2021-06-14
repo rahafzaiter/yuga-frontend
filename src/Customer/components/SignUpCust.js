@@ -1,4 +1,4 @@
-import React, { useState ,useRef} from 'react';
+import React, { useState,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/WhatsApp.jpeg'
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams } from "react-router-dom";
 
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,19 +46,32 @@ export default function SignUp(props) {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // setUser(e.target.value);
-
-  
-
+  const [cpassword, setCPassword] = useState("");
 
   const registered = () => {
-
-    props.setUser({
-      email: email,
-      password: password
-    })
-    console.log(props.user)
+    if (!email || !password || !fname || !lname || !cpassword) {
+      alert("please fill required data")
+      return
+    } else if(password!=cpassword){
+      alert("password and confirm password dont match")
+    }
+    else {
+    
+        props.setUser({
+          email: email,
+          password: password
+          // handle the click event
+        })
+  
+        }
   }
+
+  useEffect(()=>{
+    console.log(props.user)
+  },[props.user])
+
+
+
 
   const ErrorValidationLabel = ({ txtLbl }) => (
     <label htmlFor="" style={{ color: "red" }}>
@@ -94,11 +107,11 @@ export default function SignUp(props) {
             Sign up
         </Typography>
 
-          <ValidatorForm
-          useRef={"form"}
-          onError={errors => console.log(errors)}
-           noValidate 
-           onSubmit={e => e.preventDefault()}>
+          <form
+            useRef={"form"}
+            onError={errors => console.log(errors)}
+            noValidate
+            onSubmit={e => e.preventDefault()}>
             {/* className={classes.form}  */}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -110,8 +123,8 @@ export default function SignUp(props) {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                 
                   autoFocus
+                  onChange={e => setFname(e.target.value)}
                 />
               </Grid>
               {renderFnameValidationError}
@@ -124,8 +137,8 @@ export default function SignUp(props) {
                   label="Last Name"
                   name="lastName"
                   autoComplete="lname"
+                  onChange={e => setLname(e.target.value)}
                 />
-                {renderLnameValidationError}
               </Grid>
 
               <Grid item xs={12}>
@@ -140,10 +153,9 @@ export default function SignUp(props) {
                   onChange={e => setEmail(e.target.value)}
                   validators={['required', 'isEmail']}
                   errorMessages={['this field is required', 'email is not valid']
-                }
-                 
+                  }
                 />
-                {renderEmailValidationError}
+
               </Grid>
 
               <Grid item xs={12}>
@@ -158,7 +170,7 @@ export default function SignUp(props) {
                   autoComplete="password"
                   onChange={e => setPassword(e.target.value)}
                 />
-                {renderPassValidationError}
+
               </Grid>
 
               <Grid item xs={12}>
@@ -171,21 +183,30 @@ export default function SignUp(props) {
                   type="password"
                   id="Cpassword"
                   autoComplete="check-password"
+                  onChange={e => setCPassword(e.target.value)}
                 />
               </Grid>
 
             </Grid>
-            {/* <Link to={`/Customer/custAuthentication`} variant="body2"> */}
-              <button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={registered}
-                type="submit"
-              >
-                Sign Up
+            <button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              // onClick={registered}
+              // onClick={()=>{
+              
+              //   props.setUser({
+              //     email: email,
+              //     password: password
+              //     // handle the click event
+              //   })
+              //   }}
+              onClick={registered}          
+              type="submit"
+            >
+              Sign Up
           </button>
             {/* </Link> */}
 
@@ -196,7 +217,7 @@ export default function SignUp(props) {
               </Link>
               </Grid>
             </Grid>
-          </ValidatorForm>
+          </form>
         </div>
         <Box mt={5}>
         </Box>
