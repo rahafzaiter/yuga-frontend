@@ -23,6 +23,7 @@ import { shadows } from '@material-ui/system';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Submit from "react-formal/cjs/Submit";
 
 function Copyright() {
     return (
@@ -93,6 +94,8 @@ export default function Feedback(props) {
         selectedCategory: " ",
 
     });
+    const [comment, setComment] = useState('');
+    const [rate, setRate] = useState('');
 
 
     const handleChangeCategory = (e) => {
@@ -100,7 +103,25 @@ export default function Feedback(props) {
             ...state,
             selectedCategory: e.target.value
         });
+
+       
     };
+
+    const Submit=()=>{
+        if(!rate || !comment || !state.selectedCategory){
+            alert("please fill all inputs")
+        } else{
+            alert("Thankyou for your feedback")
+            console.log("rate",rate)
+            setRate('')
+            setComment('')
+            setState({
+                ...state,
+                selectedCategory: ''
+            });
+        }
+
+    }
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -114,11 +135,13 @@ export default function Feedback(props) {
                     {/* <Typography component="h2" variant="h6">
            How Satisfied were you with Yuga ?
           </Typography> */}
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate onSubmit={e=>e.preventDefault()}>
 
                         <FormControl component="fieldset">
                             {/* <FormLabel component="legend">Rate</FormLabel> */}
-                            <RadioGroup row aria-label="position" name="position" defaultValue="top">
+                            <RadioGroup row aria-label="position" name="position" defaultValue="top" 
+                            value={rate}
+                            onChange={e=>setRate(e.target.value)}>
                                 <FormControlLabel
                                     value="1"
                                     control={<Radio color="primary" />}
@@ -154,6 +177,8 @@ export default function Feedback(props) {
                             required
                             fullWidth
                             type="textarea"
+                            value={comment}
+                            onChange={e=>setComment(e.target.value)}
 
                         />
 
@@ -188,10 +213,7 @@ export default function Feedback(props) {
                             color="lightcoral"
                             className={classes.submit}
                             onmouseover="this.style.color='lightcoral'"
-
-                        >
-                            Submit
-            </Button>
+                            onClick={Submit} > Submit </Button>
 
 
                     </form>
