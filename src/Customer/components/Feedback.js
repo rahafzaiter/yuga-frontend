@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        
     },
     paper: {
         margin: theme.spacing(8, 4),
@@ -104,15 +105,15 @@ export default function Feedback(props) {
             selectedCategory: e.target.value
         });
 
-       
+
     };
 
-    const Submit=()=>{
-        if(!rate || !comment || !state.selectedCategory){
+    const Submit = () => {
+        if (!rate || !comment || !state.selectedCategory) {
             alert("please fill all inputs")
-        } else{
+        } else {
             alert("Thankyou for your feedback")
-            console.log("rate",rate)
+            console.log("rate", rate)
             setRate('')
             setComment('')
             setState({
@@ -125,23 +126,21 @@ export default function Feedback(props) {
 
     return (
         <Grid container component="main" className={classes.root}>
-            <Grid item xs={false} sm={4} md={6} className={classes.image} />
-            <Grid item xs={12} sm={9} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={5} sm={4} md={6} className={classes.image} />
+            <Grid item xs={5} sm={9} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper} >
 
                     <Typography component="h1" variant="h4" >
                         How Satisfied were you with Yuga ?
           </Typography>
-                    {/* <Typography component="h2" variant="h6">
-           How Satisfied were you with Yuga ?
-          </Typography> */}
-                    <form className={classes.form} noValidate onSubmit={e=>e.preventDefault()}>
+
+                    <form className={classes.form} noValidate onSubmit={e => e.preventDefault()}>
 
                         <FormControl component="fieldset">
-                            {/* <FormLabel component="legend">Rate</FormLabel> */}
-                            <RadioGroup row aria-label="position" name="position" defaultValue="top" 
-                            value={rate}
-                            onChange={e=>setRate(e.target.value)}>
+
+                            <RadioGroup row aria-label="position" name="position" defaultValue="top"
+                                value={rate}
+                                onChange={e => setRate(e.target.value)}>
                                 <FormControlLabel
                                     value="1"
                                     control={<Radio color="primary" />}
@@ -178,12 +177,12 @@ export default function Feedback(props) {
                             fullWidth
                             type="textarea"
                             value={comment}
-                            onChange={e=>setComment(e.target.value)}
+                            onChange={e => setComment(e.target.value)}
 
                         />
 
                         <FormControl className={classes.formControl}>
-                            <InputLabel>Select Category the most you liked</InputLabel>
+                            <InputLabel>Select Your Favorite Category </InputLabel>
                             <Select
                                 native
                                 value={state.selectedCategory}

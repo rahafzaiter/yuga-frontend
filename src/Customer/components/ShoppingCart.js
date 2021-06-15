@@ -1,28 +1,33 @@
 import React,{useEffect, useState} from 'react';
 import Item from './ShoppingCartItem';
-import {Link} from 'react-router-dom';
+
+import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams,useHistory } from "react-router-dom";
 
 
 //https://github.com/LambdaSchool/react-shopping-cart/tree/master/src 
 
 function ShoppingCart({cart}){
     const [allcarts,setAllCarts]=useState(cart);
-    const [cartProduct,setCartProduct]=useState(cart.Product);
-    const [cartSize,setCartSize]=useState(cart.size);
+    const history=useHistory();
+   
 
     const getCartTotal = () => {
 		return cart.reduce((acc, value) => {
-			return acc + value.price;
-		}, 0).toFixed(2)
+			return acc + value.Product.card.price;
+		}, 0).toFixed(0)
 	};
+    const x=0;
+
+    // const getCartTotal = (value) => {
+	
+	// 		x=x+ value;
+    //         return x;
+	// };
 
     
    
     useEffect(() => {
         console.log("cart",cart)
-        console.log(cartProduct)
-        console.log(cartSize)
-       
       },[]);
 
       const remove=()=>{
@@ -33,23 +38,28 @@ function ShoppingCart({cart}){
 
 return (
     <div className="shopping-cart">
-        {allcarts.map(item => (
-            <Item key={item.id} {...item} />
+        {allcarts.map((item ,index)=> (
+            <Item key={index} {...item} />
+            // {getCartTotal(item.Product.card.price)}
         ))}
 
         <div className="shopping-cart__checkout">
             <p>Total : L.L.P {getCartTotal()}</p>
-            <Link to={`/Customer/checkout`} variant="body2">
+            
             <button
             onClick={(()=>{ 
+                if(allcarts){
                 remove();
                 localStorage.setItem('cartItems',JSON.stringify({allcarts}))
                 localStorage.setItem('cartTotalPrice',JSON.stringify(getCartTotal())) 
-            
+                history.push("/Customer/checkout")
+                }    
+                else{
+                    alert("you should add items before checkout")
+                }        
             } )}
                 >Checkout</button>
-              </Link>
-           
+                        
         </div>
     </div>
 );

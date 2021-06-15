@@ -92,7 +92,7 @@ function HomePageCustomer (){
 
         {/* Pic */}
         <div  style={{ backgroundImage:`url(${HomePageImage})` ,backgroundRepeat: 'no-repeat',backgroundSize: 'cover',height:'auto'}} >
-        <img src={HomePageImage} style={{width:'100%',height:700,padding:'1%'}}/>
+        <img src={HomePageImage} style={{width:'100%',height:700,padding:'1%',objectFit: "cover",}}/>
       
     </div>
 

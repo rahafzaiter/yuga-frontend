@@ -56,8 +56,7 @@ const [categories,setCategories]=useState(
         {id: '7', name: 'Jacket'}
     ]
 )
-    const [cart, setCart] = useState([
-    ]);
+    const [cart, setCart] = useState([]);
     //Styles:(
     const classes = useStyles();
     const history=useHistory();
@@ -65,7 +64,6 @@ const [categories,setCategories]=useState(
     const [user, setUser] = useState(null);
 
     const addItem = item => {
-    // if (!user){
         const newList = cart.concat(item);
         setCart(newList)
         history.push("/Customer/CustCart")
@@ -88,13 +86,15 @@ const [categories,setCategories]=useState(
     return (
         <div>
             <Router>
-                <Navigation />
+                <Navigation user={user} setUser={setUser}/>
                 <Switch>
 
                     <Route path={["/Customer/AdminLogin"]} component={SignInSideAdmin} />
 
                     <Route exact path={["/Customer/", "/CustHomePage"]} component={HomePageCustomer} user={user} setUser={setUser} />
-                    <Route path="/Customer/custAuthentication" component={SignInSide} />
+                    <Route path="/Customer/custAuthentication">
+                        <SignInSide user={user} setUser={setUser}/>
+                    </Route>
                     {/* <Route path="/Admin/logout" component={LogoutControl} /> */}
 
                     <Route path="/Customer/SignUp" >
@@ -107,7 +107,7 @@ const [categories,setCategories]=useState(
                     <Route path={["/Customer/CustShipping"]} component={ShippingDetails} />
 
                     <Route path="/Customer/ProductDetails/:id"  >
-                        <ProductDetails additem={addItem} />
+                        <ProductDetails additem={addItem} user={user}/>
                     </Route>
 
                     <Route path={["/Customer/checkout"]} component={Checkout} />

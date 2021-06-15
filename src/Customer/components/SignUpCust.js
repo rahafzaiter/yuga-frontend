@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/WhatsApp.jpeg'
-import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams,useHistory } from "react-router-dom";
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
@@ -47,8 +47,9 @@ export default function SignUp(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
+  const history=useHistory();
 
-  const registered = () => {
+  const registered = (e) => {
     if (!email || !password || !fname || !lname || !cpassword) {
       alert("please fill required data")
       return
@@ -56,19 +57,25 @@ export default function SignUp(props) {
       alert("password and confirm password dont match")
     }
     else {
+      e.preventDefault()
     
         props.setUser({
           email: email,
           password: password
           // handle the click event
         })
+        // console.log(props.user)
+        history.push("/Customer")  
   
         }
   }
 
-  useEffect(()=>{
-    console.log(props.user)
-  },[props.user])
+
+  // useEffect(()=>{
+  //   console.log(props.user)
+  //   registered()
+  //   // return  <Redirect to="/CustHomePage/" />
+  // },[props.user])
 
 
 
@@ -127,7 +134,7 @@ export default function SignUp(props) {
                   onChange={e => setFname(e.target.value)}
                 />
               </Grid>
-              {renderFnameValidationError}
+             
               <Grid item xs={12} sm={6}>
                 <TextField
                   variant="outlined"
@@ -194,15 +201,6 @@ export default function SignUp(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              // onClick={registered}
-              // onClick={()=>{
-              
-              //   props.setUser({
-              //     email: email,
-              //     password: password
-              //     // handle the click event
-              //   })
-              //   }}
               onClick={registered}          
               type="submit"
             >

@@ -6,13 +6,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
-const products = [
-  { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-  { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-  { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-  { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-  { name: 'Shipping', desc: '', price: 'Free' },
-];
+// const products = [
+//   { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
+//   { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
+//   { name: 'Product 3', desc: 'Something else', price: '$6.51' },
+//   { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
+//   { name: 'Shipping', desc: '', price: 'Free' },
+// ];
 const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 
 const payments = [
@@ -44,6 +44,8 @@ export default function Review(props) {
    
   },[]);
 
+  const TotalPrice=(totalPrice)
+
   return (
   
     <React.Fragment>
@@ -53,14 +55,21 @@ export default function Review(props) {
       <List disablePadding>
       {order.allcarts.map((product) => (
           <ListItem className={classes.listItem} key={product.title}>
-            <ListItemText primary={product.title} />
-            <Typography variant="body2">L.B.P {product.price} </Typography>
+            <ListItemText primary={product.Product.card.title} />
+            <Typography variant="body2">L.B.P {product.Product.card.price} </Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
+          <ListItemText primary="SubTotal" />
           <Typography variant="subtitle1" className={classes.total}>
             L.B.P {totalPrice}
+          </Typography>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+
+          <ListItemText primary="Total" />
+          <Typography variant="subtitle1" className={classes.total}>
+            L.B.P {((TotalPrice*0.1)+1)*10}
           </Typography>
         </ListItem>
       </List>

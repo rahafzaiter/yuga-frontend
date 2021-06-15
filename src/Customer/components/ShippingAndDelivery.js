@@ -34,7 +34,7 @@ An additional flat rate of LBP 10,000 will be added to your total purchase amoun
 Our delivery service is through Libanpost and you can rest assured that your purchase will be handled with the utmost care.
 
 At any time during delivery, we will be your point of reference,
- ready to respond to your concerns and offer you support throughout the process. Do not hesitate to contact us at avononline@fattal.com.lb or +961 1 512 002 ext. 189.</p>
+ ready to respond to your concerns and offer you support throughout the process. Do not hesitate to contact us at rahafzaiter@gmail.com or +961 81 769 794</p>
           </Paper>
         </Grid>
         </Grid>

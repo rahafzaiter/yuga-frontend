@@ -13,28 +13,38 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ProductDetails.scss'
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 2,
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: 'left',
     color: 'black',
+    display:'block',
+    alignItems:'left',
+    alignContent:'left',
+    width:'100%'
+    // marginLeft:'60px',
+    // marginTop:'60px',
+    // width:'100%'
   },
   formControl: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
     // Width: "100%",
-    minWidth: "60%",
-    fontSize: "100%",
-    align: "left"
-  },
+    minWidth: "90%",
+    fontSize: "100%"
+
+    // display:'block'
+
+},
 }));
 
 
 
 
-export default function ProductDetails({additem}) {
+export default function ProductDetails({additem,user}) {
   const classes = useStyles();
 
 
@@ -45,7 +55,7 @@ export default function ProductDetails({additem}) {
     {
        Product,
        size:' ',
-       quantity:' '
+      //  quantity:' '
    }
   );
 
@@ -83,11 +93,29 @@ export default function ProductDetails({additem}) {
     
   };
 
-  const handleChangeQuantity= (event) => {
-    setQuantity(event.target.value)
-    const { name, value } = event.target;
-    setItem({ ...item,quantity: value });
-  };
+  // const handleChangeQuantity= (event) => {
+  //   setQuantity(event.target.value)
+  //   const { name, value } = event.target;
+  //   setItem({ ...item,quantity: value });
+  // };
+
+  var button;
+
+  if(!user){
+    button=(<button onClick={()=>alert("please login to buy")} background="secondary">Add to Cart</button>)
+  }else{
+    button=(<button display="block" onClick={() =>{
+      if (!size ){
+        alert("please fill size")
+        return 
+      }else{
+         console.log(item)
+        additem(item)
+      }    }} >
+        Add to Cart
+    
+      </button>)
+  }
 
   
 
@@ -104,44 +132,66 @@ export default function ProductDetails({additem}) {
 
   return (
    
-    <div className="container" style={{ width: '80%' }}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} height="20%">
-          <img src={Product.card.image} style={{ width: '50%', height: '300px', }} />
+    <div className="container" style={{ width: '80%' }} >
+      <Grid container spacing={2} className={classes.root}>
+        <Grid item  xs={5} container  md={4} >
+          <img src={Product.card.image} style={{objectFit: "cover",width:"100%",height:"100%",maxHeight:"100%"}} />
         </Grid>
-        <Grid item xs={7} >
 
+        <Grid xs={7} item >
+
+        <Grid  xs={12} className={classes.formControl}>
           <Paper className={classes.paper} bold >
-            <h3 align="left" marginButton="2px"> {Product.card.title}</h3>
-            <h5 align="left" marginButton="2px"> Product Info
+            <h3  marginButton="2px"> {Product.card.title}</h3>
+            <h5  marginButton="2px"> Product Info
             </h5>
-            <p align="left" marginButton="2px"> {Product.card.decription}</p>
-            <p align="left" marginButton="2px">{Product.card.collection}</p>
+            <p  marginButton="2px"> {Product.card.decription}</p>
+            <p  marginButton="2px">{Product.card.collection}</p>
+            
+            <p marginButton="2px">Price: {Product.card.price} L.L.P</p>
+
+           
           </Paper>
         </Grid>
-        <Grid item xs={5} style={{ align: "left", display: 'flex' }} >
-          <Paper className={classes.paper}>
-            <p align="left">{Product.card.price} L.L.P</p>
-            <p align="left">Quantity: </p>
 
-            <div><input type="number" style={{ align: "left" }} name="quantity" required onChange={handleChangeQuantity}
-           /></div>
+        <Grid  xs={12}  marginTop="40">
+          <Paper className={classes.paper}>
+          
+
+            <Grid  xs={12}  className={classes.formControl}>
+           
 
             <form onSubmit={e => e.preventDefault()}
-             noValidate>
-              <FormControl className={classes.formControl}>
+             noValidate
+             
+             >
+
+           {/* <Grid  xs={12}  >
+           
+            <p  >Quantity: </p>
+
+           
+              <input  type="number" name="quantity" required onChange={handleChangeQuantity}/>
+           </Grid> */}
+           <Grid  xs={12} >
+         
+
+              <FormControl className={classes.formControl} >
                 <InputLabel htmlFor="age-native-simple">Select Size</InputLabel>
                 <Select
                   native
                   value={size}
                   onChange={handleChangeSize}
                   required
+                  
                   inputProps={{
                     name: 'size',
                     id: 'age-native-simple',
+
                    
                   }}
-                  style={{ align: "left", width: "100%" }}
+                  
+                  // style={{ align: "left", width: "100%" }}
 
                 >
                   <option aria-label="None" value="" />
@@ -153,25 +203,29 @@ export default function ProductDetails({additem}) {
 
                 </Select>
               </FormControl>
+              </Grid>
+              
 
+             
               {/* <Link to={`/Customer/CustCart`}> */}
-              <button display="block" onClick={() =>{
+              {/* <button display="block" onClick={() =>{
                 if (!size || !quantity){
                   alert("please fill size and quantity")
                   return 
                 }else{
                    console.log(item)
-                  // additem(Product.card)
                   additem(item)
-                }
-                  
-                  }} >
+                }    }} >
                   Add to Cart
-              {/* {prodname} */}
-                </button>
+              
+                </button> */}
+
+                {button}
               {/* </Link> */}
             </form>
-          </Paper>
+            </Grid>
+            </Paper>       
+        </Grid>
         </Grid>
 
       </Grid>

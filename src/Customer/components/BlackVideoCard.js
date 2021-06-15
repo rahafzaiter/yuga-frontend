@@ -80,9 +80,9 @@ export default function MediaControlCardBlack() {
         poster={posterBlack}
         className={classes.paper}
         // xs={6}
-        width="520"
+        width="620"
         // background='grey'
-        height="320"
+        height="360"
         // margin='0'
       />
       

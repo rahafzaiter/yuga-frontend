@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   cover: {
     
     
+    
   },
   controls: {
     display: 'flex',
@@ -56,6 +57,7 @@ export default function MediaControlCard() {
     const poster=Img;
 
     const posterBlack=BlackImg;
+    
 
   return (
       <div align="center">
@@ -75,15 +77,18 @@ export default function MediaControlCard() {
      
 
         <VideoPlayer
+        autoplay
         className={classes.cover}
         image={HomePageImage}
         title="Live from space album cover"
+        allow='autoplay; encrypted-media'
+        allowFullScreen
         src={videoSrc}
         poster={poster}
-        width="520"
-        className={classes.paper}
+        width="620"
+        frameBorder='0'
         background='grey'
-        height="320"
+        height="360"
       />
       
     </Card>
