@@ -8,11 +8,13 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 // import PaymentForm from './PaymentForm';
 import Review from './Review';
+import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams,useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -67,6 +69,7 @@ function getStepContent(step) {
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const history=useHistory();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -116,7 +119,7 @@ export default function Checkout() {
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
-                    className={classes.button}
+                    className={classes.button} 
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                   </Button>

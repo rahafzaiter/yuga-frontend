@@ -30,60 +30,7 @@ const useStyles = makeStyles((theme) => ({
   
 
 export default LogoutControl => {
-    const videoSrc=VideoColor;
-    const videoSrcBlack=VideoBlack;
-    const poster=Img;
-
-    const posterBlack=BlackImg;
-    const classes = useStyles();
-    return (
-    //     <div>
-    //     <VideoPlayer
-    //     src={videoSrc}
-    //     poster={poster}
-    //     width="720"
-    //     height="420"
-    //   />
-     
-    //    <VideoPlayer
-    //     src={videoSrcBlack}
-    //     poster={poster}
-    //     width="720"
-    //     height="420"
-    //   />
-    //     </div>
-    
-
-
-<div className={classes.root}>
-<Grid container spacing={3}>
- 
-  <Grid item xs={12}>
-  <VideoPlayer
-        src={videoSrc}
-        poster={poster}
-        width="720"
-        className={classes.paper}
-        background='grey'
-        height="420"
-      />
-    {/* <Paper className={classes.paper}>xs=6</Paper> */}
-  </Grid>
-  <Grid item xs={12}>
-    {/* <Paper className={classes.paper}>xs=6</Paper> */}
-    <VideoPlayer
-        src={videoSrcBlack}
-        poster={posterBlack}
-        className={classes.paper}
-        // xs={6}
-        width="720"
-        background='grey'
-        height="420"
-        margin='0'
-      />
-  </Grid>
   
-</Grid>
-</div>
-    );
+   
+   return(<div></div>);
   };

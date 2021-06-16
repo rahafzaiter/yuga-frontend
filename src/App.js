@@ -28,7 +28,7 @@ import EditProduct from "./Admin/components/CRUD_Product/EditProduct";
 import CategoryList from "./Admin/components/Category_List";
 //Admin/Orders:
 import OrdersCust from "./Admin/components/Admin_Orders/Orders";
-
+// import SignInSideAdmin from './Admin/components/SignInAdmin'
 
 //CustomerHome:
 import HomePageCustomer from './HomePageCustomer'
@@ -111,6 +111,7 @@ function App() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
 
   const addItem = item => {
     const newList = cart.concat(item);
@@ -126,16 +127,17 @@ function App() {
 
     <div className="App" style={{ width: '100%' }}>
         <Switch>
-          <Route path="/Customer">
+          <Route path="/Customer/">
             <Customer user={user} setUser={setUser}
             /> 
              </Route>
 
           {/* Admin */}
-          <Route path="/Admin">
+          <Route path="/Admin/">
             <Admin 
-            user={user} setUser={setUser}/>       
+            admin={admin} setAdmin={setAdmin}/>       
           </Route>
+          <Route path={["/AdminLogin"]} component={SignInSideAdmin} />
 
         </Switch>
 

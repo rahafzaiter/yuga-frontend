@@ -65,8 +65,8 @@ export default function SignInSide(props) {
   const [loggedIn,setLoggedIn]=useState(false);
   const history=useHistory();
   const [user,setUser]=useState([
-    {id:1,email:"rahafz@gmail.com",password:"123"},
-    {id:2,email:"rahafzaiter@gmail.com",password:"123456"}
+    {id:1,email:"rahafz@gmail.com",password:"123",firstname:"rahaf",lastName:"z",phoneNb:"81811811"},
+    {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"rahaf",lastName:"zaiter",phoneNb:"71711711"}
   ])
 
   const setLog = (E,P) => {

@@ -17,13 +17,17 @@ import ShoppingCart from '../Customer/components/ShoppingCart';
 import SignInSideAdmin from '../Admin/components/SignInAdmin'
 import Review from '../Customer/components/Review'
 import Feedback from '../Customer/components/Feedback'
+import Password from '../Customer/components/Password'
+import Address from '../Customer/components/Address'
+import Profile from '../Customer/components/Profile'
 
 //Scratch:
 import HookCounterTwo from '../Customer/components/HookCounterTwo'
 import HookCounterThree from '../Customer/components/HookCounterThree'
 import HookCounterFour from '../Customer/components/HookCounterFour'
 import HookCounterOne from '../Customer/components/HookCounterOne'
-
+import Orders from  '../Customer/components/Orders'
+import FadeMenu from  '../Customer/components/FadeMenu'
 
 //switch
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
@@ -45,6 +49,7 @@ export default function Customer() {
     {id:5,title:"boyfriend pant",decription:" Relaxed fit trousers with adjustable waistband and Tsuki logo embroidery.  Felix wears a size 30. Looking for Marzia's fit? That's our Black Moon trousers in Slim Fit.",color:"black",collection:"black",categoryId:1,price:200,image:'https://i.pinimg.com/564x/88/dc/5a/88dc5a987913a12049e5d50c3e0d3a1c.jpg',inStock:false},
     {id:6,title:"Jumpsuit",decription:"The ultimate statement alternative to a maxi dress, the One Shoulder Cape Sleeve Jumpsuit is all you need to master the glam dress code this season. Make sure you’re the best-dressed guest for a stylish wedding, races or VIP party in our dramatic Cape Sleeve Jumpsuit worked in a classic black and cinched at the waist to flatter your curves. Where to WearThis jumpsuit is perfect for nights out, graduation, or special occasions. Style With Elongate your legs by wearing this wide-leg jumpsuit with a killer heel and a chic low pony for maximum impact. Underwear SolutionsNude Lace Be Honest Bra.Product DetailsStretch Jersey (95% Polyester 5% Elastane)Stretch Factor: Stretchy Model is 5’8 ",color:"black",categoryId:3,price:300,image:'https://i.pinimg.com/564x/2b/ec/89/2bec89c1e051e2fcd4b9c740c1b28a0f.jpg',inStock:true},
 ]);
+
 const [categories,setCategories]=useState(
     [
         {id: '1', name: 'Pant'},
@@ -61,7 +66,7 @@ const [categories,setCategories]=useState(
     const classes = useStyles();
     const history=useHistory();
     const [value, setValue] = useState(0);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(localStorage.getItem("user"));
 
     const addItem = item => {
         const newList = cart.concat(item);
@@ -89,9 +94,9 @@ const [categories,setCategories]=useState(
                 <Navigation user={user} setUser={setUser}/>
                 <Switch>
 
-                    <Route path={["/Customer/AdminLogin"]} component={SignInSideAdmin} />
+                    {/* <Route path={["/Customer/AdminLogin"]} component={SignInSideAdmin} /> */}
 
-                    <Route exact path={["/Customer/", "/CustHomePage"]} component={HomePageCustomer} user={user} setUser={setUser} />
+                    <Route exact path={["/Customer/","/Customer/CustHomePage"]} component={HomePageCustomer} user={user} setUser={setUser} />
                     <Route path="/Customer/custAuthentication">
                         <SignInSide user={user} setUser={setUser}/>
                     </Route>
@@ -121,6 +126,18 @@ const [categories,setCategories]=useState(
                     <Route  path={["/Customer/CustFeedback"]} >
                         <Feedback categ={categories}/>
                     </Route>
+                    <Route  path={["/Customer/Orders"]} >
+                        <Orders/>
+                    </Route>
+                    <Route  path={["/Customer/Profile"]} >
+                        <Profile/>
+                    </Route>
+                    <Route  path={["/Customer/Address"]} >
+                        <Address/>
+                    </Route>
+                    <Route  path={["/Customer/Password"]} >
+                        <Password/>
+                    </Route>
                     {/* Scratch */}
                     <Route  path={["/Customer/HookCounterTwo"]} >
                         <HookCounterTwo/>
@@ -134,6 +151,10 @@ const [categories,setCategories]=useState(
                     <Route  path={["/Customer/HookCounterOne"]} >
                         <HookCounterOne/>
                     </Route>
+                    <Route  path={["/Customer/FadeMenu"]} >
+                        <FadeMenu/>
+                    </Route>
+                    
                 </Switch>
             </Router>
         </div>

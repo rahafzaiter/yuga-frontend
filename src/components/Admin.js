@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NameForm from '../Tutorial/components/NameForm'
 import LogoutControl from '../Admin/components/Logout'
 // Admin/Product:
+import SignInSideAdmin from '../Admin/components/SignInAdmin'
 import AddTutorial from "../Admin/components/Add_Product";
 import Tutorial from "../Admin/components/Tutorial";
 import TutorialsList from "../Admin/components/Product_List";
@@ -21,6 +22,9 @@ import EditProduct from "../Admin/components/CRUD_Product/EditProduct";
 import CategoryList from "../Admin/components/Category_List";
 //Admin/Orders:
 import OrdersCust from "../Admin/components/Admin_Orders/Orders";
+
+
+import Customer from "./Customer";
 
 const useStyles = makeStyles({
     root: {
@@ -50,8 +54,9 @@ export default function Admin() {
             <Router>
                 <AdminNav />
                 <Switch>
+                {/* <Route path={["/Admin/AdminLogin"]} component={SignInSideAdmin} /> */}
                    
-                    <Route exact path={["/Admin/", "/tutorials"]} component={TutorialsList} />
+                    <Route exact path={["/Admin/HomePage", "/Admin/tutorials"]} component={TutorialsList} />
                     <Route path="/Admin/add" component={AddTutorial} />
                     <Route path="/Admin/tutorials/:id" component={Tutorial} />
                     <Route path="/Admin/Product/EditUser/:id" component={EditProduct} />
@@ -59,6 +64,7 @@ export default function Admin() {
                     <Route path="/Admin/orders" component={OrdersCust} />
                     <Route path="/Admin/nameForm" component={NameForm} />
                     <Route path="/Admin/logout" component={LogoutControl} />
+                    <Route exact path={["/Customer"]} component={Customer}/>
                 </Switch>
 
             </Router>

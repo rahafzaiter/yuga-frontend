@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
+import {useHistory} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -20,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
 const TutorialsList = () => {
   const [users, setUser] = useState([]);
   const classes = useStyles();
+  const history=useHistory();
 
-  function createData(id, date, name, shipTo) {
-    return { id, date, name, shipTo};
+  function createData(id, title, color, price) {
+    return { id, title, color, price};
   }
   
   const products = [
@@ -32,6 +34,8 @@ const TutorialsList = () => {
     createData(4, 'boyfriend pant', 'jeans', '12'),
     createData(5, ' v t-shirt', 'green', '8'),
   ];
+
+  const [prod,setProd]=useState(products);
 
  
 
@@ -66,24 +70,34 @@ const deleteUser={
               <TableCell scope="col">#</TableCell>
               <TableCell scope="col"> Product Name</TableCell>
               <TableCell scope="col">color</TableCell>
-              <TableCell scope="col">price($)</TableCell>
+              <TableCell scope="col">price(L.B.P)</TableCell>
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{backgroundColor:'#e2dcdc'}}>
             {products.map((product, id) => (
-              <TableRow>
+              <TableRow key={id}>
                 <TableCell scope="row">{product.id}</TableCell>
-                <TableCell>{product.date}</TableCell>
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.shipTo}</TableCell>
-                <TableCell align="center">
-                  <Link class="btn btn-primary mr-2" to={`/Product/${product.id}`}>
+                <TableCell>{product.title}</TableCell>
+                <TableCell>{product.color}</TableCell>
+                <TableCell>{product.price}</TableCell>
+                <TableCell align="center" >
+                  
+                  <Link class="btn btn-primary mr-2" to={`/Product/${product.id}`}
+                  
+                  >
                     View
                   </Link>
                   <Link
                     class="btn btn-outline-primary mr-2"                   
                     to={`./Product/EditUser/${product.id}`}
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      localStorage.setItem('product',JSON.stringify({product}))
+                      history.push(`Product/EditUser/${product.id}`)
+
+
+                    }}
                     
                   >
                     Edit

@@ -46,6 +46,7 @@ export default function SignUp(props) {
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNb, setphoneNb] = useState("");
   const [cpassword, setCPassword] = useState("");
   const history=useHistory();
 
@@ -61,23 +62,18 @@ export default function SignUp(props) {
     
         props.setUser({
           email: email,
-          password: password
+          password: password,
+          firstName:fname,
+          lastName:lname,
+          phoneNb:phoneNb
           // handle the click event
         })
+        localStorage.setItem("user",JSON.stringify({uses}))
         // console.log(props.user)
         history.push("/Customer")  
   
         }
   }
-
-
-  // useEffect(()=>{
-  //   console.log(props.user)
-  //   registered()
-  //   // return  <Redirect to="/CustHomePage/" />
-  // },[props.user])
-
-
 
 
   const ErrorValidationLabel = ({ txtLbl }) => (
@@ -163,6 +159,19 @@ export default function SignUp(props) {
                   }
                 />
 
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone Number"
+                  name="phone"
+                  // autoComplete="email"
+                  onChange={e => setphoneNb(e.target.value)}                
+                />
               </Grid>
 
               <Grid item xs={12}>

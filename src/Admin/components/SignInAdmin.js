@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/AdminLogin.jpg'
+import { BrowserRouter as Router, Redirect, Switch, Route, useParams,useHistory } from "react-router-dom";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,6 +60,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSideAdmin() {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn,setLoggedIn]=useState(false);
+  const history=useHistory();
+
+  const [user,setUser]=useState(
+    {id:1,email:"rahafzaiterAdmin@gmail.com",password:"123"},  
+  )
+
+  const login = (e) => {
+    if (!email || !password ) {
+      alert("please fill required data")
+      return
+    }
+    else {
+      e.preventDefault()
+
+      if(email==user.email && password== user.password){
+        localStorage.setItem("admin",JSON.stringify({user}))
+        setLoggedIn(true)
+        localStorage.removeItem("user");
+        history.push("/Admin/tutorials") 
+      }else{
+        alert("email or password are incorrect, please try again")
+      }
+     
+    }  
+      
+  }
+
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -84,6 +116,7 @@ export default function SignInSideAdmin() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={e => setEmail(e.target.value)}
             />
             <TextField
               variant="outlined"
@@ -95,6 +128,7 @@ export default function SignInSideAdmin() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={e => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -106,16 +140,10 @@ export default function SignInSideAdmin() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={login}   
             >
               Sign In
-            </Button>
-            <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
-            </Grid>
+            </Button>        
             <Box mt={5}>
               <Copyright />
             </Box>
