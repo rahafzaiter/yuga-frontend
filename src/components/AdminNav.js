@@ -81,8 +81,7 @@ function AdminNav(props) {
               showLabels
               className={classes.root}>
               <BottomNavigationAction style={{ color: 'black', fontFamily: "Brush Script MT" }} label="YUGA" component={Link} to="/Admin/HomePage" icon={<HomeIcon />} />
-              <BottomNavigationAction style={{ color: 'black' }} label="Add product" icon={<AddCircleOutlineIcon />} component={Link}
-                to="/Admin/add" />
+              <BottomNavigationAction style={{ color: 'black' }} label="Add product" icon={<AddCircleOutlineIcon />} component={Link} to="/Admin/addProduct" />
               <BottomNavigationAction style={{ color: 'black' }} label="Category" icon={<LocalMallIcon />} component={Link} to="/Admin/categoryList" />
               <BottomNavigationAction style={{ color: 'black' }} label="Orders" icon={<ShoppingCartIcon />} component={Link} to="/Admin/orders" />
               <BottomNavigationAction style={{ color: 'black' }} label="Logout" icon={<MeetingRoomIcon />} component={Link} to="Customer"  onClick={(e) => {

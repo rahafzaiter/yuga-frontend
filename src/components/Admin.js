@@ -14,7 +14,7 @@ import NameForm from '../Tutorial/components/NameForm'
 import LogoutControl from '../Admin/components/Logout'
 // Admin/Product:
 import SignInSideAdmin from '../Admin/components/SignInAdmin'
-import AddTutorial from "../Admin/components/Add_Product";
+import AddProduct from "../Admin/components/AddProduct";
 import Tutorial from "../Admin/components/Tutorial";
 import TutorialsList from "../Admin/components/Product_List";
 import EditProduct from "../Admin/components/CRUD_Product/EditProduct";
@@ -57,7 +57,7 @@ export default function Admin() {
                 {/* <Route path={["/Admin/AdminLogin"]} component={SignInSideAdmin} /> */}
                    
                     <Route exact path={["/Admin/HomePage", "/Admin/tutorials"]} component={TutorialsList} />
-                    <Route path="/Admin/add" component={AddTutorial} />
+                    <Route path="/Admin/addProduct" component={AddProduct} />
                     <Route path="/Admin/tutorials/:id" component={Tutorial} />
                     <Route path="/Admin/Product/EditUser/:id" component={EditProduct} />
                     <Route path="/Admin/categoryList" component={CategoryList} />

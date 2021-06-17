@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 //import TutorialDataService from "../services/TutorialService";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
+import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles, useTheme } from '@material-ui/core/styles';
+// import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
-import Chip from '@material-ui/core/Chip';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import Chip from '@material-ui/core/Chip';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import ImageUpload from 'image-upload-react'
+// import Box from '@material-ui/core/Box';
+// import CssBaseline from '@material-ui/core/CssBaseline';
+// import Typography from '@material-ui/core/Typography';
+// import Container from '@material-ui/core/Container';
+// import ImageUpload from 'image-upload-react'
 import {useHistory} from 'react-router-dom'
 //important for getting nice style.
-import 'image-upload-react/dist/index.css'
-import ImageUploader from 'react-images-upload';
-import { SketchPicker } from 'react-color';
-import { HistoryOutlined } from "@material-ui/icons";
+// import 'image-upload-react/dist/index.css'
+// import ImageUploader from 'react-images-upload';
+// import { SketchPicker } from 'react-color';
+// import { HistoryOutlined } from "@material-ui/icons";
 
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    width: '90%',
-    backgroundColor: "white",
-    height:"10%"
+    width: '75%',
+    backgroundColor: "white"
   },
   root: {
     '& .MuiTextField-root': {
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     margin: theme.spacing(1),
-    width: '90%'
+    width: '75%'
   },
   marginQuantity: {
     margin: theme.spacing(1),
@@ -71,25 +71,38 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function EditProduct () {
+export default function AddProduct () {
   const classes = useStyles();
   const history=useHistory();
-  const initialTutorialState = {
-    id: null,
-    title: "",
-    description: "",
+  // const initialTutorialState = {
+  //   id: null,
+  //   title: "",
+  //   description: "",
     
-    Category: " ",
-    collection: "",
-  };
+  //   Category: " ",
+  //   collection: "",
+  // };
 
-  const [ProductLocal,setProductLocal]=useState(
-    JSON.parse(localStorage.getItem("product")) 
+  // const [ProductLocal,setProductLocal]=useState(
+  //   JSON.parse(localStorage.getItem("product")) 
    
-  )
-  const [product,setProduct]=useState(ProductLocal.product);
-  const [imageSrc, setImageSrc] = useState();
-  const [colorHexCode, setColorHexCode] = useState('#000000');
+  // )
+  const [product, setProduct] = useState({
+      id: null,
+      title: '',
+      description: '',
+      price: '',
+      picture: '',
+      category: '',
+      color: '',
+      collection: ''
+    });
+
+    // const [product, setProduct] = useState(ProductLocal.product);
+  // const [imageSrc, setImageSrc] = useState();
+  // const [colorHexCode, setColorHexCode] = useState('#000000');
+
+
   const [pictures, setPictures] = useState(null);
   const [quantity, setQuantity] = useState({
     id: 0,
@@ -98,73 +111,73 @@ export default function EditProduct () {
     L: 3,
     XL: 1,
     XXL: 0,
-    productId:product.id
+    // productId:product.id
 
     
   });
-  const [tutorial, setTutorial] = useState(initialTutorialState);
+  // const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
 
 
 
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setTutorial({ ...product, [name]: value });
-  };
+  // const handleInputChange = event => {
+  //   const { name, value } = event.target;
+  //   setTutorial({ ...product, [name]: value });
+  // };
 
-  const handleImageSelect = (e) => {
-    setImageSrc(URL.createObjectURL(e.target.files[0]))
-  }
+  // const handleImageSelect = (e) => {
+  //   setImageSrc(URL.createObjectURL(e.target.files[0]))
+  // }
 
 
-  const saveTutorial = () => {
-    var data = {
-      title: tutorial.title,
-      description: tutorial.description
-    };
-    setSubmitted(true);
-    console.log(submitted);
+  // const saveTutorial = () => {
+  //   var data = {
+  //     title: tutorial.title,
+  //     description: tutorial.description
+  //   };
+  //   setSubmitted(true);
+  //   console.log(submitted);
 
-    //   TutorialDataService.create(data)
-    //     .then(response => {
-    //       setTutorial({
-    //         id: response.data.id,
-    //         title: response.data.title,
-    //         description: response.data.description,
-    //         published: response.data.published
-    //       });
-    //       setSubmitted(true);
-    //       console.log(response.data);
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
-  };
+  //   //   TutorialDataService.create(data)
+  //   //     .then(response => {
+  //   //       setTutorial({
+  //   //         id: response.data.id,
+  //   //         title: response.data.title,
+  //   //         description: response.data.description,
+  //   //         published: response.data.published
+  //   //       });
+  //   //       setSubmitted(true);
+  //   //       console.log(response.data);
+  //   //     })
+  //   //     .catch(e => {
+  //   //       console.log(e);
+  //   //     });
+  // };
 
-  const onSubmit = e => {
-    e.preventDefault();
-    saveTutorial();
-  };
+  // const onSubmit = e => {
+  //   e.preventDefault();
+  //   saveTutorial();
+  // };
 
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
-    setSubmitted(false);
-  };
+  // const newTutorial = () => {
+  //   setTutorial(initialTutorialState);
+  //   setSubmitted(false);
+  // };
 
-  const handleChange = (event) => {
+  const handleInputChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    setProduct({ ...tutorial, [name]: value });
+    setProduct({ ...product, [name]: value });
   };
 
-  const onDrop = (pictureFiles, pictureDataURLs) => {
+  // const onDrop = (pictureFiles, pictureDataURLs) => {
 
-    setPictures(pictureFiles);
-    console.log("picture added");
-    console.log(pictureFiles);
-    console.log(pictures)
-  };
+  //   setPictures(pictureFiles);
+  //   console.log("picture added");
+  //   console.log(pictureFiles);
+  //   console.log(pictures)
+  // };
 
   const handleChangeSize = (event) => {
     event.preventDefault();
@@ -177,7 +190,7 @@ export default function EditProduct () {
     <div className="container" >
 
       <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%" }}>
-        <h2 className="text-center mb-4">Edit A Product</h2>
+        <h2 className="text-center mb-4">Add A Product</h2>
         {submitted ? (
           <div>
             <h4>You submitted successfully!</h4>
@@ -188,7 +201,7 @@ export default function EditProduct () {
         ) : (
           <div className="container">
 
-            <form noValidate onSubmit={onSubmit}>
+            <form noValidate onSubmit={e=>e.preventDefault}>
               {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
               <div >
 
@@ -208,12 +221,13 @@ export default function EditProduct () {
 
                 <TextField
                   required
-                  type="textarea"
+                  type="text"
                   id="description"
                   label="description"
                   defaultValue="title"
                   variant="outlined"
                   className={classes.formControl}
+
                   value={product.description}
                   onChange={handleInputChange}
                   name="description"
@@ -316,10 +330,10 @@ export default function EditProduct () {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Image LInk"
+                  label="Image Link"
                   defaultValue="color"
                   variant="outlined"
-                  value={product.image}
+                  value={product.picture}
                   onChange={handleInputChange}
                   // style={{backgroundColor:"white"}}
                   className={classes.formControl}
@@ -358,8 +372,6 @@ export default function EditProduct () {
         /> */}
                 {/* 
          </div> */}
-
-
                 <div className="form-group">
                   <h4>Quantity of size</h4>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
@@ -435,9 +447,10 @@ export default function EditProduct () {
                 </div>
 
                 <div>
-                  <button className="btn btn-block shadow" onClick={()=>history.push("/Admin/tutorials")} style={{ backgroundColor: 'pink' }}>
-                      Update
-          </button>
+                  <button className="btn btn-block shadow" 
+                  onClick={()=>history.push("/Admin/tutorials")} 
+                  style={{ backgroundColor: 'pink' }}>
+                      Add</button>
                 </div>
 
               </div>

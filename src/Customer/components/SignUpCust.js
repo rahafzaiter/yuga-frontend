@@ -68,9 +68,9 @@ export default function SignUp(props) {
           phoneNb:phoneNb
           // handle the click event
         })
-        localStorage.setItem("user",JSON.stringify({uses}))
+        localStorage.setItem("user",JSON.stringify(props.user))
         // console.log(props.user)
-        history.push("/Customer")  
+        history.push("/Customer/CustHomePage")  
   
         }
   }

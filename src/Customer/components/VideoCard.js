@@ -81,7 +81,7 @@ export default function MediaControlCard() {
         className={classes.cover}
         image={HomePageImage}
         title="Live from space album cover"
-        allow='autoplay; encrypted-media'
+        // allow='autoplay; encrypted-media'
         allowFullScreen
         src={videoSrc}
         poster={poster}
