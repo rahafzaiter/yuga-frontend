@@ -14,10 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 // import Link from '@material-ui/core/Link';
 import SearchBar from './SearchBar'
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import ProductDetails from '../components/ProductDetails'
-
 import {Link} from 'react-router-dom';
 
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ShopProduct.scss'
@@ -28,13 +26,18 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const defaultProps = {
     bgcolor: 'background.paper',
     borderColor: 'text.primary',
     m: 1,
-    border: 1,
+    // border: 1,
     // width:'100%',
     // padding:"1%",
     minWidth:"100%",
@@ -83,10 +86,14 @@ const useStyles = makeStyles((theme) => ({
     // display:'block'
     
   },
+  radioPink: {
+    border: "10px solid #EF959D",
+  },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
 }));
+
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -97,7 +104,9 @@ export default function Album(props) {
   // const [productTest,setProductTest]=useState([]);
   // setProductTest({productTest:props.products});
   const [prod,setProd]=useState({});
-  const [product,setProduct]=useState(props.products)
+  const [product,setProduct]=useState(props.products);
+  const [newProduct,setNewProduct]=useState([]);
+
   
  
 
@@ -110,6 +119,74 @@ export default function Album(props) {
 
   });
 
+//to filter the products based on color
+  const Add=async(collection)=>{
+     console.log("new Product after map",newProduct)
+     var List=[]
+    const addProducts = item => {
+      const newList = List.concat(item);
+      List=newList;
+      console.log("2");
+      setNewProduct(newList)
+      console.log("3");
+      console.log("list",List);
+  };
+
+  if(collection=="All"){
+    props.products.map((item)=> {      
+        addProducts(item);
+    })
+  
+   }
+  
+   else{
+  
+  props.products.map((item)=> {   
+      if(collection==item.collection){
+        console.log("collection in map",item.collection)
+        addProducts(item);
+      }
+    })
+  }
+
+    setProduct(List);
+  }
+
+
+
+  //To filter products based on category:
+  const AddCatagery=async(category)=>{
+    console.log("new Product after map",newProduct)
+    var List=[]
+   const addProducts = item => {
+     const newList = List.concat(item);
+     List=newList;
+     console.log("2");
+     setNewProduct(newList)
+     console.log("3");
+     console.log("list",List);
+ };
+
+ if(category=="All"){
+  props.products.map((item)=> {      
+      addProducts(item);
+  })
+
+ }
+
+ else{
+ 
+ props.products.map((item)=> {   
+     if(category==item.category){
+       console.log("collection in map",item.collection)
+       addProducts(item);
+     }
+   })
+  }
+
+   setProduct(List);
+ }
+
   const handleChangePrice = (event) => {
     const name = event.target.name;
     setState({
@@ -118,15 +195,19 @@ export default function Album(props) {
     });
   };
 
+  
   const handleChangeColor = (event) => {
-    const name = event.target.name;
+    // const name = event.target.name;
+    Add(event.target.value)
     setState({
       ...state,
-      [name]: event.target.value,
+      collection: event.target.value,
     });
+
   };
 
   const handleChangeCategory = (e) => {
+    AddCatagery(e.target.value)
     setState({
       ...state,
       selectedCategory: e.target.value
@@ -134,12 +215,13 @@ export default function Album(props) {
   };
 
   useEffect(() => {
-   
-  },[]);
+}, [newProduct])
 
   const remove=()=>{
     localStorage.removeItem("product");
   };
+
+
 
 
 
@@ -148,21 +230,22 @@ export default function Album(props) {
       <CssBaseline />
       <main>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
+        {/* <div className={classes.heroContent}>
             <SearchBar />
         
         </div>
-      
+       */}
         <Container className={classes.cardGrid} maxWidth="lg">
-        <Grid spacing={6} className={classes.grids} container >
+        <Grid spacing={4} className={classes.grids} container >
 
           {/* End hero unit */}
           <Grid item xs={3} >
-          <h3>Filter by</h3>
-          <Box borderRadius={16} {...defaultProps} >
+          <Box
+           borderRadius={16} 
+           {...defaultProps} >
 
           {/* Price */}
-          <FormControl className={classes.formControl}>
+          {/* <FormControl className={classes.formControl}>
         <InputLabel htmlFor="age-native-simple">Select price-range </InputLabel>
         <Select
           native
@@ -178,52 +261,52 @@ export default function Album(props) {
           <option value={"low"}>From low to high</option>
           
         </Select>
-      </FormControl>
+      </FormControl> */}
 
-      {/* collection */}
+       {/* collection */}
 
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-native-simple">Select Color </InputLabel>
-        <Select
-          native
-          value={state.collection}
-          onChange={handleChangeColor}
-          inputProps={{
-            name: 'collection',
-            id: 'age-native-simple',
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={"colored"}>Colored</option>
-          <option value={"black"}>Black</option>
-          
-        </Select>
-      </FormControl>
+       <FormControl component="fieldset">
+      <FormLabel component="legend">Choose your color</FormLabel>
+      <RadioGroup row aria-label="gender" name="row-radio-buttons-group"
+      >
+         <FormControlLabel value="All" control={<Radio />} label="All" onChange={handleChangeColor}/>
+        <FormControlLabel value="colored" control={<Radio />}  label="Colored" 
+        onChange={handleChangeColor}
+      />
+        <FormControlLabel value="black" control={<Radio />} label="Black"  style={{color:"black"}}
+        onChange={handleChangeColor} />
+       
+      </RadioGroup>
+    </FormControl>
 
-      {/* Category */}
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-native-simple">Select Category </InputLabel>
-        <Select
-          native
-          value={state.selectedCategory}
-          onChange={handleChangeCategory}
-        >
-        <option aria-label="None" value="" />
-          { state.categories.map(category => {
+
+      {/* Category2 */}
+
+      <FormControl component="fieldset" className={classes.formControl}>
+      <FormLabel component="legend">Category</FormLabel>
+      <RadioGroup aria-label="category" name="gender1" value={state.selectedCategory} onChange={handleChangeCategory}
+      
+      className="circle"
+      >
+        <FormControlLabel value="All" control={<Radio />} label="All" />
+
+        { state.categories.map(category => {
                   return (
-                    <option 
+                    <FormControlLabel 
                     key={category.id} 
                     name={category.name} 
                     value={category.name}
-                   >
-                      {category.name}
-                  </option>
+                    control={<Radio />}
+                    label={category.name}
+                    
+                   />               
                   )
               })
           }
           
-        </Select>
-      </FormControl>
+          
+      </RadioGroup>
+    </FormControl>
           </Box>
           </Grid>
 
@@ -266,10 +349,14 @@ export default function Album(props) {
                        }
                       }}  
                     >
-                      <button shadow onClick={(()=>{ 
+                      <button 
+                      disabled={!card.inStock}
+                      
+                      style={{backgroundColor:!card.inStock?"grey":""}}
+                      
+                      shadow onClick={(()=>{ 
                         remove();
                         localStorage.setItem('product',JSON.stringify({card}))})
-                       
                         }> View </button>
                     </Link>                              
                     </Typography>

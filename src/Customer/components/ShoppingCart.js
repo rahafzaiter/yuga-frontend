@@ -48,7 +48,7 @@ return (
             
             <button
             onClick={(()=>{ 
-                if(allcarts){
+                if(cart.length!=0){
                 remove();
                 localStorage.setItem('cartItems',JSON.stringify({allcarts}))
                 localStorage.setItem('cartTotalPrice',JSON.stringify(getCartTotal())) 

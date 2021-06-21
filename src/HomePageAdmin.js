@@ -27,7 +27,6 @@ import Blog from './Tutorial/components/Blogs'
 import NameForm from './Tutorial/components/NameForm'
 import LogoutControl from './Admin/components/Logout'
 // Admin/Product:
-import AddTutorial from "./Admin/components/Add_Product";
 import Tutorial from "./Admin/components/Tutorial";
 import TutorialsList from "./Admin/components/Product_List";
 import EditProduct from "./Admin/components/CRUD_Product/EditProduct";

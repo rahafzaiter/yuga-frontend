@@ -34,6 +34,7 @@
     "react-video": "^1.5.3",
     "react-video-js-player": "^1.1.1",
     "redux": "^4.1.0",
+    "request": "^2.79.0",
     "video-react": "^0.14.1",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"

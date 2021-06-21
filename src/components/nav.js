@@ -122,10 +122,10 @@ function Navigation(props) {
                 path="/Customer/Profile"
                 handleClose(path)
                 }}>Profile</MenuItem>
-              <MenuItem onClick={()=>{
+              {/* <MenuItem onClick={()=>{
                 path="/Customer/Address"
                 handleClose(path)
-                }}>Address</MenuItem>
+                }}>Address</MenuItem> */}
               <MenuItem onClick={()=>{
                 path="/Customer/Password"
                 handleClose(path)
