@@ -15,7 +15,7 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
-
+import FeedbackIcon from '@material-ui/icons/Feedback';
 //switch
 
 
@@ -83,12 +83,14 @@ function AdminNav(props) {
               <BottomNavigationAction style={{ color: 'black', fontFamily: "Brush Script MT" }} label="YUGA" component={Link} to="/Admin/HomePage" icon={<HomeIcon />} />
               <BottomNavigationAction style={{ color: 'black' }} label="Add product" icon={<AddCircleOutlineIcon />} component={Link} to="/Admin/addProduct" />
               <BottomNavigationAction style={{ color: 'black' }} label="Category" icon={<LocalMallIcon />} component={Link} to="/Admin/categoryList" />
+              <BottomNavigationAction style={{ color: 'black' }} label="Feedbacks" icon={<FeedbackIcon />} component={Link} to="/Admin/feedbacks" />
               <BottomNavigationAction style={{ color: 'black' }} label="Orders" icon={<ShoppingCartIcon />} component={Link} to="/Admin/orders" />
               <BottomNavigationAction style={{ color: 'black' }} label="Logout" icon={<MeetingRoomIcon />} component={Link} to="Customer"  onClick={(e) => {
                 e.preventDefault()
                 remove();
+                //<Redirect to={'/Customer/'} />
                 // props.setUser()
-                history.push("Customer")
+                 history.push("../Customer")
               }} />
 
             </BottomNavigation>

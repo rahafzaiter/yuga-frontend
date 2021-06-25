@@ -61,15 +61,16 @@ export default function SignUp(props) {
       e.preventDefault()
     
         props.setUser({
-          email: email,
-          password: password,
           firstName:fname,
           lastName:lname,
-          phoneNb:phoneNb
+          phoneNb:phoneNb,
+          email: email,
+          password: password,
+          
           // handle the click event
         })
         localStorage.setItem("user",JSON.stringify(props.user))
-        // console.log(props.user)
+        console.log(props.user)
         history.push("/Customer/CustHomePage")  
   
         }

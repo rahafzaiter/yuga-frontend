@@ -17,6 +17,7 @@
     "node-sass": "^6.0.0",
     "rc-select": "^12.1.10",
     "react": "^17.0.2",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-bootstrap": "^1.6.0",
     "react-color": "^2.19.3",
     "react-crud-table": "^0.3.1",

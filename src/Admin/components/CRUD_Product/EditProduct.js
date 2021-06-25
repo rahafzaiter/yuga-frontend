@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 //import TutorialDataService from "../services/TutorialService";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -17,7 +17,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import ImageUpload from 'image-upload-react'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 //important for getting nice style.
 import 'image-upload-react/dist/index.css'
 import ImageUploader from 'react-images-upload';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: '90%',
     backgroundColor: "white",
-    height:"10%"
+    height: "10%"
   },
   root: {
     '& .MuiTextField-root': {
@@ -65,32 +65,43 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
 
 }));
 
 
 
 
-export default function EditProduct () {
+export default function EditProduct() {
   const classes = useStyles();
-  const history=useHistory();
+  const history = useHistory();
   const initialTutorialState = {
     id: null,
     title: "",
     description: "",
-    
-    Category: " ",
+    category: " ",
     collection: "",
+    price: " ",
+    color: " ",
+    S: 0,
+    M: 0,
+    L: 0,
+    XL: 0,
+    XXL: 0
   };
 
-  const [ProductLocal,setProductLocal]=useState(
-    JSON.parse(localStorage.getItem("product")) 
-   
+  const [ProductLocal, setProductLocal] = useState(
+    JSON.parse(localStorage.getItem("product"))
+
   )
-  const [product,setProduct]=useState(ProductLocal.product);
+  const [product, setProduct] = useState(ProductLocal.product);
   const [imageSrc, setImageSrc] = useState();
   const [colorHexCode, setColorHexCode] = useState('#000000');
   const [pictures, setPictures] = useState(null);
+  const[changed,setChange]=useState(false);
   const [quantity, setQuantity] = useState({
     id: 0,
     S: 1,
@@ -98,9 +109,9 @@ export default function EditProduct () {
     L: 3,
     XL: 1,
     XXL: 0,
-    productId:product.id
+    productId: product.id
 
-    
+
   });
   const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
@@ -110,7 +121,8 @@ export default function EditProduct () {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setTutorial({ ...product, [name]: value });
+    setProduct({[name]: value });
+    setChange(true);
   };
 
   const handleImageSelect = (e) => {
@@ -166,11 +178,11 @@ export default function EditProduct () {
     console.log(pictures)
   };
 
-  const handleChangeSize = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    setQuantity({ ...quantity, [name]: value });
-  };
+  const Submit=()=>{
+    localStorage.setItem('product',JSON.stringify({product}))
+
+  }
+
 
 
   return (
@@ -188,9 +200,9 @@ export default function EditProduct () {
         ) : (
           <div className="container">
 
-            <form noValidate onSubmit={onSubmit}>
+            <form noValidate onSubmit={onSubmit} className={classes.form}>
               {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
-              <div >
+            
 
 
                 <TextField
@@ -207,20 +219,37 @@ export default function EditProduct () {
                 />
 
                 <TextField
-                  required
-                  type="textarea"
-                  id="description"
-                  label="description"
-                  defaultValue="title"
+              //  // type="text"
+              //     id="description"
+              //     label="description"
+              //     defaultValue={product.description}
+                  multiline
                   variant="outlined"
+              //     margin="normal"
+              //     required
+              //     fullWidth
+              //     autoComplete="email"
+              //     autoFocus
+
                   className={classes.formControl}
-                  value={product.description}
-                  onChange={handleInputChange}
-                  name="description"
+              //     value={product.description}
+              //     onChange={handleInputChange}
+              //     name="description"
+
+
+
+
+                
+            id="description"
+            name="description"
+            value={product.description}
+            label="description"
+            fullWidth
+            autoComplete="given-name"
+            onChange={handleInputChange}
                 />
 
-
-                <FormControl className={classes.margin} variant="outlined" required>
+                <FormControl className={classes.formControl} variant="outlined" required>
                   <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-amount"
@@ -234,20 +263,6 @@ export default function EditProduct () {
                   />
                 </FormControl>
 
-
-
-
-
-                {/* <div style={{width: '25ch', marginLeft:'13%',marginRight:'20%',marginButton:'15%'}}>
-      <SketchPicker    
-
-      color={colorHexCode}
-      onChange={e => setColorHexCode(e.hex)} />
-      
-      <b>Selected Hex Color: </b>{colorHexCode}
-        
-     </div>  
-     <br/> */}
                 <TextField
                   required
                   id="outlined-required"
@@ -272,46 +287,47 @@ export default function EditProduct () {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     inputProps={{
-                      name: 'Category',
+                      name: 'collection',
                       id: 'age-native-simple',
                     }}
                     value={product.collection}
                     onChange={handleInputChange}
                     style={{ backgroundColor: "white", color: 'black' }}
                   >
-                    <MenuItem value={"T-shirt"}>Colored</MenuItem>
-                    <MenuItem value={"Skirt"}>Black</MenuItem>
+                    <MenuItem value={"Colored"}>Colored</MenuItem>
+                    <MenuItem value={"Black"}>Black</MenuItem>
 
 
                   </Select>
                 </FormControl>
 
-                <FormControl className={classes.formControl}>
 
-                  <InputLabel htmlFor="age-native-simple">Select Category </InputLabel>
+                <FormControl className={classes.formControl} >
+                  <InputLabel htmlFor="age-native-simple">Select Category</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    inputProps={{
-                      name: 'Category',
-                      id: 'age-native-simple',
-                    }}
-                    value={product.Category}
+                    native
+                    value={product.category}
                     onChange={handleInputChange}
-                    style={{ backgroundColor: "white", color: 'black' }}
+                    required
+
+                    inputProps={{
+                      name: 'category',
+                      id: 'age-native-simple',
+
+
+                    }}
                   >
-                    <MenuItem value={"T-shirt"}>T-shirt</MenuItem>
-                    <MenuItem value={"Skirt"}>Skirt</MenuItem>
-                    <MenuItem value={"Dress"}>Dress</MenuItem>
-                    <MenuItem value={"Pant"}>Pant</MenuItem>
-                    <MenuItem value={"Set"}>Set</MenuItem>
-                    <MenuItem value={"Chemis"}>Dress</MenuItem>
+                    <option aria-label="None" value="" />
+                    <option value={"T-shirt"}>T-shirt</option>
+                    <option value={"Skirt"}>Skirt</option>
+                    <option value={"Dress"}>Dress</option>
+                    <option value={"Pant"}>Pant</option>
+                    <option value={"Set"}>Set</option>
+                    <option value={"Chemis"}>Chemis</option>
+
 
                   </Select>
                 </FormControl>
-
-
-
 
                 <TextField
                   required
@@ -326,39 +342,7 @@ export default function EditProduct () {
                   name="color"
                   type="link"
                 />
-
                 <hr />
-
-                {/* <div className="form-group">
-          <p>upload the image of the product</p>
-          <input
-        
-            name="image"
-            type="file" /> */}
-
-                {/* <ImageUpload
-         id="demo-simple-select"
-         handleImageSelect={handleImageSelect}
-         imageSrc={imageSrc}
-         setImageSrc={setImageSrc}
-
-         imgExtension={['.jpg', '.gif', '.png', '.gif']}
-         withIcon={true}
-         buttonText='Choose images'
-         style={{
-          position: 'center',
-          //left: '100%',
-          marginLeft:400,
-          width: 100,
-          height: 50,
-          background: 'pink'
-   
-
-        }}   
-        /> */}
-                {/* 
-         </div> */}
-
 
                 <div className="form-group">
                   <h4>Quantity of size</h4>
@@ -368,10 +352,10 @@ export default function EditProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">S</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.S}
+                      value={product.S}
                       type="number"
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       startAdornment={<InputAdornment position="start">S</InputAdornment>}
                       labelWidth={60}
                     />
@@ -382,9 +366,9 @@ export default function EditProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">M</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.M}
+                      value={product.M}
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       type="number"
                       startAdornment={<InputAdornment position="start">M</InputAdornment>}
                       labelWidth={60}
@@ -396,8 +380,8 @@ export default function EditProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">L</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.L}
-                      onChange={handleChangeSize}
+                      value={product.L}
+                      onChange={handleInputChange}
                       style={{ backgroundColor: "white" }}
                       startAdornment={<InputAdornment position="start">L</InputAdornment>}
                       type="number"
@@ -409,9 +393,9 @@ export default function EditProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">XL</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.XL}
+                      value={product.XL}
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       type="number"
                       startAdornment={<InputAdornment position="start">XL</InputAdornment>}
                       labelWidth={60}
@@ -423,20 +407,20 @@ export default function EditProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">XXL</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.XXL}
+                      value={product.XXL}
                       type="number"
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       startAdornment={<InputAdornment position="start">XXL</InputAdornment>}
                       labelWidth={60}
                     />
                   </FormControl>
 
-                </div>
+               
 
                 <div>
-                  <button className="btn btn-block shadow" onClick={()=>history.push("/Admin/tutorials")} style={{ backgroundColor: 'pink' }}>
-                      Update
+                  <button className="btn btn-block shadow" onClick={() => history.push("/Admin/tutorials")} style={{ backgroundColor: 'pink' }}>
+                    Update
           </button>
                 </div>
 

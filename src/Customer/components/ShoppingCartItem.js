@@ -4,11 +4,14 @@ import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontE
 
 function Item(props){
     return (
-		<div className="shopping-cart_item">
+		<div
+		 className="shopping-cart_item"
+		//  style={{display:"flex",flexDirection:"row"}}
+		 >
 			<img  src={props.Product.card.image} alt={`${props.Product.card.title} book`} />
 			<div>
 				<h1>{props.Product.card.title}</h1>
-				<p>L.B.P  {props.Product.card.price}</p>
+				<p>L.B.P  {props.Product.card.price},000</p>
 				<p> Size: {props.size}</p>
 				{/* <p> Quantity: {props.quantity}</p> */}
 				<button>Remove from cart</button>

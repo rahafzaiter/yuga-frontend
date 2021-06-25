@@ -18,6 +18,7 @@ import BlackImg from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Proje
 import VideoBlack from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Video/WhatsApp Video 2021-05-23 at 7.43.15 PM.mp4'
 //import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,7 +70,7 @@ export default function MediaControlCard() {
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
           Colorful Collection
-          <p>Our Cup cake lovely customers!!! Fresh life needs Colors, Here you can find your color in our store</p>
+          <p>Our cup cake lovely customers!!! Fresh life needs colors, Visit our store to find your color  </p>
           </Typography>
         </CardContent>
        

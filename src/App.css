@@ -2,6 +2,9 @@
   text-align: center;
   /* display:flex;
   justify-content:center; */
+  position: relative;
+	min-height: 100vh;
+	height: 100%;
 }
 
 .App-logo {
@@ -37,4 +40,17 @@
   to {
     transform: rotate(360deg);
   }
+}
+.footer{
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgb(235, 195, 64);
+  position:inherit;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  /* borderTop: '1px solid #ddd';
+height: '60px';
+lineHeight: '60px'; */
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useEffect} from "react";
 //Style:
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,7 +19,7 @@ import MediaControlCardBlack from './Customer/components/BlackVideoCard'
 //IMport Admin:
 import HomePageAdmin from './HomePageAdmin'
 //images
-import HomePageImage from './Pictures/HomePWomen.jpg'
+import HomePageImage from './Pictures/929180_fashion-design-start-to-finish-with-jay-calderin_1600x900_h.jpg'
 
 //Style:
 const useStyles = makeStyles({
@@ -46,8 +46,9 @@ const useStyles = makeStyles({
       },
       bg :{
         backgroundimage: {HomePageImage},
-        height: '20%',
-        width:'100%'
+        height: 600 ,
+        width:'100%',
+        objectFit: "cover"
         // backgroundPosition: center,
         // backgroundRepeat: no-repeat,
         // backgroundSize: cover,
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
 import { Switch, Route, Link } from "react-router-dom";
 
 
-function HomePageCustomer (){
+function HomePageCustomer (props){
   //Style
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -70,7 +71,12 @@ function HomePageCustomer (){
    
   };
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    console.log("user in HomePage ",props.user)
+  },[props.user]);
 
+  
 
     return(
 
@@ -91,8 +97,14 @@ function HomePageCustomer (){
 
 
         {/* Pic */}
-        <div  style={{ backgroundImage:`url(${HomePageImage})` ,backgroundRepeat: 'no-repeat',backgroundSize: 'cover',height:'auto'}} >
-        <img src={HomePageImage} style={{width:'100%',height:700,padding:'1%',objectFit: "cover",}}/>
+        <div className={classes.bg}  
+        //style={{ backgroundImage:`url(${HomePageImage})` ,backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}} 
+        >
+          <h1>Hello </h1>
+        <img className={classes.bg} 
+          src={HomePageImage}
+        // style={{width:'100%',height:"600",padding:'1%',objectFit: "cover",}}
+         />
       
     </div>
 

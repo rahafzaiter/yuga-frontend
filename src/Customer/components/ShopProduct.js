@@ -121,15 +121,15 @@ export default function Album(props) {
 
 //to filter the products based on color
   const Add=async(collection)=>{
-     console.log("new Product after map",newProduct)
+    //  console.log("new Product after map",newProduct)
      var List=[]
     const addProducts = item => {
       const newList = List.concat(item);
       List=newList;
-      console.log("2");
+      // console.log("2");
       setNewProduct(newList)
-      console.log("3");
-      console.log("list",List);
+      // console.log("3");
+      // console.log("list",List);
   };
 
   if(collection=="All"){
@@ -148,7 +148,6 @@ export default function Album(props) {
       }
     })
   }
-
     setProduct(List);
   }
 
@@ -156,15 +155,15 @@ export default function Album(props) {
 
   //To filter products based on category:
   const AddCatagery=async(category)=>{
-    console.log("new Product after map",newProduct)
+    // console.log("new Product after map",newProduct)
     var List=[]
    const addProducts = item => {
      const newList = List.concat(item);
      List=newList;
-     console.log("2");
+    //  console.log("2");
      setNewProduct(newList)
-     console.log("3");
-     console.log("list",List);
+    //  console.log("3");
+    //  console.log("list",List);
  };
 
  if(category=="All"){
@@ -244,25 +243,7 @@ export default function Album(props) {
            borderRadius={16} 
            {...defaultProps} >
 
-          {/* Price */}
-          {/* <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-native-simple">Select price-range </InputLabel>
-        <Select
-          native
-          value={state.price}
-          onChange={handleChangePrice}
-          inputProps={{
-            name: 'price',
-            id: 'age-native-simple',
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={"high"}>Fom high to low</option>
-          <option value={"low"}>From low to high</option>
-          
-        </Select>
-      </FormControl> */}
-
+     
        {/* collection */}
 
        <FormControl component="fieldset">
@@ -314,7 +295,11 @@ export default function Album(props) {
 
           {/* All Items */}
 
-          <Grid container spacing={4} xs={9}>
+          <Grid container spacing={4} 
+          item 
+          xs={9}
+          
+          >
             {product.map((card) => (
               <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card} style={{backgroundColor:"#F3E0E0"}}>
@@ -332,7 +317,7 @@ export default function Album(props) {
                      {card.color} {card.title}
                     </Typography>
                     <Typography>
-                     {card.price} L.B.P
+                     {card.price},000 L.B.P
                     </Typography>
 
                     <Typography>  

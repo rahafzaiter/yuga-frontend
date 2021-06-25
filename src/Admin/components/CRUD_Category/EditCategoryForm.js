@@ -30,7 +30,7 @@ const EditCategoryForm = props => {
       className="form-control mx-sm-3"
         type="text"
         name="name"
-        value={user.name}
+        defaultValue={user.name}
         onChange={handleInputChange}
       />
      

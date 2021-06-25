@@ -139,12 +139,13 @@ function App() {
           </Route>
           <Route path={["/AdminLogin"]} component={SignInSideAdmin} />
 
-        </Switch>
-
-        <footer style={{ background: '#1E1D1D', marginTop: '1%', padding: '2%', color: '#FFFFFF' }}>@2021 by Yuga</footer>
-    
+        </Switch>  
+        <footer 
+   style={{ background: '#1E1D1D', marginTop: '1%', padding: '1%', color: '#FFFFFF' }}
+   className="footer"
+   >@2021 by Yuga</footer>
     </div>
-
+    
 
   );
 }

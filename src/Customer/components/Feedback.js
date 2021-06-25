@@ -40,7 +40,9 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100%',
+        // height: '100%',
+        paddingTop: theme.spacing(8),
+        paddingBottom: theme.spacing(8),
     },
     image: {
         backgroundImage: `url(${Image})`,
@@ -125,7 +127,10 @@ export default function Feedback(props) {
     }
 
     return (
-        <Grid container component="main" className={classes.root}>
+        <Grid container
+        //  component="main" 
+         className={classes.root}
+         >
             <Grid item xs={5} sm={4} md={6} className={classes.image} />
             <Grid item xs={5} sm={9} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper} >

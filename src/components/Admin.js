@@ -22,7 +22,8 @@ import EditProduct from "../Admin/components/CRUD_Product/EditProduct";
 import CategoryList from "../Admin/components/Category_List";
 //Admin/Orders:
 import OrdersCust from "../Admin/components/Admin_Orders/Orders";
-
+import ViewProduct from "../Admin/components/CRUD_Product/ViewProduct";
+import FeedbackAdmin from "../Admin/components/FeedbackAdmin";
 
 import Customer from "./Customer";
 
@@ -40,12 +41,26 @@ export default function Admin() {
     const [value, setValue] = useState(0);
     const [user, setUser] = useState(null);
 
+    const [Products,setProduct]=useState([]);
+
+    const addProducts = item => {
+        const newList = Products.concat(item);
+        localStorage.setItem('Products',JSON.stringify(newList))
+        setProduct(newList)
+        // history.push("/Customer/CustCart")
+    };
+
+
 
     const defaultProps = {
         // bgcolor: 'background.paper',
         m: 1,
         borderColor: 'grey',
     };
+
+    useEffect(()=>{
+        localStorage.setItem('Products',JSON.stringify([]))
+    },[])
 
 
 
@@ -57,7 +72,10 @@ export default function Admin() {
                 {/* <Route path={["/Admin/AdminLogin"]} component={SignInSideAdmin} /> */}
                    
                     <Route exact path={["/Admin/HomePage", "/Admin/tutorials"]} component={TutorialsList} />
-                    <Route path="/Admin/addProduct" component={AddProduct} />
+
+                    <Route path="/Admin/addProduct" >
+                        <AddProduct Products={Products} addProducts={addProducts} />
+                    </Route>
                     <Route path="/Admin/tutorials/:id" component={Tutorial} />
                     <Route path="/Admin/Product/EditUser/:id" component={EditProduct} />
                     <Route path="/Admin/categoryList" component={CategoryList} />
@@ -65,6 +83,8 @@ export default function Admin() {
                     <Route path="/Admin/nameForm" component={NameForm} />
                     <Route path="/Admin/logout" component={LogoutControl} />
                     <Route exact path={["/Customer"]} component={Customer}/>
+                    <Route exact path={["/Admin/ViewProduct"]} component={ViewProduct}/>
+                    <Route exact path={["/Admin/feedbacks"]} component={FeedbackAdmin}/>
                 </Switch>
 
             </Router>

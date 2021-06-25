@@ -82,7 +82,7 @@ function Navigation(props) {
   };
 
   useEffect(() => {
-    console.log(props.user)
+    console.log("user in Customer nav",props.user)
   }, [props.user])
 
   var navBar;
@@ -104,7 +104,7 @@ function Navigation(props) {
             to="/Customer/CustHomePage" />
           <BottomNavigationAction className="nav-links" label="Shop" align="left" component={Link}
             to="/Customer/CustProductGallery" />
-          <BottomNavigationAction className="nav-links" label="Orders" align="left" component={Link}
+          <BottomNavigationAction className="nav-links" label="My Orders" align="left" component={Link}
             to="/Customer/CustOrders" />
           <BottomNavigationAction className="nav-links" label="Account" align="left" component={Link}
             // to="/Customer/CustProfile"
@@ -143,7 +143,7 @@ function Navigation(props) {
               e.preventDefault()
               remove();
               props.setUser()
-              history.push("/Customer")
+              history.push("/Customer/CustHomePage")
             }} />
         </BottomNavigation>
       </Typography>

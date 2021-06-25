@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function AddProduct () {
+export default function AddProduct (props) {
   const classes = useStyles();
   const history=useHistory();
   // const initialTutorialState = {
@@ -88,15 +88,20 @@ export default function AddProduct () {
    
   // )
   const [product, setProduct] = useState({
-      id: null,
-      title: '',
-      description: '',
-      price: '',
-      picture: '',
-      category: '',
-      color: '',
-      collection: ''
-    });
+    id: null,
+    title: '',
+    description: '',
+    price: '',
+    image: '',
+    category: '',
+    color: '',
+    collection: '',
+    S: 0,
+    M: 0,
+    L: 0,
+    XL: 0,
+    XXL: 0,
+  });
 
     // const [product, setProduct] = useState(ProductLocal.product);
   // const [imageSrc, setImageSrc] = useState();
@@ -106,10 +111,10 @@ export default function AddProduct () {
   const [pictures, setPictures] = useState(null);
   const [quantity, setQuantity] = useState({
     id: 0,
-    S: 1,
-    M: 2,
-    L: 3,
-    XL: 1,
+    S: 0,
+    M: 0,
+    L: 0,
+    XL: 0,
     XXL: 0,
     // productId:product.id
 
@@ -185,6 +190,12 @@ export default function AddProduct () {
     setQuantity({ ...quantity, [name]: value });
   };
 
+  const Submit=()=>{
+    props.addProducts(product)
+    history.push("/Admin/tutorials")
+
+  }
+
 
   return (
     <div className="container" >
@@ -245,23 +256,11 @@ export default function AddProduct () {
                     // className={classes.formControl}
                     startAdornment={<InputAdornment position="start">L.B.P</InputAdornment>}
                     labelWidth={60}
+                    name="price"
                   />
                 </FormControl>
 
 
-
-
-
-                {/* <div style={{width: '25ch', marginLeft:'13%',marginRight:'20%',marginButton:'15%'}}>
-      <SketchPicker    
-
-      color={colorHexCode}
-      onChange={e => setColorHexCode(e.hex)} />
-      
-      <b>Selected Hex Color: </b>{colorHexCode}
-        
-     </div>  
-     <br/> */}
                 <TextField
                   required
                   id="outlined-required"
@@ -286,9 +285,10 @@ export default function AddProduct () {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     inputProps={{
-                      name: 'Category',
+                      name: 'collection',
                       id: 'age-native-simple',
                     }}
+                    name="collection"
                     value={product.collection}
                     onChange={handleInputChange}
                     style={{ backgroundColor: "white", color: 'black' }}
@@ -307,10 +307,11 @@ export default function AddProduct () {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     inputProps={{
-                      name: 'Category',
+                      name: 'category',
                       id: 'age-native-simple',
                     }}
-                    value={product.Category}
+                    name="category"
+                    value={product.category}
                     onChange={handleInputChange}
                     style={{ backgroundColor: "white", color: 'black' }}
                   >
@@ -333,57 +334,29 @@ export default function AddProduct () {
                   label="Image Link"
                   defaultValue="color"
                   variant="outlined"
-                  value={product.picture}
+                  value={product.image}
                   onChange={handleInputChange}
                   // style={{backgroundColor:"white"}}
                   className={classes.formControl}
-                  name="color"
+                  name="image"
                   type="link"
                 />
 
                 <hr />
 
-                {/* <div className="form-group">
-          <p>upload the image of the product</p>
-          <input
-        
-            name="image"
-            type="file" /> */}
-
-                {/* <ImageUpload
-         id="demo-simple-select"
-         handleImageSelect={handleImageSelect}
-         imageSrc={imageSrc}
-         setImageSrc={setImageSrc}
-
-         imgExtension={['.jpg', '.gif', '.png', '.gif']}
-         withIcon={true}
-         buttonText='Choose images'
-         style={{
-          position: 'center',
-          //left: '100%',
-          marginLeft:400,
-          width: 100,
-          height: 50,
-          background: 'pink'
-   
-
-        }}   
-        /> */}
-                {/* 
-         </div> */}
                 <div className="form-group">
-                  <h4>Quantity of size</h4>
+                  <h4>Quantity of each size</h4>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
 
                     <InputLabel htmlFor="outlined-adornment-amount">S</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.S}
+                      value={product.S}
                       type="number"
+                      name="S"
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       startAdornment={<InputAdornment position="start">S</InputAdornment>}
                       labelWidth={60}
                     />
@@ -394,10 +367,11 @@ export default function AddProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">M</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.M}
+                      value={product.M}
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       type="number"
+                      name="M"
                       startAdornment={<InputAdornment position="start">M</InputAdornment>}
                       labelWidth={60}
                     />
@@ -408,8 +382,9 @@ export default function AddProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">L</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.L}
-                      onChange={handleChangeSize}
+                      value={product.L}
+                      onChange={handleInputChange}
+                      name="L"
                       style={{ backgroundColor: "white" }}
                       startAdornment={<InputAdornment position="start">L</InputAdornment>}
                       type="number"
@@ -421,9 +396,10 @@ export default function AddProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">XL</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.XL}
+                      value={product.XL}
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
+                      name="XL"
                       type="number"
                       startAdornment={<InputAdornment position="start">XL</InputAdornment>}
                       labelWidth={60}
@@ -435,10 +411,11 @@ export default function AddProduct () {
                     <InputLabel htmlFor="outlined-adornment-amount">XXL</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
-                      value={quantity.XXL}
+                      value={product.XXL}
                       type="number"
+                      name="XXL"
                       style={{ backgroundColor: "white" }}
-                      onChange={handleChangeSize}
+                      onChange={handleInputChange}
                       startAdornment={<InputAdornment position="start">XXL</InputAdornment>}
                       labelWidth={60}
                     />
@@ -448,7 +425,7 @@ export default function AddProduct () {
 
                 <div>
                   <button className="btn btn-block shadow" 
-                  onClick={()=>history.push("/Admin/tutorials")} 
+                  onClick={Submit} 
                   style={{ backgroundColor: 'pink' }}>
                       Add</button>
                 </div>

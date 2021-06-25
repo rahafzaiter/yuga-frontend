@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 //   { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
 //   { name: 'Shipping', desc: '', price: 'Free' },
 // ];
-const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
+// const addressess = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 
 const payments = [
   { name: 'Payment Method', detail: 'Cash on delivery' },
@@ -34,13 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review(props) {
   const classes = useStyles();
-  const [order,setOrder]  =useState(JSON.parse(localStorage.getItem("cartItems")));
+  const [orderR,setOrderR]  =useState(JSON.parse(localStorage.getItem("cartItems")).allcarts);
   const [totalPrice,setTotal]=useState(JSON.parse(localStorage.getItem("cartTotalPrice")));
+  const [address,setAddress]=useState(props.address);
+  const addresses = [address.city, address.street, address.building, address.floor];
 
   // const [orders,setOrders]=useState(props.products)
 
   useEffect(() => {
-    console.log("checkOut",order)
+    console.log("checkOut",orderR);
+    console.log("address in review ",address)
+
    
   },[]);
 
@@ -53,7 +57,7 @@ export default function Review(props) {
         Order summary
       </Typography>
       <List disablePadding>
-      {order.allcarts.map((product) => (
+      {orderR.map((product) => (
           <ListItem className={classes.listItem} key={product.title}>
             <ListItemText primary={product.Product.card.title} />
             <Typography variant="body2">L.B.P {product.Product.card.price} </Typography>
@@ -78,7 +82,7 @@ export default function Review(props) {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography gutterBottom>{props.fname} {props.lname}</Typography>
           <Typography gutterBottom>{addresses.join(', ')}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>

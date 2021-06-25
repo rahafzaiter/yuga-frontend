@@ -38,7 +38,7 @@ export default function Password(){
     const classes = useStyles();
 
     return(
-        <div className="container" style={{ width: '100%',minHeight:'500px',height:"100%", padding: '0.5%'}}  >
+        <div className="container" style={{ width: '100%',minHeight:'100%',height:"100%", padding: '0.5%'}}  >
             <Grid spacing={4} container className={classes.root}>
             <Grid  xs={6} >
             <Paper className={classes.paper}><img src={Image} style={{width: '100%',height:"auto",minHeight:'500px',backgroundSize: 'cover',objectFit: "cover"}}/></Paper>

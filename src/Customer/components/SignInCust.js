@@ -65,8 +65,8 @@ export default function SignInSide(props) {
   const [loggedIn,setLoggedIn]=useState(false);
   const history=useHistory();
   const [user,setUser]=useState([
-    {id:1,email:"rahafz@gmail.com",password:"123",firstname:"rahaf",lastName:"z",phoneNb:"81811811"},
-    {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"rahaf",lastName:"zaiter",phoneNb:"71711711"}
+    {id:1,email:"rahafz@gmail.com",password:"123",firstname:"rahaf",lastname:"z",phoneNb:"81811811"},
+    {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"rahaf",lastname:"zaiter",phoneNb:"71711711"}
   ])
 
   const setLog = (E,P) => {
@@ -90,12 +90,18 @@ export default function SignInSide(props) {
       //     }
       // }, 100);
 
-      user.map(uses=>{
-        if(uses.email==email && uses.password== password){
-          localStorage.setItem("user",JSON.stringify({uses}))
+      user.map(user=>{
+        if(user.email==email && user.password== password){
+          localStorage.setItem("user",JSON.stringify({user}))
           setLoggedIn(true)
+
+          props.setUser({
+            user
+          },
+          console.log("user in sign in ",props.user))
+
           setLog(email,password)       
-          history.push("/Customer")   
+          history.push("/Customer/CustHomePage")   
            
         }      
       })
