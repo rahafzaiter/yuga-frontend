@@ -9,17 +9,22 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Box from '@material-ui/core/Box';
 import ReactPlayer from 'react-player'
 import Typography from '@material-ui/core/Typography';
-
+import Animation from './Customer/components/Animation'
+import Grid from '@material-ui/core/Grid';
+import  Skeleton from '@material-ui/lab/Skeleton';
 //VideoCards
 import MediaControlCard from './Customer/components/VideoCard'
 import MediaControlCardBlack from './Customer/components/BlackVideoCard'
+import AnimatedButton from 'react-animated-buttons';
+
+import '../src/home-page-customer.scss'
 
 //Import Customer
 
 //IMport Admin:
 import HomePageAdmin from './HomePageAdmin'
 //images
-import HomePageImage from './Pictures/929180_fashion-design-start-to-finish-with-jay-calderin_1600x900_h.jpg'
+import HomePageImage from './Pictures/sales.jpg'
 
 //Style:
 const useStyles = makeStyles({
@@ -46,22 +51,28 @@ const useStyles = makeStyles({
       },
       bg :{
         backgroundimage: {HomePageImage},
-        height: 600 ,
+        height: 700 ,
         width:'100%',
         objectFit: "cover"
         // backgroundPosition: center,
         // backgroundRepeat: no-repeat,
         // backgroundSize: cover,
         },
+        card:{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+        }
     
   });
 
 
   //switch
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link,useHistory } from "react-router-dom";
 
 
 function HomePageCustomer (props){
+  const history=useHistory();
   //Style
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -84,15 +95,25 @@ function HomePageCustomer (props){
       <div style={{width:'100%'}}>
     
         {/* Text */}
+       
         <div className={classes.pinkDiv} align='center'>
         <p>Check Us Out</p>
-        <h1>Our Latest Styles</h1>
+        <h1 className="home-page-customer_item">Our Latest Styles</h1>
         <p text-align="center" style={{width:"70%"}}>
             Welcome to our store, where you can find trendy and
              affordable outfits for your every need.
              Take a look at our collection and enjoy shopping online with Yuga.
               Get in touch if you have any question.</p>
-              <Link to="/Customer/CustProductGallery" className="btn shadow" style={{backgroundColor:'rgb(197, 115, 128)',width:'25%',marginTop:"4%",color:'white'}}>Shop now</Link>
+             
+              <AnimatedButton  onClick={()=>{history.push(`/CustProductGallery`)}} textColor="white" color="rgb(197, 115, 128)" style={{width:'65%',marginTop:"4%"}}  className="btn shadow">
+                {/* <Link to="/Customer/CustProductGallery"              
+                >Shop now</Link> */}
+                Shop Now 
+              </AnimatedButton>
+
+              {/* <AnimatedButton textColor="white" color="rgb(197, 115, 128)" style={{backgroundColor:'rgb(197, 115, 128)',width:'25%',marginTop:"4%",color:'white'}}  className="btn shadow">
+                Thankyou</AnimatedButton>
+             */}
         </div>
 
 
@@ -100,11 +121,18 @@ function HomePageCustomer (props){
         <div className={classes.bg}  
         //style={{ backgroundImage:`url(${HomePageImage})` ,backgroundRepeat: 'no-repeat',backgroundSize: 'cover'}} 
         >
-          <h1>Hello </h1>
-        <img className={classes.bg} 
+          <Grid spacing={2} className={classes.card}>
+            <Grid item xs={6}> <Animation  className={classes.bg} /></Grid>
+            <Grid item xs={6}>
+            <img className={classes.bg} 
+             src={HomePageImage}/>
+              </Grid>
+         
+        {/* <img className={classes.bg} 
           src={HomePageImage}
         // style={{width:'100%',height:"600",padding:'1%',objectFit: "cover",}}
-         />
+         /> */}
+         </Grid>
       
     </div>
 
@@ -115,7 +143,7 @@ function HomePageCustomer (props){
         
         {/* About */}
         <div style={{padding:'5%'}} align='center' >
-        <h1 style={{color:'pink'}}>About Yuga</h1>
+        <h1 style={{color:'pink'}} className="home-page-customer_item">About Yuga</h1>
         <p>Celebrating Beauty and Style</p>
 
         <p style={{width:"40%"}} >
@@ -131,7 +159,7 @@ function HomePageCustomer (props){
         
         {/* Conatact us */}
         <div style={{padding:'5%',background:'#F3E0E0'}} align="center">
-        <h1>Contact Us</h1>
+        <h1 className="home-page-customer_item">Contact Us</h1>
         <p align="center">
         rahafzaiter2@gmail.com</p>
         <p align="center" >

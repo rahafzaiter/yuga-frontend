@@ -18,6 +18,7 @@ import BlackImg from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Proje
 import VideoBlack from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Video/WhatsApp Video 2021-05-23 at 7.43.15 PM.mp4'
 //import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/home-page-customer.scss'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flex: '1 0 auto',
+    fontFamily:'Viaoda Libre',
   },
   cover: {
     
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
+
   },
   
 }));
@@ -59,8 +62,8 @@ export default function MediaControlCardBlack() {
     <div alignItems="left">
     <Card className={classes.root}>
       <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h3" variant="h3">
+        <CardContent className={classes.content} className="home-page-customer_item">
+          <Typography component="h3" variant="h3" className="home-page-customer_item">
           Black
           </Typography>
           <Typography variant="subtitle1" color="textSecondary" >

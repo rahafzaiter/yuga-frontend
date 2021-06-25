@@ -19,7 +19,7 @@ import VideoBlack from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Pro
 //import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
+import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/home-page-customer.scss'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -65,7 +65,7 @@ export default function MediaControlCard() {
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h3" variant="h3">
+          <Typography component="h3" variant="h3" className="home-page-customer_item">
           Colors
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">

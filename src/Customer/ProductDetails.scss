@@ -8,11 +8,33 @@ button {
     background: whitesmoke;
     color: rgb(146, 83, 94);
     margin-left: 22px;
-    
+    transition: all 0.5s;
+    cursor: pointer;
 
-    &:hover {
+    // &:hover {
+    //     cursor: pointer;
+    //     background: rgb(197, 115, 128);
+    //     color: white;
+    // }
+
+    .button span {
         cursor: pointer;
-        background: rgb(197, 115, 128);
-        color: white;
-    }
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      
+      .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+      
+      .button:hover span {
+        padding-right: 25px;
+      }
+      
 }

@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import {useHistory} from 'react-router-dom'
+import back from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/AdminAddProduct.png"
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -94,12 +95,22 @@ const deleteUser={
 
   return (
     <React.Fragment>
-    <div className="container">
+    <div className="container" style={{minHeight:"900px",marginTop:"40px"}}>
 
       <div className=" py-2 shadow">
           <h3>All Products</h3>
           </div>
-      <div className="py-2">
+      
+
+          { 
+          products.length==0 ?  
+
+          <div style={{ backgroundImage: `url(${back})`,height:'700px',width:"100%" }}>
+            <img  src={back} style={{height:'700px',width:"100%"}} />
+            </div>
+
+            :
+        <div className="py-2">
         <Table class="table border shadow" size="small">
           <TableHead style={{backgroundColor:'#CF8E9F'}}>
             <TableRow>
@@ -110,19 +121,12 @@ const deleteUser={
               <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody style={{backgroundColor:'#e2dcdc'}}>
 
-            { products== null ? ( 
-              <TableRow >
-                <TableCell scope="row"></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                </TableRow>
+           
 
-                ) :
-
-            products.map((product, id) => (
+            {products.map((product, id) => (
               <TableRow key={id}>
                 <TableCell scope="row">{product.id}</TableCell>
                 <TableCell>{product.title}</TableCell>
@@ -162,11 +166,16 @@ const deleteUser={
                   </Link>
                 </TableCell>
               </TableRow>
+
             ))}
+
           </TableBody>
+
         </Table>
-      </div>
+       </div>
+    }
     </div>
+
     </React.Fragment>
   );
 };

@@ -19,7 +19,7 @@ import ProductDetails from '../components/ProductDetails'
 import {Link} from 'react-router-dom';
 
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ShopProduct.scss'
-
+import AnimatedButton from 'react-animated-buttons';
 
 //Filter:
 import FormControl from '@material-ui/core/FormControl';
@@ -334,7 +334,9 @@ export default function Album(props) {
                        }
                       }}  
                     >
-                      <button 
+                      <AnimatedButton textColor="white" color="rgb(197, 115, 128)" style={{backgroundColor:'rgb(197, 115, 128)',width:'25%',marginTop:"4%",color:'white'}} 
+                       className="btn shadow"
+               
                       disabled={!card.inStock}
                       
                       style={{backgroundColor:!card.inStock?"grey":""}}
@@ -342,7 +344,7 @@ export default function Album(props) {
                       shadow onClick={(()=>{ 
                         remove();
                         localStorage.setItem('product',JSON.stringify({card}))})
-                        }> View </button>
+                        }> View </AnimatedButton>
                     </Link>                              
                     </Typography>
                    

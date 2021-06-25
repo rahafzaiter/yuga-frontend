@@ -25,7 +25,6 @@ import {useHistory} from 'react-router-dom'
 // import { SketchPicker } from 'react-color';
 // import { HistoryOutlined } from "@material-ui/icons";
 
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -198,7 +197,7 @@ export default function AddProduct (props) {
 
 
   return (
-    <div className="container" >
+    <div className="container"  style={{minHeight:"900px",marginTop:"40px"}}>
 
       <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%" }}>
         <h2 className="text-center mb-4">Add A Product</h2>

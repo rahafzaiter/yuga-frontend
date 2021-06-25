@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useH
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
+import './home-page-customer.scss'
 //Customer Pages:
 //icons:
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -178,9 +179,9 @@ function Navigation(props) {
 
     <Grid className="container" xs={10}>
 
-      <Box className={classes.NavBox} align="left">
+      <Box className={classes.NavBox} align="left" className="home-page-customer_item">
         <span class="logo">
-          <a href="/">
+          <a href="/" >
             <img src={Logo} height="80px" width="115px" alt="Yuga logo" /> </a>
         </span>YUGA
         </Box>

@@ -35,18 +35,18 @@ const useStyles = makeStyles((theme) => ({
 export default function FeedbackAdmin() {
   const classes = useStyles();
   return (
-    <div className="container">
-    <React.Fragment>
-      <Title >Recent Feedbacks</Title>
+    <div className="container" style={{minHeight:"900px",marginTop:"40px"}}>
+    <React.Fragment >
+      <Title >Recent Orders</Title>
       <Table size="small" class="table border shadow">
         <TableHead style={{backgroundColor:'#CF8E9F'}}>
           <TableRow>
             <TableCell>Customer id</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Rate</TableCell>
-            <TableCell>Comment</TableCell>
-            <TableCell>Favorite Category</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Customer Name </TableCell>
+            <TableCell>Phone nb</TableCell>
+            <TableCell>Address</TableCell>
+            <TableCell align="right">Payment Method</TableCell>
           </TableRow>
         </TableHead>
         <TableBody style={{backgroundColor:'#E5DBE1'}}>

@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "*",
     "@progress/kendo-react-form": "^4.6.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
@@ -18,6 +19,7 @@
     "rc-select": "^12.1.10",
     "react": "^17.0.2",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-animated-buttons": "^1.0.4",
     "react-bootstrap": "^1.6.0",
     "react-color": "^2.19.3",
     "react-crud-table": "^0.3.1",
@@ -31,6 +33,7 @@
     "react-player": "^2.9.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-swipeable-views": "^0.14.0",
     "react-tinder-card": "^1.4.0",
     "react-video": "^1.5.3",
     "react-video-js-player": "^1.1.1",

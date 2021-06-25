@@ -16,9 +16,11 @@
 		font-weight: bold;
 		text-align: center;
 		padding: 20px 0;
+		font-family: 'Viaoda Libre', cursive;
 	}
 
 	&_item {
+		font-family: 'Viaoda Libre', cursive;
 		
 		display: flex;
 		order: -2;		
@@ -62,6 +64,7 @@
 			margin: 10px 0;
 			color: lightcoral;
 			margin-left: 22px;
+			
 
 			&:hover {
 				cursor: pointer;

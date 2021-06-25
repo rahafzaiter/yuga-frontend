@@ -31,7 +31,7 @@ import Orders from  '../Customer/components/Orders'
 import FadeMenu from '../Customer/components/FadeMenu'
 
 //Animation
-// import AnimationComponent from '../Customer/components/Animation'
+import SwipeableTextMobileStepper from '../Customer/components/Animation'
 
 //switch
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
@@ -189,9 +189,9 @@ const [categories,setCategories]=useState(
 
                     {/* Animation Trial  */}
 
-                    {/* <Route  path={["/Customer/MainDisplay"]} >
-                        <AnimationComponent/>
-                    </Route> */}
+                    <Route  path={["/Customer/Slider"]} >
+                        <SwipeableTextMobileStepper/>
+                    </Route>
                     
                 </Switch>
             </Router>

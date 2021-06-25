@@ -48,7 +48,7 @@ const CategoryList = () => {
   };
 
   return (
-      <div class="container">
+      <div class="container"  style={{minHeight:"900px",marginTop:"40px"}}>
          <h4 className=" py-2 shadow">View Category</h4>
         <div>
           {editing ? (

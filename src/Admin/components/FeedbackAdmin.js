@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FeedbackAdmin() {
   const classes = useStyles();
   return (
-    <div className="container">
+    <div className="container" style={{minHeight:"900px",marginTop:"40px"}}>
     <React.Fragment>
       <Title >Recent Feedbacks</Title>
       <Table size="small" class="table border shadow">
