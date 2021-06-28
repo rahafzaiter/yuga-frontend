@@ -16,7 +16,7 @@
 		font-weight: bold;
 		text-align: center;
 		padding: 20px 0;
-		font-family: 'Viaoda Libre', cursive;
+		
 	}
 
 	&_item {
@@ -57,19 +57,20 @@
 
 		button {
 			border-radius: 5px;
-			border: 1px solid lightcoral;
+			border: 1px solid #FF00A7;
 			padding: 10px;
 			background: transparent;
 			transition: 0.15s ease-in-out;
 			margin: 10px 0;
-			color: lightcoral;
+			color: #FF00A7;
 			margin-left: 22px;
 			
 
 			&:hover {
 				cursor: pointer;
-				background: lightcoral;
+				background: #FF00A7;
 				color: white;
+				font-weight: bold;
 			}
 		}
 
@@ -98,7 +99,7 @@
 			color: white;
 
 			&:hover {
-				background: lightcoral;
+				background: #FF00A7;
 				color: black;
 			}
 		}

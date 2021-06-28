@@ -115,7 +115,7 @@ export default function AddressForm(props) {
             required
             id="streetA"
             name="street"
-            label="Address line-Street"
+            label="Street"
             fullWidth
             autoComplete="street"
             value={address.street}
@@ -156,6 +156,7 @@ export default function AddressForm(props) {
         <Button type="submit" xs={12} onSubmit={e => e.preventDefault()} 
           variant="contained"
           color="primary"
+          style={{backgroundColor:'#FC3C80',color:'white'}}
           className={classes.buttons} 
         // style={{ flex: 1,justifyContent: "flex-right",align:"right"}}
         onClick={

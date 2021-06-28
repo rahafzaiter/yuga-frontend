@@ -31,12 +31,15 @@ const useStyles = makeStyles((theme) => ({
     width: 500,
     display: 'flex',
     flexDirection: 'column',
+    fontStyle: 'Viaoda Libre',
   },
   content: {
     flex: '1 0 auto',
     fontFamily:'Viaoda Libre',
   },
   cover: {
+    objectFit:"cover",shadowOpacity: 1,
+    shadowColor: '#fff',
     
   },
   controls: {
@@ -61,14 +64,15 @@ export default function MediaControlCardBlack() {
   return (
     <div alignItems="left">
     <Card className={classes.root}>
-      <div className={classes.details}>
-        <CardContent className={classes.content} className="home-page-customer_item">
-          <Typography component="h3" variant="h3" className="home-page-customer_item">
-          Black
+      <div className="home-page-custmer">
+        <CardContent className={classes.content}>
+          <Typography component="h3" variant="h3">
+            <p className="home-page-customer_item"> Dark</p>
+         
           </Typography>
           <Typography variant="subtitle1" color="textSecondary" >
-          Black Collection
-          <p >Blackyyyy! where are you elegant ladies? We have also got black collection for you  </p>
+        Dark Colors Collection
+          <p className="home-page-customer_p">Girlieees! where are you elegant ladies? We have also got dark color collection for you  </p>
           </Typography>
         </CardContent>
        
@@ -76,17 +80,21 @@ export default function MediaControlCardBlack() {
      
 
         <VideoPlayer
-        className={classes.cover}
+
+        // className={classes.cover}
         image={HomePageImage}
         title="Live from space album cover"
         src={videoSrcBlack}
         poster={posterBlack}
         className={classes.paper}
+        // frameborder="0" scrolling="no" allowfullscreen
         // xs={6}
+       
+
         width="620"
-        // background='grey'
+        frameBorder='0'
+        background='grey'
         height="360"
-        // margin='0'
       />
       
     </Card>

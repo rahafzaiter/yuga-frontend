@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import CategoryTable from "./tables/CategoryTable";
 import AddCategoryForm from "./CRUD_Category/AddCategoryForm";
 import EditCategoryForm from "./CRUD_Category/EditCategoryForm";
 import Box from '@material-ui/core/Box';
 
-const CategoryList = () => {
+const CategoryList = (props) => {
+
+  // const usersData=props.categories;
+
+
   const usersData = [
-    { id: 1, name: "pant" },
-    { id: 2, name: "shirt"},
-    { id: 3, name: "dress" },
-    { id: 4, name: "chemis" },
-    { id: 5, name: "blouse" }
+    { id: 1, name: "Pants" },
+    { id: 2, name: "Shirts"},
+    { id: 3, name: "Dresses" },
+    { id: 4, name: "Suits" },
+    { id: 5, name: "Skirts" },
+    { id: 6, name: "Jumpsuits" },
+    { id: 7, name: "Outerwear" },
+    { id: 8, name: "Sweat-shirt" },
+    { id: 9, name: "Sportswear" },
+    { id: 10, name: "Tunics" }
 
   ];
   
@@ -46,6 +55,11 @@ const CategoryList = () => {
     setEditing(false);
     setUsers(users.map(user => (user.id === id ? updateUser : user)));
   };
+
+  useEffect(()=>{
+    console.log("categories",props.categories)
+
+  },[props.categories])
 
   return (
       <div class="container"  style={{minHeight:"900px",marginTop:"40px"}}>

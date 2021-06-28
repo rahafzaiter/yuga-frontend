@@ -34,14 +34,16 @@ const useStyles = makeStyles({
 
 });
 
-export default function Admin() {
+export default function Admin(props) {
     const [cart, setCart] = useState([]);
     //Styles:(
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const [user, setUser] = useState(null);
 
-    const [Products,setProduct]=useState([]);
+    const [Products,setProduct]=useState(props.Products);
+
+    const [categories,setCategories]=useState(props.categories);
 
     const addProducts = item => {
         const newList = Products.concat(item);
@@ -52,6 +54,8 @@ export default function Admin() {
 
 
 
+
+
     const defaultProps = {
         // bgcolor: 'background.paper',
         m: 1,
@@ -59,8 +63,17 @@ export default function Admin() {
     };
 
     useEffect(()=>{
-        localStorage.setItem('Products',JSON.stringify([]))
+        localStorage.setItem('Products',JSON.stringify(Products))
+        console.log("in Admin Page",localStorage.getItem("Products"));
+        console.log("Categories in Admin",categories);
+        console.log("Categories in Admin with props",props.categories)
+
     },[])
+
+    useEffect(()=>{
+        setCategories(props.categories)
+
+    },[props.categories])
 
 
 
@@ -71,14 +84,14 @@ export default function Admin() {
                 <Switch>
                 {/* <Route path={["/Admin/AdminLogin"]} component={SignInSideAdmin} /> */}
                    
-                    <Route exact path={["/Admin/HomePage", "/Admin/tutorials"]} component={TutorialsList} />
+                    <Route  path={["/Admin/HomePage", "/Admin/tutorials"]} component={TutorialsList} Products={Products} />
 
                     <Route path="/Admin/addProduct" >
                         <AddProduct Products={Products} addProducts={addProducts} />
                     </Route>
                     <Route path="/Admin/tutorials/:id" component={Tutorial} />
                     <Route path="/Admin/Product/EditUser/:id" component={EditProduct} />
-                    <Route path="/Admin/categoryList" component={CategoryList} />
+                    <Route path="/Admin/categoryList" component={CategoryList} categories={props.categories} />
                     <Route path="/Admin/orders" component={OrdersCust} />
                     <Route path="/Admin/nameForm" component={NameForm} />
                     <Route path="/Admin/logout" component={LogoutControl} />

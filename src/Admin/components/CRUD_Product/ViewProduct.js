@@ -20,6 +20,7 @@ import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontE
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 2,
+    flexDirection:"row"
   },
   paper: {
     padding: theme.spacing(2),
@@ -28,13 +29,15 @@ const useStyles = makeStyles((theme) => ({
     display:'block',
     alignItems:'left',
     alignContent:'left',
-    width:'100%'
+    width:'100%',
+    height:"100%"
   
   },
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: "90%",
-    fontSize: "100%"
+    margin: theme.spacing(4),
+    // minWidth: "90%",
+    fontSize: "24",
+    minHeight:"800px"
 },
 table: {
     minWidth: 450,
@@ -106,14 +109,14 @@ export default function ViewProduct({additem,user}) {
   return (
    
     <div className="container" style={{ width: '100%' }} >
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item  xs={5} container  md={4} >
-          <img src={Product.image} style={{objectFit: "cover",width:"100%",height:"100%",maxHeight:"100%"}} />
+      <Grid container spacing={1} className={classes.root}>
+        <Grid item  xs={4} container  md={4} style={{maxHeight:"600px"}} >
+          <img src={Product.image} style={{objectFit: "cover",width:"100%",height:"600px",maxHeight:"600px"}} />
         </Grid>
 
-        <Grid xs={7} item >
+        <Grid xs={7} md={7} spacing={4} item style={{minHeight:"600px"}} className={classes.formControl}>
 
-        <Grid  xs={12} className={classes.formControl}>
+        {/* <Grid  xs={12} className={classes.formControl}> */}
           <Paper className={classes.paper} bold >
             <h3  marginButton="2px"> {Product.title}</h3>
             <h5  marginButton="2px"> Product Info
@@ -122,10 +125,11 @@ export default function ViewProduct({additem,user}) {
             <p  marginButton="2px">Collection: {Product.collection}</p>
             <p  marginButton="2px">Color: {Product.color}</p>
             
-            <p marginButton="2px">Price: {Product.price},000 L.L.P</p>
+            <p marginButton="2px">Price: {Product.price} LBP</p>
             <p marginButton="2px">Category: {Product.category}</p>
             <div>
             <TableContainer component={Paper}>
+      
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -156,7 +160,7 @@ export default function ViewProduct({additem,user}) {
 
            
           </Paper>
-        </Grid>
+        {/* </Grid> */}
         </Grid>
 
       </Grid>

@@ -148,28 +148,28 @@ export default function Feedback(props) {
                                 onChange={e => setRate(e.target.value)}>
                                 <FormControlLabel
                                     value="1"
-                                    control={<Radio color="primary" />}
+                                    control={<Radio backgroundColor="#FC3C80" />}
                                     label="1"
                                     labelPlacement="top"
                                 />
                                 <FormControlLabel
                                     value="2"
-                                    control={<Radio color="primary" />}
+                                    control={<Radio backgroundColor="#FC3C80" />}
                                     label="2"
-                                    labelPlacement="start"
+                                    labelPlacement="top"
                                 />
                                 <FormControlLabel
                                     value="3"
-                                    control={<Radio color="primary" />}
+                                    control={<Radio backgroundColor="#FC3C80" />}
                                     label="3"
-                                    labelPlacement="bottom"
+                                    labelPlacement="top"
                                 />
-                                <FormControlLabel value="4" control={<Radio color="primary" />} label="4" labelPlacement="start" />
+                                <FormControlLabel value="4" control={<Radio backgroundColor="#FC3C80" />} label="4" labelPlacement="top" />
                                 <FormControlLabel
                                     value="5"
-                                    control={<Radio color="primary" />}
+                                    control={<Radio backgroundColor="#FC3C80" />}
                                     label="5"
-                                    labelPlacement="bottom"
+                                    labelPlacement="top"
                                 />
                             </RadioGroup>
                         </FormControl>
@@ -214,7 +214,8 @@ export default function Feedback(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="lightcoral"
+                            // color="lightcoral"
+                            style={{backgroundColor:'#FC3C80',color:'white'}}
                             className={classes.submit}
                             onmouseover="this.style.color='lightcoral'"
                             onClick={Submit} > Submit </Button>

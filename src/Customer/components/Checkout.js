@@ -41,12 +41,16 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
+    color:"#FC3C80"
+    
   },
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
   },
   button: {
+    backgroundColor:"#FC3C80",
+    color:"white",
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
@@ -57,7 +61,7 @@ const steps = ['Shipping address', 'Review your order'];
 function getStepContent(step,user,address,setAddress,fname,setfName,lname,setlName) {
   switch (step) {
     case 0:
-      return <AddressForm user={user} address={address} setAddress={setAddress} fname={fname} setfName={setfName} lname={lname} setlName={setlName}/>;
+      return <AddressForm  user={user} address={address} setAddress={setAddress} fname={fname} setfName={setfName} lname={lname} setlName={setlName}/>;
     case 1:
       return <Review user={user} address={address} fname={fname} lname={lname}/>;
     default:
@@ -96,7 +100,7 @@ export default function Checkout(props) {
     customerName:fname+" "+lname,
     cart:JSON.parse(window.localStorage.getItem("cartItems")),
     totalprice:((JSON.parse(localStorage.getItem("cartTotalPrice"))*0.1)+1)*10,
-    date:Date().toLocaleString(),
+    date:new Date().toLocaleString(),
     custaddress:address
       });
       setChecked(true);
@@ -128,10 +132,10 @@ export default function Checkout(props) {
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={activeStep} className={classes.stepper} >
             {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+              <Step key={label} >
+                <StepLabel >{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
@@ -159,6 +163,7 @@ export default function Checkout(props) {
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
+                    textColor="white" backgroundColor="#FF00A7"
                     className={classes.button} 
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}

@@ -1,12 +1,12 @@
 button {
     border-radius: 5px;
-    border: 1px solid rgb(197, 115, 128);
+    border: 1px solid #FF00A7;
     padding: 10px;
     background: transparent;
     transition: 0.15s ease-in-out;
     margin: 10px 0;
     // background: whitesmoke;
-    background: rgb(197, 115, 128);
+    background: #FF00A7;
 
     color: whitesmoke;
     margin-left: 22px;
@@ -15,6 +15,6 @@ button {
     &:hover {
         cursor: pointer;
         background: whitesmoke;
-        color: rgb(197, 115, 128);
+        color: #FF00A7;
     }
 }

@@ -39,7 +39,7 @@ const EditCategoryForm = props => {
       <button
         onClick={() => props.setEditing(false)}
         className="btn btn-inline"
-        style={{backgroundColor:'pink'}}
+        style={{backgroundColor:'#FC3C80',color:'white'}}
       >
         Cancel
       </button>

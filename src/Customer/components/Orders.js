@@ -96,7 +96,7 @@ export default function Orders(props) {
                                         <Grid item xs={6} >
                                             <Box  fontSize="h6.fontSize">
                                             <Paper fontWeight="fontWeightBold">Total </Paper>
-                                            <Paper className={classes.paper}>{order.totalprice},000 L.B.P</Paper>
+                                            <Paper className={classes.paper}>{order.totalprice} LBP</Paper>
                                             </Box>
                                         </Grid>
 

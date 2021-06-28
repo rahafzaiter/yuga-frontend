@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import SearchBar from './SearchBar'
 import Box from '@material-ui/core/Box';
 import ProductDetails from '../components/ProductDetails'
-import {Link} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ShopProduct.scss'
 import AnimatedButton from 'react-animated-buttons';
@@ -63,12 +63,17 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    maxHeight:"560px"
   },
   cardMedia: {
-    paddingTop: '80.25%', // 16:9
+    paddingTop: '95.25%', // 16:9,
+    height:"390px",
+    objectFit: "cover"
   },
   cardContent: {
-    flexGrow: 2,
+    flexGrow: 1,
+    maxHeight:"260px"
+
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -100,6 +105,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album(props) {
   const classes = useStyles();
+  const history=useHistory();
 
   // const [productTest,setProductTest]=useState([]);
   // setProductTest({productTest:props.products});
@@ -247,14 +253,14 @@ export default function Album(props) {
        {/* collection */}
 
        <FormControl component="fieldset">
-      <FormLabel component="legend">Choose your color</FormLabel>
+      <FormLabel component="legend">Choose Color</FormLabel>
       <RadioGroup row aria-label="gender" name="row-radio-buttons-group"
       >
          <FormControlLabel value="All" control={<Radio />} label="All" onChange={handleChangeColor}/>
-        <FormControlLabel value="colored" control={<Radio />}  label="Colored" 
+        <FormControlLabel value="light" control={<Radio />}  label="Light" 
         onChange={handleChangeColor}
       />
-        <FormControlLabel value="black" control={<Radio />} label="Black"  style={{color:"black"}}
+        <FormControlLabel value="dark" control={<Radio />} label="Dark"  style={{color:"black"}}
         onChange={handleChangeColor} />
        
       </RadioGroup>
@@ -264,7 +270,7 @@ export default function Album(props) {
       {/* Category2 */}
 
       <FormControl component="fieldset" className={classes.formControl}>
-      <FormLabel component="legend">Category</FormLabel>
+      <FormLabel component="legend">Choose Category</FormLabel>
       <RadioGroup aria-label="category" name="gender1" value={state.selectedCategory} onChange={handleChangeCategory}
       
       className="circle"
@@ -295,7 +301,7 @@ export default function Album(props) {
 
           {/* All Items */}
 
-          <Grid container spacing={4} 
+          <Grid container spacing={1} 
           item 
           xs={9}
           
@@ -313,49 +319,55 @@ export default function Album(props) {
                     <Typography gutterBottom variant="h5" component="h2">
                     {card.title}                                              
                     </Typography>
-                    <Typography>
+                    {/* <Typography>
                      {card.color} {card.title}
-                    </Typography>
-                    <Typography>
-                     {card.price},000 L.B.P
+                    </Typography> */}
+                    <Typography style={{fontWeight:"800",fontSize:"60"}} value="bold" fontWeight="800" color="Black" aria-label="bold">
+                     {card.price} LBP
                     </Typography>
 
                     <Typography>  
-                      <Link 
- 
-                      to={{
-                       pathname:`/Customer/ProductDetails/${card.id}`,
-                       card:{card} ,
-                       
-
-                       aboutProps:{
-                         card:{card} 
-                        //  prodname:{card.name}
-                       }
-                      }}  
-                    >
-                      <AnimatedButton textColor="white" color="rgb(197, 115, 128)" style={{backgroundColor:'rgb(197, 115, 128)',width:'25%',marginTop:"4%",color:'white'}} 
+                    
+            { card.inStock ? 
+            (
+                      <AnimatedButton textColor="white" color="#FF00A7" style={{backgroundColor:"#FF00A7",width:'25%',marginTop:"4%",color:'white'}} 
                        className="btn shadow"
                
-                      disabled={!card.inStock}
+                      // disabled={!card.inStock}
                       
-                      style={{backgroundColor:!card.inStock?"grey":""}}
+                      style={{backgroundColor:card.inStock ? "grey" : "#FF00A7"}}
                       
-                      shadow onClick={(()=>{ 
+                      shadow 
+                      onClick={(()=>{ 
                         remove();
-                        localStorage.setItem('product',JSON.stringify({card}))})
+                        localStorage.setItem('product',JSON.stringify({card}));
+                         history.push(`/Customer/ProductDetails/${card.id}`)
+                      })
+                       
                         }> View </AnimatedButton>
-                    </Link>                              
+
+                        )
+                        
+                      :
+
+(
+                      <Typography>                
+                    <h6 color="Black" disabled="true">Sold Out</h6>
+                 
+                    </Typography>
+)
+                      }
+                   
                     </Typography>
                    
                   </CardContent>
-                  <CardActions> 
+                  {/* <CardActions> 
                   <Typography>                
-                    <h6>{card.inStock?"InStock":"Sold Out"} </h6>
+                    <h6 align="center">{card.inStock? " ":"Sold Out"} </h6>
                  
                     </Typography>
                     
-                </CardActions>  
+                </CardActions>   */}
                 </Card>
               </Grid>
 

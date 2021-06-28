@@ -146,10 +146,8 @@ export default function ProductDetails({additem,user}) {
             <h5  marginButton="2px"> Product Info
             </h5>
             <p  marginButton="2px"> {Product.card.description}</p>
-            <p  marginButton="2px">{Product.card.collection}</p>
-            
-            <p marginButton="2px">Price: {Product.card.price} L.L.P</p>
-
+            <p  marginButton="2px">{Product.card.collection}</p>           
+            <p marginButton="2px">Price: {Product.card.price} LBP</p>
            
           </Paper>
         </Grid>

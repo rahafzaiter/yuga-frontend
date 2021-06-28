@@ -12,6 +12,8 @@ const AddCategoryForm = props => {
   const handleInputChange = event => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
+
+    // localStorage.setItem("categoires",JSON.stringify({user}))
   };
 
   
@@ -36,7 +38,7 @@ const AddCategoryForm = props => {
       />
        
      
-      <button className="btn btn-inline" style={{backgroundColor:'pink'}}>Add new category</button>
+      <button className="btn btn-inline" style={{backgroundColor:'#FC3C80',color:'white'}}>Add new category</button>
     <br/>
     </Form>
   );

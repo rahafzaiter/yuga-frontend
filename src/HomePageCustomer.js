@@ -17,14 +17,14 @@ import MediaControlCard from './Customer/components/VideoCard'
 import MediaControlCardBlack from './Customer/components/BlackVideoCard'
 import AnimatedButton from 'react-animated-buttons';
 
-import '../src/home-page-customer.scss'
+import '../src/components/home-page-customer.scss'
 
 //Import Customer
 
 //IMport Admin:
 import HomePageAdmin from './HomePageAdmin'
 //images
-import HomePageImage from './Pictures/sales.jpg'
+import HomePageImage from './Pictures/victoriaSale.jpg'
 
 //Style:
 const useStyles = makeStyles({
@@ -33,7 +33,8 @@ const useStyles = makeStyles({
     
     },
     pinkDiv:{
-        background: '#F3E0E0',
+        // background: '#F3E0E0',
+        background: '#FEEBFF',
         padding:'5%'
         
       },
@@ -105,7 +106,7 @@ function HomePageCustomer (props){
              Take a look at our collection and enjoy shopping online with Yuga.
               Get in touch if you have any question.</p>
              
-              <AnimatedButton  onClick={()=>{history.push(`/CustProductGallery`)}} textColor="white" color="rgb(197, 115, 128)" style={{width:'65%',marginTop:"4%"}}  className="btn shadow">
+              <AnimatedButton  onClick={()=>{history.push(`/CustProductGallery`)}} width="100px" textColor="white" color="#FF00A7" style={{marginTop:"4%"}} className="btn shadow">
                 {/* <Link to="/Customer/CustProductGallery"              
                 >Shop now</Link> */}
                 Shop Now 
@@ -152,13 +153,13 @@ function HomePageCustomer (props){
         </div>
 
         {/* Vid */}
-        <div style={{backgroundColor:'#F2CBCB'}}>
+        <div>
          <MediaControlCardBlack />
         </div>
 
         
         {/* Conatact us */}
-        <div style={{padding:'5%',background:'#F3E0E0'}} align="center">
+        <div style={{padding:'5%',background:'#FEEBFF'}} align="center">
         <h1 className="home-page-customer_item">Contact Us</h1>
         <p align="center">
         rahafzaiter2@gmail.com</p>

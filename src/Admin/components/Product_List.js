@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import {useHistory} from 'react-router-dom'
 import back from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/AdminAddProduct.png"
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -19,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 //source:https://github.com/toofaniCoder/React-Users/tree/master/src/components/users
 
-const TutorialsList = () => {
+const TutorialsList = (props) => {
   const [users, setUser] = useState([]);
   const classes = useStyles();
   const history=useHistory();
@@ -28,7 +30,10 @@ const TutorialsList = () => {
     return { id, title, color, price,description,color,collection};
   }
 
-  const [products,setProducts]=useState( JSON.parse(localStorage.getItem("Products")))
+  const [products,setProducts]=useState( []
+    // JSON.parse(localStorage.getItem("Products"))
+    );
+  // const [prodLength]=useState(JSON.parse(localStorage.getItem("Products")).length);
 
   const [productss,setProductss]=useState([
 
@@ -63,6 +68,15 @@ const TutorialsList = () => {
       S:4,M:1,L:2,XL:3,XXL:1},
   ]);
 
+
+  useEffect(()=>{
+
+    // setProducts(props.Products)
+    console.log("products",JSON.parse(localStorage.getItem("Products")))
+    setProducts(JSON.parse(localStorage.getItem("Products")))
+
+  },[])
+
   
   // const products = [
   //   createData(1, 'floral dress', 'white', '25'),
@@ -89,7 +103,9 @@ const TutorialsList = () => {
 //     await axios.delete(`http://localhost:3003/users/${id}`);
 //     loadUsers();
 //   };
-const deleteUser={
+const deleteUser=(id)=>{
+  // await axios.delete(`http://localhost:3003/users/${id}`);
+  // //     loadUsers();
 
 };
 
@@ -100,29 +116,28 @@ const deleteUser={
       <div className=" py-2 shadow">
           <h3>All Products</h3>
           </div>
-      
-
           { 
           products.length==0 ?  
-
           <div style={{ backgroundImage: `url(${back})`,height:'700px',width:"100%" }}>
             <img  src={back} style={{height:'700px',width:"100%"}} />
             </div>
 
             :
         <div className="py-2">
-        <Table class="table border shadow" size="small">
-          <TableHead style={{backgroundColor:'#CF8E9F'}}>
+           <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead style={{backgroundColor:'#5e5e5e'}}>
             <TableRow>
-              <TableCell scope="col">#</TableCell>
-              <TableCell scope="col"> Product Name</TableCell>
-              <TableCell scope="col">color</TableCell>
-              <TableCell scope="col">price(L.B.P)</TableCell>
-              <TableCell align="center">Action</TableCell>
+              <TableCell style={{ color: 'white' }} scope="col">ID</TableCell>
+              <TableCell style={{ color: 'white' }} scope="col"> Product Name</TableCell>
+              <TableCell style={{ color: 'white' }} scope="col">Color</TableCell>
+              <TableCell style={{ color: 'white' }} scope="col">Price (LBP)</TableCell>
+              <TableCell style={{ color: 'white' }} scope="col">In Stock ?</TableCell>
+              <TableCell style={{ color: 'white' }} align="center">Action</TableCell>
             </TableRow>
           </TableHead>
 
-          <TableBody style={{backgroundColor:'#e2dcdc'}}>
+          <TableBody style={{backgroundColor:'#f1f1f1'}}>
 
            
 
@@ -132,9 +147,11 @@ const deleteUser={
                 <TableCell>{product.title}</TableCell>
                 <TableCell>{product.color}</TableCell>
                 <TableCell>{product.price}</TableCell>
+                <TableCell>{product.inStock?"in Stock":"Out of Stock"}</TableCell>
                 <TableCell align="center" >
                   
-                  <Link class="btn btn-outline-primary mr-2"                   
+                  <Link class="btn btn-outline-inherit mr-2"   
+                  style={{backgroundColor: '#FC3C80', color: '#FFFFFF'}}                
                     to={`./Admin/ViewProduct`}
                     onClick={(e)=>{
                       e.preventDefault()
@@ -159,7 +176,7 @@ const deleteUser={
                     Edit
                   </Link>
                   <Link
-                    class="btn btn-danger"
+                    class="btn btn-outline-danger mr-2"
                     onClick={() => deleteUser(product.id)}
                   >
                     Delete
@@ -172,6 +189,7 @@ const deleteUser={
           </TableBody>
 
         </Table>
+        </TableContainer>
        </div>
     }
     </div>

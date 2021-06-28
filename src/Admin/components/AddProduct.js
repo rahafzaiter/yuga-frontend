@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 //import TutorialDataService from "../services/TutorialService";
 import { makeStyles } from '@material-ui/core/styles';
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -86,8 +86,9 @@ export default function AddProduct (props) {
   //   JSON.parse(localStorage.getItem("product")) 
    
   // )
+  const [prodLength]=useState(JSON.parse(localStorage.getItem("Products")).length);
   const [product, setProduct] = useState({
-    id: null,
+    id: parseInt(prodLength,10)+1,
     title: '',
     description: '',
     price: '',
@@ -102,6 +103,8 @@ export default function AddProduct (props) {
     XXL: 0,
   });
 
+  
+
     // const [product, setProduct] = useState(ProductLocal.product);
   // const [imageSrc, setImageSrc] = useState();
   // const [colorHexCode, setColorHexCode] = useState('#000000');
@@ -109,7 +112,7 @@ export default function AddProduct (props) {
 
   const [pictures, setPictures] = useState(null);
   const [quantity, setQuantity] = useState({
-    id: 0,
+    id: parseInt(prodLength,10)+1,
     S: 0,
     M: 0,
     L: 0,
@@ -119,11 +122,15 @@ export default function AddProduct (props) {
 
     
   });
+
+
   // const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
 
 
-
+useEffect (()=>{
+  console.log(product.id)
+})
 
   // const handleInputChange = event => {
   //   const { name, value } = event.target;
@@ -190,6 +197,7 @@ export default function AddProduct (props) {
   };
 
   const Submit=()=>{
+    // setProduct({ ...product, id: parseInt(prodLength,10)+1 });
     props.addProducts(product)
     history.push("/Admin/tutorials")
 
@@ -220,7 +228,7 @@ export default function AddProduct (props) {
                   required
                   type="text"
                   id="outlined-required"
-                  label="title"
+                  label="Title"
                   defaultValue="title"
                   variant="outlined"
                   className={classes.formControl}
@@ -233,7 +241,7 @@ export default function AddProduct (props) {
                   required
                   type="text"
                   id="description"
-                  label="description"
+                  label="Description"
                   defaultValue="title"
                   variant="outlined"
                   className={classes.formControl}
@@ -253,7 +261,7 @@ export default function AddProduct (props) {
                     style={{ backgroundColor: "white" }}
                     onChange={handleInputChange}
                     // className={classes.formControl}
-                    startAdornment={<InputAdornment position="start">L.B.P</InputAdornment>}
+                    startAdornment={<InputAdornment position="start">LBP</InputAdornment>}
                     labelWidth={60}
                     name="price"
                   />
@@ -263,7 +271,7 @@ export default function AddProduct (props) {
                 <TextField
                   required
                   id="outlined-required"
-                  label="color"
+                  label="Color"
                   defaultValue="color"
                   variant="outlined"
                   value={product.color}
@@ -279,7 +287,7 @@ export default function AddProduct (props) {
 
                 <FormControl className={classes.formControl}>
 
-                  <InputLabel htmlFor="age-native-simple">Select Color Type </InputLabel>
+                  <InputLabel htmlFor="age-native-simple">Select Collection </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -292,8 +300,8 @@ export default function AddProduct (props) {
                     onChange={handleInputChange}
                     style={{ backgroundColor: "white", color: 'black' }}
                   >
-                    <MenuItem value={"T-shirt"}>Colored</MenuItem>
-                    <MenuItem value={"Skirt"}>Black</MenuItem>
+                    <MenuItem value={"Light"}>Light</MenuItem>
+                    <MenuItem value={"Dark"}>Dark</MenuItem>
 
 
                   </Select>
@@ -344,11 +352,11 @@ export default function AddProduct (props) {
                 <hr />
 
                 <div className="form-group">
-                  <h4>Quantity of each size</h4>
+                  <h4>Select Quantity of each size</h4>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
 
-                    <InputLabel htmlFor="outlined-adornment-amount">S</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">Small</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.S}
@@ -363,7 +371,7 @@ export default function AddProduct (props) {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">M</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">Medium</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.M}
@@ -378,7 +386,7 @@ export default function AddProduct (props) {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">L</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">Large</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.L}
@@ -392,7 +400,7 @@ export default function AddProduct (props) {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">XL</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">XLarge</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.XL}
@@ -407,7 +415,7 @@ export default function AddProduct (props) {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">XXL</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">XXLarge</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.XXL}
@@ -425,8 +433,8 @@ export default function AddProduct (props) {
                 <div>
                   <button className="btn btn-block shadow" 
                   onClick={Submit} 
-                  style={{ backgroundColor: 'pink' }}>
-                      Add</button>
+                  style={{backgroundColor:'#FC3C80',color:'white'}}>
+                      Add new product</button>
                 </div>
 
               </div>

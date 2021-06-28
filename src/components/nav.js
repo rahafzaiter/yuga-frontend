@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useH
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
+import Button from '@material-ui/core/Button';
 import './home-page-customer.scss'
 //Customer Pages:
 //icons:
@@ -25,6 +26,10 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 const useStyles = makeStyles({
   root: {
     width: '100%',
+    fontSize:62,
+    fontWeight: 800,
+    color:"black"
+
   },
   pinkDiv: {
     background: '#F3E0E0',
@@ -34,11 +39,10 @@ const useStyles = makeStyles({
   NavBox: {
     mb: 2,
     align: "left",
-    fontWeight: 400,
-    fontSize: 30,
+    fontWeight: 200,
+    fontSize: "h2.fontSize",
     m: 1,
     borderColor: 'grey',
-    height: "40%",
   }
 
 
@@ -99,11 +103,12 @@ function Navigation(props) {
           }}
           showLabels
 
-          className={classes.root}>
+          // className="home-page-customer_size"
+          >
 
-          <BottomNavigationAction className="nav-links" label="Home" align="left" component={Link}
+          <BottomNavigationAction className="nav-links" variant="h3" label="Home" align="left" component={Link}
             to="/Customer/CustHomePage" />
-          <BottomNavigationAction className="nav-links" label="Shop" align="left" component={Link}
+          <BottomNavigationAction className="nav-links" variant="h3" label="Shop" align="left" component={Link}
             to="/Customer/CustProductGallery" />
           <BottomNavigationAction className="nav-links" label="My Orders" align="left" component={Link}
             to="/Customer/CustOrders" />
@@ -130,9 +135,9 @@ function Navigation(props) {
               <MenuItem onClick={()=>{
                 path="/Customer/Password"
                 handleClose(path)
-                }}>Passowrd</MenuItem>
+                }}>Password</MenuItem>
             </Menu>
-          <BottomNavigationAction className="nav-links" label="Shipping_Policies" align="left" component={Link}
+          <BottomNavigationAction className="nav-links" label="Shipping Policies" align="left" component={Link}
             to="/Customer/CustShipping" />
           <BottomNavigationAction className="nav-links" label="Feedback" align="left" component={Link}
             to="/Customer/CustFeedback" />
@@ -159,13 +164,13 @@ function Navigation(props) {
           }}
           showLabels
 
-          className={classes.root}>
+          className="home-page-customer_size">
 
-          <BottomNavigationAction className="nav-links" label="Home" align="left" component={Link}
+          <BottomNavigationAction className="nav-links" fontSize="large"  label="Home" align="left" component={Link}
             to="/Customer/CustHomePage" />
           <BottomNavigationAction className="nav-links" label="Shop" align="left" component={Link}
             to="/Customer/CustProductGallery" />
-          <BottomNavigationAction className="nav-links" label="Shipping_Policies" align="left" component={Link}
+          <BottomNavigationAction className="nav-links" label="Shipping Policies" align="left" component={Link}
             to="/Customer/CustShipping" />
           <BottomNavigationAction className="nav-links" icon={<AccountCircleIcon />} align="right" component={Link}
             to="/Customer/custAuthentication" />
@@ -179,13 +184,13 @@ function Navigation(props) {
 
     <Grid className="container" xs={10}>
 
-      <Box className={classes.NavBox} align="left" className="home-page-customer_item">
+      <Box className={classes.NavBox} align="center" className="home-page-customer_item">
         <span class="logo">
           <a href="/" >
             <img src={Logo} height="80px" width="115px" alt="Yuga logo" /> </a>
         </span>YUGA
         </Box>
-      <Box borderTop={1}>
+      <Box marginTop="30px">
 
         {navBar}
       </Box>

@@ -65,12 +65,13 @@ export default function MediaControlCard() {
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h3" variant="h3" className="home-page-customer_item">
-          Colors
+          <Typography component="h3" variant="h3" >
+            <p className="home-page-customer_item">Light </p>
+          
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-          Colorful Collection
-          <p>Our cup cake lovely customers!!! Fresh life needs colors, Visit our store to find your color  </p>
+          Light Colors Collection
+          <p className="home-page-customer_p" >Our cup cake lovely customers!!! Fresh life needs Light colors, Visit our store to find your color  </p>
           </Typography>
         </CardContent>
        
@@ -78,7 +79,7 @@ export default function MediaControlCard() {
      
 
         <VideoPlayer
-        autoplay
+       
         className={classes.cover}
         image={HomePageImage}
         title="Live from space album cover"

@@ -11,7 +11,7 @@ function Item(props){
 			<img  src={props.Product.card.image} alt={`${props.Product.card.title} book`} />
 			<div>
 				<h1>{props.Product.card.title}</h1>
-				<p>L.B.P  {props.Product.card.price},000</p>
+				<p>L.B.P  {props.Product.card.price}</p>
 				<p> Size: {props.size}</p>
 				{/* <p> Quantity: {props.quantity}</p> */}
 				<button>Remove from cart</button>

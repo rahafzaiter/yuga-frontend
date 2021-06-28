@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper';
 
 // Generate Order Data
 function createData(id,date,name, phone,shipTo,paymentMethod) {
@@ -38,18 +40,18 @@ export default function FeedbackAdmin() {
     <div className="container" style={{minHeight:"900px",marginTop:"40px"}}>
     <React.Fragment >
       <Title >Recent Orders</Title>
-      <Table size="small" class="table border shadow">
-        <TableHead style={{backgroundColor:'#CF8E9F'}}>
+      <TableContainer component={Paper}>
+      <Table  aria-label="simple table">
+        <TableHead style={{backgroundColor:'#5e5e5e'}}>
           <TableRow>
-            <TableCell>Customer id</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Customer Name </TableCell>
-            <TableCell>Phone nb</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell align="right">Payment Method</TableCell>
+            <TableCell style={{ color: 'white' }} >Date</TableCell>
+            <TableCell style={{ color: 'white' }}>Customer Name </TableCell>
+            <TableCell style={{ color: 'white' }}>Phone nb</TableCell>
+            <TableCell style={{ color: 'white' }}>Address</TableCell>
+            <TableCell style={{ color: 'white' }}>Payment Method</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody style={{backgroundColor:'#E5DBE1'}}>
+        <TableBody style={{backgroundColor:'#f1f1f1'}}>
           {rows.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
@@ -57,29 +59,14 @@ export default function FeedbackAdmin() {
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
+              {/* <TableCell align="right">{row.amount}</TableCell> */}
             </TableRow>
           ))}
         </TableBody>
 
-        {/* <TableBody style={{backgroundColor:'#E5DBE1'}}>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-             <TableCell>{row.customerid}</TableCell>
-             <TableCell>{row.name}</TableCell>
-              <TableCell>{row.rate}</TableCell>
-              <TableCell>{row.comment}</TableCell>
-              <TableCell>{row.category}</TableCell>  
-            </TableRow>
-          ))}
-        </TableBody>
-        */}
       </Table> 
-      {/* <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
-        </Link>
-      </div> */}
+      </TableContainer>
+    
     </React.Fragment>
     </div>
   );

@@ -209,7 +209,7 @@ export default function EditProduct() {
                   required
                   type="text"
                   id="outlined-required"
-                  label="title"
+                  label="Title"
                   defaultValue="title"
                   variant="outlined"
                   className={classes.formControl}
@@ -243,7 +243,7 @@ export default function EditProduct() {
             id="description"
             name="description"
             value={product.description}
-            label="description"
+            label="Description"
             fullWidth
             autoComplete="given-name"
             onChange={handleInputChange}
@@ -258,7 +258,7 @@ export default function EditProduct() {
                     style={{ backgroundColor: "white" }}
                     onChange={handleInputChange}
                     // className={classes.formControl}
-                    startAdornment={<InputAdornment position="start">L.B.P</InputAdornment>}
+                    startAdornment={<InputAdornment position="start">LBP</InputAdornment>}
                     labelWidth={60}
                   />
                 </FormControl>
@@ -266,7 +266,7 @@ export default function EditProduct() {
                 <TextField
                   required
                   id="outlined-required"
-                  label="color"
+                  label="Color"
                   defaultValue="color"
                   variant="outlined"
                   value={product.color}
@@ -282,8 +282,9 @@ export default function EditProduct() {
 
                 <FormControl className={classes.formControl}>
 
-                  <InputLabel htmlFor="age-native-simple">Select Color Type </InputLabel>
+                  <InputLabel htmlFor="age-native-simple">Select Collection </InputLabel>
                   <Select
+                  label="Select Collection"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     inputProps={{
@@ -294,8 +295,8 @@ export default function EditProduct() {
                     onChange={handleInputChange}
                     style={{ backgroundColor: "white", color: 'black' }}
                   >
-                    <MenuItem value={"Colored"}>Colored</MenuItem>
-                    <MenuItem value={"Black"}>Black</MenuItem>
+                    <MenuItem value={"Light"}>Light</MenuItem>
+                    <MenuItem value={"Dark"}>Dark</MenuItem>
 
 
                   </Select>
@@ -332,7 +333,7 @@ export default function EditProduct() {
                 <TextField
                   required
                   id="outlined-required"
-                  label="Image LInk"
+                  label="Image Link"
                   defaultValue="color"
                   variant="outlined"
                   value={product.image}
@@ -345,11 +346,11 @@ export default function EditProduct() {
                 <hr />
 
                 <div className="form-group">
-                  <h4>Quantity of size</h4>
+                  <h4>Select Quantity of each size</h4>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
 
-                    <InputLabel htmlFor="outlined-adornment-amount">S</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">Small</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.S}
@@ -363,7 +364,7 @@ export default function EditProduct() {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">M</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">Medium</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.M}
@@ -377,7 +378,7 @@ export default function EditProduct() {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">L</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">Large</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.L}
@@ -390,7 +391,7 @@ export default function EditProduct() {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">XL</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">X Large</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.XL}
@@ -404,7 +405,7 @@ export default function EditProduct() {
                   </FormControl>
                   <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                    <InputLabel htmlFor="outlined-adornment-amount">XXL</InputLabel>
+                    <InputLabel htmlFor="outlined-adornment-amount">XX Large</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.XXL}
@@ -419,7 +420,7 @@ export default function EditProduct() {
                
 
                 <div>
-                  <button className="btn btn-block shadow" onClick={() => history.push("/Admin/tutorials")} style={{ backgroundColor: 'pink' }}>
+                  <button className="btn btn-block shadow" onClick={() => history.push("/Admin/tutorials")} style={{backgroundColor:'#FC3C80',color:'white'}}>
                     Update
           </button>
                 </div>

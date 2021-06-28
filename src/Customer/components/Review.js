@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -17,7 +17,7 @@ import Grid from '@material-ui/core/Grid';
 
 const payments = [
   { name: 'Payment Method', detail: 'Cash on delivery' },
- 
+
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -34,46 +34,55 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review(props) {
   const classes = useStyles();
-  const [orderR,setOrderR]  =useState(JSON.parse(localStorage.getItem("cartItems")).allcarts);
-  const [totalPrice,setTotal]=useState(JSON.parse(localStorage.getItem("cartTotalPrice")));
-  const [address,setAddress]=useState(props.address);
+  const [orderR, setOrderR] = useState(JSON.parse(localStorage.getItem("cartItems")).allcarts);
+  const [totalPrice, setTotal] = useState(JSON.parse(localStorage.getItem("cartTotalPrice")));
+  const [address, setAddress] = useState(props.address);
   const addresses = [address.city, address.street, address.building, address.floor];
 
   // const [orders,setOrders]=useState(props.products)
 
   useEffect(() => {
-    console.log("checkOut",orderR);
-    console.log("address in review ",address)
+    console.log("checkOut", orderR);
+    console.log("address in review ", address)
 
-   
-  },[]);
 
-  const TotalPrice=(totalPrice)
+  }, []);
+
+  const TotalPrice = (totalPrice)
 
   return (
-  
+
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-      {orderR.map((product) => (
+        {orderR.map((product) => (
           <ListItem className={classes.listItem} key={product.title}>
             <ListItemText primary={product.Product.card.title} />
-            <Typography variant="body2">L.B.P {product.Product.card.price} </Typography>
+            <Typography variant="body2">{product.Product.card.price} LBP  </Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="SubTotal" />
-          <Typography variant="subtitle1" className={classes.total}>
-            L.B.P {totalPrice}
+          <Typography variant="subtitle2" className={classes.total}>
+            {totalPrice} LBP
           </Typography>
-          </ListItem>
-          <ListItem className={classes.listItem}>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+
+          <ListItemText primary="Delivery Charge" />
+
+          <Typography variant="subtitle2" className={classes.total}>
+           +10,000 LBP
+         </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
 
           <ListItemText primary="Total" />
+
           <Typography variant="subtitle1" className={classes.total}>
-            L.B.P {((TotalPrice*0.1)+1)*10}
+            {parseInt(TotalPrice, 10) + 10000} LBP
           </Typography>
         </ListItem>
       </List>

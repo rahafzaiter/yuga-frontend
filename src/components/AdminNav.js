@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Logo from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures//logoPinkDress.jpeg"
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useHistory, NavLink } from "react-router-dom";
+import './home-page-customer.scss'
 //icons:
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
@@ -16,6 +17,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
 import FeedbackIcon from '@material-ui/icons/Feedback';
+
 //switch
 
 
@@ -64,13 +66,14 @@ function AdminNav(props) {
   if (localStorage.getItem("admin")) {
     navAdmin = (
       <div>
-        <Box className={classes.NavBox} align="left">
-          <span class="logo">
-            <a href="/">
-              <img src={Logo} height="80px" width="115px" alt="Yuga logo" /> </a>
-          </span>YUGA
+        <Box className={classes.NavBox} align="center" className="home-page-customer_item">
+        <span class="logo">
+          <a href="/" >
+            <img src={Logo} height="80px" width="115px" alt="Yuga logo" />
+             </a>
+        </span>YUGA
         </Box>
-        <Box borderTop={1}>
+        <Box marginTop="30px">
           <Typography component="div">
 
             <BottomNavigation

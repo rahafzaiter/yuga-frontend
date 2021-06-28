@@ -91,7 +91,7 @@ function ShoppingCart({ cart }) {
                      className="shopping-cart__checkout "
                      > 
 
-                        <p>Total : L.L.P {getCartTotal()},000</p>
+                        <p>Total :  {getCartTotal()} LBP</p>
 
                         <button
                             onClick={(() => {
