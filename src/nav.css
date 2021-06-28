@@ -1,11 +1,13 @@
 .nav-links {
     /* display: inline-block; */
-    height: 40px;
-    font-size: 100%;
-    background-color:white;/*will change background-color of element */
-    color: rgb(15, 15, 15); /*will change color of text within the element */ 
+    /* height: 40px; */
+    font-size: 19px;
+    /* font-weight :200px; */
+    margin-right:40px;
+    /* background-color:white;will change background-color of element */
+    color: black; /*will change color of text within the element */ 
     font-family:fantasy;
-    font-style: inherit;
+    /* font-style: inherit; */
     }
     
     .nav-links:hover {

@@ -19,16 +19,21 @@ import './home-page-customer.scss'
 //icons:
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 //switch
 
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    fontSize:62,
-    fontWeight: 800,
-    color:"black"
+    fontSize: 18,
+    fontWeight: 300,
+    color: "black",
+    // marginLeft:"40px",
+    marginRight:"40px",
+    align:"center"
+  
+    
 
   },
   pinkDiv: {
@@ -48,6 +53,19 @@ const useStyles = makeStyles({
 
 
 });
+
+
+const theme = createMuiTheme();
+
+theme.typography.h3 = {
+  fontSize: '1.2rem',
+  '@media (min-width:600px)': {
+    fontSize: '1.5rem',
+  },
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+};
 
 
 function Navigation(props) {
@@ -87,7 +105,7 @@ function Navigation(props) {
   };
 
   useEffect(() => {
-    console.log("user in Customer nav",props.user)
+    console.log("user in Customer nav", props.user)
   }, [props.user])
 
   var navBar;
@@ -97,60 +115,76 @@ function Navigation(props) {
     navBar = (
       <Typography component="div">
         <BottomNavigation
+
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
           }}
           showLabels
+          className="home-page-customer_size"
+        >
 
-          // className="home-page-customer_size"
-          >
+          {/* <BottomNavigationAction theme={theme} variant="h3" style={{ fontSize: 21 }} label="Home" align="left" component={Link}
+            to="/Customer/CustHomePage" ></BottomNavigationAction> */}
 
-          <BottomNavigationAction className="nav-links" variant="h3" label="Home" align="left" component={Link}
-            to="/Customer/CustHomePage" />
-          <BottomNavigationAction className="nav-links" variant="h3" label="Shop" align="left" component={Link}
-            to="/Customer/CustProductGallery" />
-          <BottomNavigationAction className="nav-links" label="My Orders" align="left" component={Link}
-            to="/Customer/CustOrders" />
-          <BottomNavigationAction className="nav-links" label="Account" align="left" component={Link}
+          <Button component={Link} align="left"
+            to="/Customer/CustHomePage"> <span align="left" className="nav-links" >Home</span>  </Button>
+
+          <Button component={Link} align="left"
+            to="/Customer/CustProductGallery"> <span align="left" className="nav-links"  >Shop</span>  </Button>
+
+          {/* <Button component={Link} align="left"
+            to="/Customer/CustProductGallery"> <span className={classes.root}  >Shop</span>  </Button> */}
+
+          <Button label="My Orders" align="left" component={Link}
+            to="/Customer/CustOrders"  > <span align="left" className="nav-links">My Orders</span></Button>
+
+          <Button label="Account" align="left" component={Link}
             // to="/Customer/CustProfile"
-             aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick} >
-          </BottomNavigationAction>
+            aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}  > <span align="left" className="nav-links" >Account</span></Button>
+
+         
           <Menu
-              id="fade-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={open}
-              onClose={handleClosePages}
-              TransitionComponent={Fade}
-            >
-              <MenuItem  onClick={()=>{
-                path="/Customer/Profile"
-                handleClose(path)
-                }}>Profile</MenuItem>
-              {/* <MenuItem onClick={()=>{
+            id="fade-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleClosePages}
+            TransitionComponent={Fade}
+          >
+            <MenuItem onClick={() => {
+              path = "/Customer/Profile"
+              handleClose(path)
+            }}>Profile</MenuItem>
+            {/* <MenuItem onClick={()=>{
                 path="/Customer/Address"
                 handleClose(path)
                 }}>Address</MenuItem> */}
-              <MenuItem onClick={()=>{
-                path="/Customer/Password"
-                handleClose(path)
-                }}>Password</MenuItem>
-            </Menu>
-          <BottomNavigationAction className="nav-links" label="Shipping Policies" align="left" component={Link}
-            to="/Customer/CustShipping" />
-          <BottomNavigationAction className="nav-links" label="Feedback" align="left" component={Link}
-            to="/Customer/CustFeedback" />
-         
-          <BottomNavigationAction className="nav-links" icon={<LocalMallIcon />} align="right" component={Link}
-            to="/Customer/CustCart" >Cart</BottomNavigationAction>
-          <BottomNavigationAction className="nav-links" align="right" component={Link} label="Logout"
+            <MenuItem onClick={() => {
+              path = "/Customer/Password"
+              handleClose(path)
+            }}>Password</MenuItem>
+          </Menu>
+
+          <Button label="Shipping Policies" align="left" component={Link}
+            to="/Customer/CustShipping" > <span align="left"   className="nav-links">Shipping Policies</span></Button>
+
+          <Button label="Feedback" align="left" component={Link}
+            to="/Customer/CustFeedback" > <span align="left" className="nav-links">Feedback</span></Button>
+
+        
+            <Button label="Feedback" icon={<LocalMallIcon />} align="right" component={Link}
+            to="/Customer/CustCart" > <span align="right" className="nav-links"  icon={<LocalMallIcon />} ><LocalMallIcon /></span></Button>
+
+          <Button align="right" component={Link} label="Logout"
             to="/Customer/" onClick={(e) => {
               e.preventDefault()
               remove();
               props.setUser()
               history.push("/Customer/CustHomePage")
-            }} />
+            }} ><span align="right" className="nav-links">Logout</span> </Button>
+
+
         </BottomNavigation>
       </Typography>
     )
@@ -166,15 +200,17 @@ function Navigation(props) {
 
           className="home-page-customer_size">
 
-          <BottomNavigationAction className="nav-links" fontSize="large"  label="Home" align="left" component={Link}
-            to="/Customer/CustHomePage" />
-          <BottomNavigationAction className="nav-links" label="Shop" align="left" component={Link}
-            to="/Customer/CustProductGallery" />
-          <BottomNavigationAction className="nav-links" label="Shipping Policies" align="left" component={Link}
-            to="/Customer/CustShipping" />
-          <BottomNavigationAction className="nav-links" icon={<AccountCircleIcon />} align="right" component={Link}
-            to="/Customer/custAuthentication" />
 
+
+          <Button fontSize="large" label="Home" align="left" component={Link}
+            to="/Customer/CustHomePage" > <span  className="nav-links">Home</span></Button>
+
+          <Button  label="Shop" align="left" component={Link}
+            to="/Customer/CustProductGallery" ><span className="nav-links">Shop</span></Button>
+          <Button  label="Shipping Policies" align="left" component={Link}
+            to="/Customer/CustShipping" ><span className="nav-links">Shipping Policies</span> </Button>
+          <Button   align="right" component={Link}
+            to="/Customer/custAuthentication"><span className="nav-links"><AccountCircleIcon /></span> </Button>
         </BottomNavigation>
       </Typography>)
   }
@@ -190,10 +226,10 @@ function Navigation(props) {
             <img src={Logo} height="80px" width="115px" alt="Yuga logo" /> </a>
         </span>YUGA
         </Box>
-      <Box marginTop="30px">
+      <Grid marginTop="37px" >
 
         {navBar}
-      </Box>
+      </Grid>
 
     </Grid>
 

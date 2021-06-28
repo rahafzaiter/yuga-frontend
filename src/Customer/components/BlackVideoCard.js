@@ -62,7 +62,7 @@ export default function MediaControlCardBlack() {
     const posterBlack=BlackImg;
 
   return (
-    <div alignItems="left">
+    <div alignItems="center">
     <Card className={classes.root}>
       <div className="home-page-custmer">
         <CardContent className={classes.content}>
@@ -91,10 +91,10 @@ export default function MediaControlCardBlack() {
         // xs={6}
        
 
-        width="620"
+        width="200px"
         frameBorder='0'
         background='grey'
-        height="360"
+        height="360px"
       />
       
     </Card>
