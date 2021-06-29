@@ -16,10 +16,10 @@ import back from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Y
 const useStyles = makeStyles((theme) => ({
     root: {
         // flexGrow: 1,
-       
-        minHeight:'1000px',
-        width:"100%",
-        
+
+        minHeight: '1000px',
+        width: "100%",
+
 
     },
     paper: {
@@ -49,51 +49,51 @@ export default function Orders(props) {
         <div>
             <div container className={classes.root} >
                 <Grid className="container" spacing={3} >
-                <Grid item xs={12} className="shopping-cart_item">
-                        <Grid item xs={12} >
-                            <h2 style={{ fontSize: 40}}>Thank you for your orders {props.user.user.firstname} {props.user.user.lastname} 
-                            
-                            <img src={Logo} style={{height:"40px", width:"200px"  }} alt="Yuga logo" /></h2>
+                    <Grid item xs={12} className="shopping-cart_item">
+                        {/* <Grid item xs={12}  >
+                            <h2 style={{ fontSize: 40, marginBottom: "30px", marginTop: "40px" }}>Thank you for your orders {props.user.user.firstname} {props.user.user.lastname}
+
+                                <img src={Logo} style={{ height: "40px", width: "200px" }} alt="Yuga logo" />
+                            </h2>
+                        </Grid> */}
+                    </Grid>
+
+                    { allorders == null ? (
+                        <div>
+                            <Grid item xs={12}>
+                                <h1> Hey Lady! What are you waiting for? Order your item now !</h1>
                             </Grid>
-                        </Grid>
-                    
-                    { allorders==null ?  (
-                   <div  style={{ backgroundImage: `url(${back})`,height:'700px'}}>
-                        <Grid item xs={12}>
-                        <h1></h1>
-                        </Grid>
-                        <Grid item xs={6}>
-                        <h1></h1>
-                        </Grid>
-                        <Grid item xs={6} >
-                        {/* <h1 style={{padding:'200px',margin:'90px'}}>Still no orders yet, What are you waiting for?  </h1> */}
-                        </Grid>
+
                         </div>
                     )
-                         :
-                         
+                        :
 
-                       
-                       
 
-                       
+                     (  
+                         <div>
+                          <Grid item xs={12}>
+                        <h2 style={{ fontSize: 30, marginBottom: "30px", marginTop: "40px" }}>Thank you for your orders {props.user.user.firstname} {props.user.user.lastname}
 
-                        
-                        
-                 allorders.map((order, index) => (
-                        <Accordion key={index} style={{ width: "100%" }}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header">
-                                <Typography className={classes.heading}>Order {index+1}</Typography>
-                            </AccordionSummary>
+                            {/* <img src={Logo} style={{ height: "70px", width: "200px" }} alt="Yuga logo" /> */}
+                        </h2>
+                    </Grid>
+                   
 
-                            <AccordionDetails >
-                                <Typography style={{ width: "100%" }}>
+                            { 
+                                allorders.map((order, index) => (
+                            <Accordion key={index} style={{ width: "100%" }}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header">
+                                    <Typography className={classes.heading} style={{ fontSize: 19 }}>Order {index + 1} /  Date: {order.date}</Typography>
+                                </AccordionSummary>
 
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={6} >
+                                <AccordionDetails >
+                                    <Typography style={{ width: "95%" }}>
+
+                                        <Grid container spacing={2}>
+                                            {/* <Grid item xs={6} >
                                             <Box  fontSize="h6.fontSize">
                                             <Paper fontWeight="fontWeightBold">Total </Paper>
                                             <Paper className={classes.paper}>{order.totalprice} LBP</Paper>
@@ -105,10 +105,13 @@ export default function Orders(props) {
                                             <Paper>Date</Paper>
                                             <Paper shadow className={classes.paper}> {order.date}</Paper>
                                             </Box>
-                                        </Grid>
+                                        </Grid> */}
+
+                                          
+                                       
 
                                         <Grid item xs={12}>
-                                            <OneOrder item={order.cart.allcarts} /> 
+                                            <OneOrder item={order.cart.allcarts} total={order.totalprice} />
                                         </Grid>
 
                                     </Grid>
@@ -117,13 +120,16 @@ export default function Orders(props) {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>
-                    ))
+                    ))}
+
+                    </div>
+
+                     )}
                     
-                }
-
-                </Grid>             
-            </div>
-
+                </Grid>
+                
         </div>
+
+        </div >
     )
 }

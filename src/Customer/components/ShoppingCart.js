@@ -13,12 +13,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        width: "80%",
-        
+        // flexGrow: 1,
+        width: "100%",
+
 
     },
     paper: {
@@ -32,13 +33,25 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
     },
     cardGrid: {
-        minHeight:"900px",
+        minHeight: "900px",
 
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
+    table: {
+        minWidth: 650,
+      },
+    
 
 }));
+
+const defaultProps = {
+    bgcolor: 'white',
+    border: 2,
+    m: 2,
+    borderColor: 'black',
+    style: { width: '5rem', height: '5rem' },
+  };
 
 //https://github.com/LambdaSchool/react-shopping-cart/tree/master/src 
 
@@ -75,24 +88,35 @@ function ShoppingCart({ cart }) {
 
     return (
         <React.Fragment>
-            <Container  className={classes.cardGrid} maxWidth="lg">
+            <Container className={classes.cardGrid} >
 
                 <Grid
                     className={classes.root}
-                    className="shopping-cart"
+                    // className="shopping-cart"
                 >
-                    <Grid container spacing={2}>
+                     <Typography variant="h4" align="left" style={{ marginBotton:"20px" }}>Shopping Cart</Typography>
+                    
+                    <Grid container spacing={3} style={{ marginTop: "40px" }}>
+                   
+
 
                         <Grid item xs={8}>
+                           
 
-                            <TableContainer component={Paper}>
+
+                            <TableContainer >
+
                                 <Table className={classes.table} aria-label="simple table">
-                                    <TableHead>
-                                        <TableRow >
+                                    <TableHead >
+                                        <TableRow {...defaultProps} borderBottom={2} style={
+                                            {
+                                                border: '2px solid black'
+                                            }
+  }>
                                             <TableCell></TableCell>
-                                            <TableCell style={{ fontSize: 21}} align="right">Product</TableCell>
-                                            <TableCell style={{ fontSize: 21}} align="right">Size</TableCell>
-                                            <TableCell style={{ fontSize: 21}} align="right">Price (LBP)</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="right">Product</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="right">Size</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="right">Price (LBP)</TableCell>
                                             <TableCell align="right"></TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -102,10 +126,10 @@ function ShoppingCart({ cart }) {
                                                 <TableCell component="th" scope="row">
                                                     <img width="150px" height="100px" objectFit="cover" src={item.Product.card.image} alt={`${item.Product.card.title} book`} />
                                                 </TableCell>
-                                                <TableCell style={{ fontSize: 18}} align="right">{item.Product.card.title}</TableCell>
-                                                <TableCell style={{ fontSize: 18}} align="right">{item.size}</TableCell>
-                                                <TableCell style={{ fontSize: 18}} align="right">{item.Product.card.price}</TableCell>
-                                                <TableCell style={{ fontSize: 18}} align="right"><button>X</button></TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="right">{item.Product.card.title}</TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="right">{item.size}</TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="right">{item.Product.card.price}</TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="right"><button>X</button></TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -123,12 +147,12 @@ function ShoppingCart({ cart }) {
 
                         </Grid>
 
-                        <Grid item xs={3}>
-                           
-                            <p><h3>Subtotal :  </h3> {getCartTotal()} LBP</p>
+                        <Grid item xs={4}>
+
+                            <p><h4>Subtotal :  </h4> {getCartTotal()} LBP</p>
 
                             <button
-                            style={{width:"90%"}}
+                                style={{ width: "80%" }}
                                 onClick={(() => {
                                     if (cart.length != 0) {
                                         remove();

@@ -177,6 +177,7 @@ function Navigation(props) {
             to="/Customer/CustCart" > <span align="right" className="nav-links"  icon={<LocalMallIcon />} ><LocalMallIcon /></span></Button>
 
           <Button align="right" component={Link} label="Logout"
+          
             to="/Customer/" onClick={(e) => {
               e.preventDefault()
               remove();
