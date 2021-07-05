@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 //Nav:
-import AdminNav from './AdminNav'
+import AdminNav from './AdminNav2'
 
 import { makeStyles } from '@material-ui/core/styles';
 

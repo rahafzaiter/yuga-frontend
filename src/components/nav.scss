@@ -1,14 +1,42 @@
 .navC {
+    margin-right:40px;
+    font-size: 23px;
+    font-family:fantasy;
+    color: rgb(248, 2, 154);
+    align-items: right;
+    // font-weight: bolder;
 
    
 }
 
-.navC:hover {
-    background-color:rgb(139, 18, 39);
-    color: black; 
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+.navD{
+    margin-right:40px;
+    font-size: 23px;
+    font-family:fantasy;
+    align-items: right;
+    color:black
 }
 
+.navC:hover {
+    background-color:pink;
+    // color: black; 
+    font-family: 'Viaoda Libre', cursive;	
+}
+// .navC:active {
+//     color: black;
+//     font-family: 'Viaoda Libre', cursive;	
+//   }
+  .navD:hover {
+    background-color:pink;
+    
+    font-family: 'Viaoda Libre', cursive;	
+}
+//   .navD:active {
+//     color: pink;
+//     font-family: 'Viaoda Libre', cursive;	
+//   }
+
+  
 .nav-links {
     /* display: inline-block; */
     /* height: 40px; */

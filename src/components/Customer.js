@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 
 //Nav:
-import Navigation from './nav'
+import Navigation from './nav2'
 
 import { makeStyles } from '@material-ui/core/styles';
 
