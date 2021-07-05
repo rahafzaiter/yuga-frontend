@@ -1,0 +1,29 @@
+.navC {
+
+   
+}
+
+.navC:hover {
+    background-color:rgb(139, 18, 39);
+    color: black; 
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nav-links {
+    /* display: inline-block; */
+    /* height: 40px; */
+    font-size: 19px;
+    /* font-weight :200px; */
+    margin-right:40px;
+    /* background-color:white;will change background-color of element */
+    color: black; /*will change color of text within the element */ 
+    font-family:fantasy;
+    /* font-style: inherit; */
+    }
+    
+    .nav-links:hover {
+    // background-color:pink; /*will change background-color of element on hover */
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+     /*will change color of text within the element on hover */
+    }

@@ -136,7 +136,7 @@ export default function Feedback(props) {
                 <div className={classes.paper} >
 
                     <Typography component="h1" variant="h4" >
-                        How Satisfied were you with Yuga ?
+                        How satisfied were you with Yuga ?
           </Typography>
 
                     <form className={classes.form} noValidate onSubmit={e => e.preventDefault()}>
@@ -217,7 +217,7 @@ export default function Feedback(props) {
                             // color="lightcoral"
                             style={{backgroundColor:'#FC3C80',color:'white'}}
                             className={classes.submit}
-                            onmouseover="this.style.color='lightcoral'"
+                            onmouseover="this.style.color='#FC3C80'"
                             onClick={Submit} > Submit </Button>
 
 

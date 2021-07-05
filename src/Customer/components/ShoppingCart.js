@@ -85,6 +85,8 @@ function ShoppingCart({ cart }) {
         localStorage.removeItem("cartTotalPrice");
     };
 
+    let y= 0;
+
 
     return (
         <React.Fragment>
@@ -128,7 +130,8 @@ function ShoppingCart({ cart }) {
                                                 </TableCell>
                                                 <TableCell style={{ fontSize: 18 }} align="right">{item.Product.card.title}</TableCell>
                                                 <TableCell style={{ fontSize: 18 }} align="right">{item.size}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="right">{item.Product.card.price}</TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="right">{ y = new Intl.NumberFormat(),
+                            y.format(item.Product.card.price)}</TableCell>
                                                 <TableCell style={{ fontSize: 18 }} align="right"><button>X</button></TableCell>
                                             </TableRow>
                                         ))}
@@ -149,7 +152,13 @@ function ShoppingCart({ cart }) {
 
                         <Grid item xs={4}>
 
-                            <p><h4>Subtotal :  </h4> {getCartTotal()} LBP</p>
+                            <p><h4>Subtotal :  </h4>
+                            {/* {getCartTotal().toLocaleString(undefined, {maximumFractionDigits:4})} */}
+                            {
+                            y = new Intl.NumberFormat(),
+                            y.format(getCartTotal())}
+                            
+                              LBP</p>
 
                             <button
                                 style={{ width: "80%" }}

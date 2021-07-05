@@ -69,6 +69,11 @@ const cards = [1, 2, 3, 4];
 export default function OneOrder(props) {
   const classes = useStyles();
 
+  const NumberFormatPrice=(y)=>{
+    var price=new Intl.NumberFormat();
+    return price.format(y);
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -76,7 +81,7 @@ export default function OneOrder(props) {
       <main>
       <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="caption table">
-        <caption style={{ fontSize: 24,align:"right",color:"black" }}  align="right">Total: {props.total} LBP </caption>
+        <caption style={{ fontSize: 24,align:"right",color:"black" }}  align="right">Total: {NumberFormatPrice(props.total)} LBP </caption>
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
@@ -95,7 +100,7 @@ export default function OneOrder(props) {
               <TableCell component="th" scope="row">  <img style={{width:"150px", height:"150px", objectFit:"cover"}}  src={card.Product.card.image}  /></TableCell>
               <TableCell align="left" style={{ fontSize: 18 }}>{card.Product.card.title}</TableCell>
               <TableCell align="left" style={{ fontSize: 18 }}>{card.size}</TableCell>
-              <TableCell align="left" style={{ fontSize: 18 }}>{card.Product.card.price}</TableCell>
+              <TableCell align="left" style={{ fontSize: 18 }}> {NumberFormatPrice(card.Product.card.price)}</TableCell>
               
               {/* <TableCell align="right">{row.protein}</TableCell> */}
             </TableRow>

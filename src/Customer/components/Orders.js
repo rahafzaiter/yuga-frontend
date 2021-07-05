@@ -43,7 +43,12 @@ export default function Orders(props) {
         setAllOrders(JSON.parse(window.localStorage.getItem("orders")));
         console.log("all Orders in order page", allorders);
         console.log("user in orders", props.user.user)
-    }, [])
+    }, []);
+
+    const NumberFormatPrice=(y)=>{
+        var price=new Intl.NumberFormat();
+        return price.format(y);
+      }
 
     return (
         <div>
@@ -61,7 +66,7 @@ export default function Orders(props) {
                     { allorders == null ? (
                         <div>
                             <Grid item xs={12}>
-                                <h1> Hey Lady! What are you waiting for? Order your item now !</h1>
+                                <h1> Hey Sweety! What are you waiting for? Order your item now !</h1>
                             </Grid>
 
                         </div>
@@ -71,10 +76,10 @@ export default function Orders(props) {
 
                      (  
                          <div>
-                          <Grid item xs={12}>
-                        <h2 style={{ fontSize: 30, marginBottom: "30px", marginTop: "40px" }}>Thank you for your orders {props.user.user.firstname} {props.user.user.lastname}
+                          <Grid item xs={12} style={{ fontSize: 30, marginBottom: "30px", marginTop: "40px" }}>
 
-                            {/* <img src={Logo} style={{ height: "70px", width: "200px" }} alt="Yuga logo" /> */}
+                        <h2  className="Order_title">Thank you Sweety {props.user.user.firstname} {props.user.user.lastname} for your orders 
+
                         </h2>
                     </Grid>
                    

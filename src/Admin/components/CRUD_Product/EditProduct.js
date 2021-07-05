@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: '90%',
     backgroundColor: "white",
-    height: "10%"
+    height: "10%",
+    color:"black"
   },
   root: {
     '& .MuiTextField-root': {
@@ -69,6 +70,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  formControlSelect: {
+    margin: theme.spacing(1),
+    width: '75%',
+   
+  },
 
 }));
 
@@ -97,6 +103,9 @@ export default function EditProduct() {
     JSON.parse(localStorage.getItem("product"))
 
   )
+
+  const [AllProducts,setAllProducts]=useState( JSON.parse(localStorage.getItem("Products")));
+  const [newProducts,setnewProducts]=useState([0]);
   const [product, setProduct] = useState(ProductLocal.product);
   const [imageSrc, setImageSrc] = useState();
   const [colorHexCode, setColorHexCode] = useState('#000000');
@@ -113,6 +122,19 @@ export default function EditProduct() {
 
 
   });
+  const Categories = [
+    { id: 1, name: "Pants" },
+    { id: 2, name: "Shirts"},
+    { id: 3, name: "Dresses" },
+    { id: 4, name: "Suits" },
+    { id: 5, name: "Skirts" },
+    { id: 6, name: "Jumpsuits" },
+    { id: 7, name: "Outerwear" },
+    { id: 8, name: "Sweat-shirt" },
+    { id: 9, name: "Sportswear" },
+    { id: 10, name: "Tunics" }
+
+  ];
   const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
 
@@ -121,13 +143,67 @@ export default function EditProduct() {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setProduct({[name]: value });
+    setProduct({...product,[name]: value });
     setChange(true);
   };
 
   const handleImageSelect = (e) => {
     setImageSrc(URL.createObjectURL(e.target.files[0]))
   }
+
+
+var y="";
+
+  // const Edit=()=>{
+
+  //   if(AllProducts!=undefined){
+   
+
+  //     AllProducts.map((prod)=>{
+  //     if(prod.id==product.id){
+
+  //       // prod=product;
+  //       const pr=newProducts.concat(product);
+  //       setnewProducts(pr);
+       
+  //         // history.push("/Admin/tutorials");
+       
+  //       // return;
+        
+  //     }else{
+       
+
+  //       const pr=newProducts.concat(prod);
+  //       setnewProducts(pr);
+
+
+  //     }
+  //   }) ; 
+   
+
+  //   //history.push("/Admin/tutorials");
+  //   }else{
+  //     console.log("empty")
+  //   }
+
+  // }
+
+  // useEffect(()=>{
+  //   setAllProducts(localStorage.getItem('Products').products)
+
+  // },[y])
+
+  // useEffect(()=>{
+  //   localStorage.setItem('Products',JSON.stringify({newProducts}));
+  //   y=localStorage.getItem('Products')
+  //   console.log('new product',y)
+  //   if (y!=""){
+  //   history.push("/Admin/tutorials");
+  //   }
+    
+  //   // console.log("all products in edit page",AllProducts);
+
+  // },[newProducts])
 
 
   const saveTutorial = () => {
@@ -178,10 +254,12 @@ export default function EditProduct() {
     console.log(pictures)
   };
 
-  const Submit=()=>{
-    localStorage.setItem('product',JSON.stringify({product}))
+  // const Submit=()=>{
+  //   localStorage.setItem('product',JSON.stringify({product}))
 
-  }
+  // }
+
+  
 
 
 
@@ -190,14 +268,14 @@ export default function EditProduct() {
 
       <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%" }}>
         <h2 className="text-center mb-4">Edit A Product</h2>
-        {submitted ? (
+        {/* {submitted ? (
           <div>
             <h4>You submitted successfully!</h4>
             <button className="btn btn-success" onClick={newTutorial}>
               Add
           </button>
           </div>
-        ) : (
+        ) : ( */}
           <div className="container">
 
             <form noValidate onSubmit={onSubmit} className={classes.form}>
@@ -280,10 +358,11 @@ export default function EditProduct() {
 
                 <hr />
 
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.formControlSelect}>
 
-                  <InputLabel htmlFor="age-native-simple">Select Collection </InputLabel>
+                <Typography lassName={classes.formControlSelect} >Select Collection</Typography>
                   <Select
+                   style={{ backgroundColor: "white", color: 'black' }}
                   label="Select Collection"
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -293,7 +372,6 @@ export default function EditProduct() {
                     }}
                     value={product.collection}
                     onChange={handleInputChange}
-                    style={{ backgroundColor: "white", color: 'black' }}
                   >
                     <MenuItem value={"Light"}>Light</MenuItem>
                     <MenuItem value={"Dark"}>Dark</MenuItem>
@@ -303,13 +381,15 @@ export default function EditProduct() {
                 </FormControl>
 
 
-                <FormControl className={classes.formControl} >
-                  <InputLabel htmlFor="age-native-simple">Select Category</InputLabel>
+                <FormControl className={classes.formControlSelect} >
+                <Typography className={classes.formControlSelect} >Select Category</Typography>
                   <Select
                     native
+                    className={classes.formControl}
                     value={product.category}
-                    onChange={handleInputChange}
+                   
                     required
+                    style={{ backgroundColor: "white", color: 'black' }}
 
                     inputProps={{
                       name: 'category',
@@ -317,14 +397,20 @@ export default function EditProduct() {
 
 
                     }}
+                     onChange={handleInputChange}
+
                   >
                     <option aria-label="None" value="" />
+
+                     {Categories.map((cat)=>(
+                    <option align="center" value={cat.name}>{cat.name}</option>))}
+                    {/* <option aria-label="None" value="" />
                     <option value={"T-shirt"}>T-shirt</option>
                     <option value={"Skirt"}>Skirt</option>
                     <option value={"Dress"}>Dress</option>
                     <option value={"Pant"}>Pant</option>
                     <option value={"Set"}>Set</option>
-                    <option value={"Chemis"}>Chemis</option>
+                    <option value={"Chemis"}>Chemis</option> */}
 
 
                   </Select>
@@ -338,7 +424,6 @@ export default function EditProduct() {
                   variant="outlined"
                   value={product.image}
                   onChange={handleInputChange}
-                  // style={{backgroundColor:"white"}}
                   className={classes.formControl}
                   name="color"
                   type="link"
@@ -420,7 +505,12 @@ export default function EditProduct() {
                
 
                 <div>
-                  <button className="btn btn-block shadow" onClick={() => history.push("/Admin/tutorials")} style={{backgroundColor:'#FC3C80',color:'white'}}>
+                  <button className="btn btn-block shadow" 
+                   style={{backgroundColor:'#FC3C80',color:'white'}}
+                  onClick={ ()=>{history.push("/Admin/tutorials")}}
+                  // {() =>Edit
+                  //   history.push("/Admin/tutorials")} 
+                   >
                     Update
           </button>
                 </div>
@@ -428,7 +518,7 @@ export default function EditProduct() {
               </div>
             </form>
           </div>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

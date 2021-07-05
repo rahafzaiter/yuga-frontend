@@ -15,7 +15,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 // import Box from '@material-ui/core/Box';
 // import CssBaseline from '@material-ui/core/CssBaseline';
-// import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 // import Container from '@material-ui/core/Container';
 // import ImageUpload from 'image-upload-react'
 import {useHistory} from 'react-router-dom'
@@ -29,7 +29,13 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     width: '75%',
-    backgroundColor: "white"
+    backgroundColor: "white",
+    color:"black",
+  },
+  formControlSelect: {
+    margin: theme.spacing(1),
+    width: '75%',
+   
   },
   root: {
     '& .MuiTextField-root': {
@@ -103,13 +109,7 @@ export default function AddProduct (props) {
     XXL: 0,
   });
 
-  
-
-    // const [product, setProduct] = useState(ProductLocal.product);
-  // const [imageSrc, setImageSrc] = useState();
-  // const [colorHexCode, setColorHexCode] = useState('#000000');
-
-
+ 
   const [pictures, setPictures] = useState(null);
   const [quantity, setQuantity] = useState({
     id: parseInt(prodLength,10)+1,
@@ -118,10 +118,21 @@ export default function AddProduct (props) {
     L: 0,
     XL: 0,
     XXL: 0,
-    // productId:product.id
-
-    
   });
+
+  const Categories = [
+    { id: 1, name: "Pants" },
+    { id: 2, name: "Shirts"},
+    { id: 3, name: "Dresses" },
+    { id: 4, name: "Suits" },
+    { id: 5, name: "Skirts" },
+    { id: 6, name: "Jumpsuits" },
+    { id: 7, name: "Outerwear" },
+    { id: 8, name: "Sweat-shirt" },
+    { id: 9, name: "Sportswear" },
+    { id: 10, name: "Tunics" }
+
+  ];
 
 
   // const [tutorial, setTutorial] = useState(initialTutorialState);
@@ -285,9 +296,11 @@ useEffect (()=>{
 
                 <hr />
 
-                <FormControl className={classes.formControl}>
 
-                  <InputLabel htmlFor="age-native-simple">Select Collection </InputLabel>
+                <FormControl className={classes.formControlSelect}>
+                <Typography lassName={classes.formControlSelect} >Select Collection</Typography>
+
+                  {/* <InputLabel htmlFor="age-native-simple">Select Collection </InputLabel> */}
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -307,10 +320,17 @@ useEffect (()=>{
                   </Select>
                 </FormControl>
 
-                <FormControl className={classes.formControl}>
+               
+              
 
-                  <InputLabel htmlFor="age-native-simple">Select Category </InputLabel>
+                <FormControl className={classes.formControlSelect}>
+                <Typography className={classes.formControlSelect} >Select Category</Typography>
+
+                    {/* <InputLabel htmlFor="age-native-simple" style={{fontWeight:"400",fontSize:"20px",marginButton:"20px",color:"black",backgroundColor:"white"}} className={classes.formControlSelect}>Select Category</InputLabel> */}
+
+                
                   <Select
+                    
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     inputProps={{
@@ -322,12 +342,13 @@ useEffect (()=>{
                     onChange={handleInputChange}
                     style={{ backgroundColor: "white", color: 'black' }}
                   >
-                    <MenuItem value={"T-shirt"}>T-shirt</MenuItem>
-                    <MenuItem value={"Skirt"}>Skirt</MenuItem>
+                    {Categories.map((cat)=>(
+                    <MenuItem value={cat.name}>{cat.name}</MenuItem>))}
+                    {/* <MenuItem value={"Skirt"}>Skirt</MenuItem>
                     <MenuItem value={"Dress"}>Dress</MenuItem>
                     <MenuItem value={"Pant"}>Pant</MenuItem>
                     <MenuItem value={"Set"}>Set</MenuItem>
-                    <MenuItem value={"Chemis"}>Dress</MenuItem>
+                    <MenuItem value={"Chemis"}>Dress</MenuItem> */}
 
                   </Select>
                 </FormControl>

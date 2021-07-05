@@ -102,6 +102,11 @@ export default function ViewProduct({additem,user}) {
   
   },[] );
 
+  const NumberFormatPrice=(y)=>{
+    var price=new Intl.NumberFormat();
+    return price.format(y);
+  }
+
  
  
 
@@ -125,7 +130,7 @@ export default function ViewProduct({additem,user}) {
             <p  marginButton="2px">Collection: {Product.collection}</p>
             <p  marginButton="2px">Color: {Product.color}</p>
             
-            <p marginButton="2px">Price: {Product.price} LBP</p>
+            <p marginButton="2px">Price: {NumberFormatPrice(Product.price)} LBP</p>
             <p marginButton="2px">Category: {Product.category}</p>
             <div>
             <TableContainer component={Paper}>

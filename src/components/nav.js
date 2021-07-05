@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/nav.css';
+// import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/nav.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -15,6 +15,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import './home-page-customer.scss'
+import './nav.scss'
 //Customer Pages:
 //icons:
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -121,27 +122,28 @@ function Navigation(props) {
             setValue(newValue);
           }}
           showLabels
-          className="home-page-customer_size"
+          // className="home-page-customer_size"
+          //  className="navig"
         >
 
-          {/* <BottomNavigationAction theme={theme} variant="h3" style={{ fontSize: 21 }} label="Home" align="left" component={Link}
-            to="/Customer/CustHomePage" ></BottomNavigationAction> */}
+
+          <Button className="nav-links" component={Link} align="left"
+
+            to="/Customer/CustHomePage"
+            > <span align="left" className="nav-links" >Home</span>  </Button>
 
           <Button component={Link} align="left"
-            to="/Customer/CustHomePage"> <span align="left" className="nav-links" >Home</span>  </Button>
-
-          <Button component={Link} align="left"
-            to="/Customer/CustProductGallery"> <span align="left" className="nav-links"  >Shop</span>  </Button>
+            to="/Customer/CustProductGallery"  className="navig"> <span align="left" className="nav-links"  >Shop</span>  </Button>
 
           {/* <Button component={Link} align="left"
             to="/Customer/CustProductGallery"> <span className={classes.root}  >Shop</span>  </Button> */}
 
           <Button label="My Orders" align="left" component={Link}
-            to="/Customer/CustOrders"  > <span align="left" className="nav-links">My Orders</span></Button>
+            to="/Customer/CustOrders"   className="navig"> <span align="left" className="nav-links" >My Orders</span></Button>
 
           <Button label="Account" align="left" component={Link}
             // to="/Customer/CustProfile"
-            aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}  > <span align="left" className="nav-links" >Account</span></Button>
+            aria-controls="fade-menu" aria-haspopup="true"  className="navig" onClick={handleClick}  className="navig" > <span align="left" className="nav-links" >Account</span></Button>
 
          
           <Menu
@@ -167,18 +169,19 @@ function Navigation(props) {
           </Menu>
 
           <Button label="Shipping Policies" align="left" component={Link}
-            to="/Customer/CustShipping" > <span align="left"   className="nav-links">Shipping Policies</span></Button>
+            to="/Customer/CustShipping"  className="navig" > <span align="left"   className="nav-links">Shipping Policies</span></Button>
 
           <Button label="Feedback" align="left" component={Link}
-            to="/Customer/CustFeedback" > <span align="left" className="nav-links">Feedback</span></Button>
+            to="/Customer/CustFeedback"  className="navig"> <span align="left" className="nav-links">Feedback</span></Button>
 
         
             <Button label="Feedback" icon={<LocalMallIcon />} align="right" component={Link}
-            to="/Customer/CustCart" > <span align="right" className="nav-links"  icon={<LocalMallIcon />} ><LocalMallIcon /></span></Button>
+            to="/Customer/CustCart"  className="navig"> <span align="right" className="nav-links"  icon={<LocalMallIcon />} ><LocalMallIcon /></span></Button>
 
           <Button align="right" component={Link} label="Logout"
           
-            to="/Customer/" onClick={(e) => {
+            to="/Customer/"
+            className="navig" onClick={(e) => {
               e.preventDefault()
               remove();
               props.setUser()
@@ -204,14 +207,14 @@ function Navigation(props) {
 
 
           <Button fontSize="large" label="Home" align="left" component={Link}
-            to="/Customer/CustHomePage" > <span  className="nav-links">Home</span></Button>
+            to="/Customer/CustHomePage"  className="navig"> <span  className="nav-links">Home</span></Button>
 
           <Button  label="Shop" align="left" component={Link}
-            to="/Customer/CustProductGallery" ><span className="nav-links">Shop</span></Button>
+            to="/Customer/CustProductGallery"  className="navig"><span className="nav-links">Shop</span></Button>
           <Button  label="Shipping Policies" align="left" component={Link}
-            to="/Customer/CustShipping" ><span className="nav-links">Shipping Policies</span> </Button>
+            to="/Customer/CustShipping"  className="navig"><span className="nav-links">Shipping Policies</span> </Button>
           <Button   align="right" component={Link}
-            to="/Customer/custAuthentication"><span className="nav-links"><AccountCircleIcon /></span> </Button>
+            to="/Customer/custAuthentication"  className="navig"><span className="nav-links"><AccountCircleIcon /></span> </Button>
         </BottomNavigation>
       </Typography>)
   }

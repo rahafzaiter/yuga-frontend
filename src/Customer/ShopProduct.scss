@@ -1,20 +1,37 @@
-button {
-    border-radius: 5px;
-    border: 1px solid #FF00A7;
-    padding: 10px;
-    background: transparent;
-    transition: 0.15s ease-in-out;
-    margin: 10px 0;
-    // background: whitesmoke;
-    background: #FF00A7;
 
-    color: whitesmoke;
-    margin-left: 22px;
+
+// button {
+//     border-radius: 5px;
+//     border: 1px solid #FF00A7;
+//     padding: 10px;
+//     background: transparent;
+//     transition: 0.15s ease-in-out;
+//     margin: 10px 0;
+//     // background: whitesmoke;
+//     background: #FF00A7;
+
+//     color: whitesmoke;
+//     margin-left: 22px;
     
 
-    &:hover {
-        cursor: pointer;
-        background: whitesmoke;
-        color: #FF00A7;
-    }
+//     &:hover {
+//         cursor: pointer;
+//         background: whitesmoke;
+//         color: #FF00A7;
+//     }
+
+
+// }
+
+.shop-prod{
+
+    &_buttn {
+    font-weight:bolder;
+
+    color:white;
+    // background-color: rgb(250, 4, 156);
+    font-size: 23px;
+    // background-color:#fd1daf;
+    // padding:1px;
+}
 }

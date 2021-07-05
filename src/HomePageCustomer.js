@@ -63,6 +63,15 @@ const useStyles = makeStyles({
           height: '100%',
           display: 'flex',
           flexDirection: 'row',
+        },
+        buttn:{
+          
+          backgroundColor:"#FF00A7",
+          textColor:"white",
+          // width:"400px",
+          fontWeight:"500px",
+          marginTop:"4%",
+         
         }
     
   });
@@ -106,10 +115,18 @@ function HomePageCustomer (props){
              Take a look at our collection and enjoy shopping online with Yuga.
               Get in touch if you have any question.</p>
              
-              <AnimatedButton  onClick={()=>{history.push(`/CustProductGallery`)}} width="100px" textColor="white" color="#FF00A7" style={{marginTop:"4%"}} className="btn shadow">
+              <AnimatedButton 
+              color="#FF00A7" 
+          // fontSize="50px" style={{ color:"#FF00A7",fontSize:"30px",
+          // // width:"400px",
+          // fontWeight:"700",
+          // marginTop:"4%"}} 
+          className="home-page-customer_buttn"
+          
+          onClick={()=>{history.push(`/CustProductGallery`)}}   >
                 {/* <Link to="/Customer/CustProductGallery"              
                 >Shop now</Link> */}
-                Shop Now 
+               <span className="home-page-customer_buttn"> Shop Now </span>
               </AnimatedButton>
 
               {/* <AnimatedButton textColor="white" color="rgb(197, 115, 128)" style={{backgroundColor:'rgb(197, 115, 128)',width:'25%',marginTop:"4%",color:'white'}}  className="btn shadow">

@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/SignUP_In.png'
+import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/61cfa7945072e4c1793cdb244450d899.jpg'
 import { BrowserRouter as Router, Redirect, Switch, Route, useParams,useHistory } from "react-router-dom";
 function Copyright() {
   return (
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "pink",
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor:"#FC3C80"
   },
 }));
 

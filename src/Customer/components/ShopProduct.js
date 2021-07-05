@@ -31,11 +31,49 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
-
+import NativeSelect from '@material-ui/core/NativeSelect';
+import InputBase from '@material-ui/core/InputBase';
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: "white",
+    color:"black",
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase);
 
 const defaultProps = {
-    bgcolor: 'background.paper',
+    bgcolor: '#F3E0E0',
     borderColor: 'text.primary',
+    color:"black",
+    textSize:"20px",
     m: 1,
     // border: 1,
     // width:'100%',
@@ -56,8 +94,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    paddingTop: theme.spacing(9),
+    paddingBottom: theme.spacing(9),
   },
   card: {
     height: '100%',
@@ -97,6 +135,12 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  margin: {
+    margin: theme.spacing(1),
+    display:"flex",
+    flexDirection:"row",
+    
+  },
 }));
 
 
@@ -106,6 +150,11 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export default function Album(props) {
   const classes = useStyles();
   const history=useHistory();
+  const [age, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
 
   // const [productTest,setProductTest]=useState([]);
   // setProductTest({productTest:props.products});
@@ -211,6 +260,11 @@ export default function Album(props) {
 
   };
 
+  const NumberFormatPrice=(y)=>{
+    var price=new Intl.NumberFormat();
+    return price.format(y);
+  }
+
   const handleChangeCategory = (e) => {
     AddCatagery(e.target.value)
     setState({
@@ -233,18 +287,18 @@ export default function Album(props) {
   return (    
     <React.Fragment>
       <CssBaseline />
-      <main>
+      <main style={{minHeight:"1000px"}}>
         {/* Hero unit */}
         {/* <div className={classes.heroContent}>
             <SearchBar />
         
         </div>
        */}
-        <Container className={classes.cardGrid} maxWidth="lg">
-        <Grid spacing={4} className={classes.grids} container >
+        <Container className={classes.cardGrid} maxWidth="lg" width="90%" >
+        <Grid spacing={3} className={classes.grids} container >
 
           {/* End hero unit */}
-          <Grid item xs={3} >
+          <Grid item xs={2} >
           <Box
            borderRadius={16} 
            {...defaultProps} >
@@ -252,9 +306,9 @@ export default function Album(props) {
      
        {/* collection */}
 
-       <FormControl component="fieldset">
-      <FormLabel component="legend">Choose Color</FormLabel>
-      <RadioGroup row aria-label="gender" name="row-radio-buttons-group"
+       <FormControl component="fieldset" className={classes.formControl} >
+      <FormLabel component="legend" style={{fontWeight:"bold"}}>Choose Color</FormLabel>
+      <RadioGroup row aria-label="gender" name="row-radio-buttons-group"  style={{display:"flex",flexDirection:"column",align:"left"}}
       >
          <FormControlLabel value="All" control={<Radio />} label="All" onChange={handleChangeColor}/>
         <FormControlLabel value="light" control={<Radio />}  label="Light" 
@@ -265,6 +319,8 @@ export default function Album(props) {
        
       </RadioGroup>
     </FormControl>
+
+  
 
 
       {/* Category2 */}
@@ -303,50 +359,64 @@ export default function Album(props) {
 
           <Grid container spacing={1} 
           item 
-          xs={9}
+          xs={10}
           
           >
             {product.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
+              <Grid item key={card.id} xs={12} sm={6} md={3}>
                 <Card className={classes.card} style={{backgroundColor:"#F3E0E0"}}>
                   <CardMedia
                     className={classes.cardMedia}
                     image={card.image}
                     title={card.title}
                     color={card.color}
+
+                    onClick={(()=>{ 
+                      remove();
+                      localStorage.setItem('product',JSON.stringify({card}));
+                       history.push(`/Customer/ProductDetails/${card.id}`)
+                    })
+                     
+                      }
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom style={{fontSize:"18px"}} component="h2">
                     {card.title}                                              
                     </Typography>
                     {/* <Typography>
                      {card.color} {card.title}
                     </Typography> */}
-                    <Typography style={{fontWeight:"800",fontSize:"60"}} value="bold" fontWeight="800" color="Black" aria-label="bold">
-                     {card.price} LBP
+                    <Typography style={{fontWeight:"700",fontSize:"20px"}} value="bold" fontWeight="800" color="Black" aria-label="bold">
+                    
+                    {NumberFormatPrice(card.price)}  LBP
                     </Typography>
 
                     <Typography>  
                     
             { card.inStock ? 
-            (
-                      <AnimatedButton textColor="white" color="#FF00A7" style={{backgroundColor:"#FF00A7",width:'25%',marginTop:"4%",color:'white'}} 
-                       className="btn shadow"
-               
-                      // disabled={!card.inStock}
-                      
-                      style={{backgroundColor:card.inStock ? "grey" : "#FF00A7"}}
-                      
-                      shadow 
-                      onClick={(()=>{ 
-                        remove();
-                        localStorage.setItem('product',JSON.stringify({card}));
-                         history.push(`/Customer/ProductDetails/${card.id}`)
-                      })
+            <div></div>
+            // (
+            //           <AnimatedButton color="rgb(250, 4, 156)"  width="300px"
+            //           // style={{backgroundColor:"#FF00A7",width:'25%',marginTop:"4%",color:'white'}} 
                        
-                        }> View </AnimatedButton>
+               
+            //           // disabled={!card.inStock}
+                      
+                     
+                      
+            //           // shadow 
+            //           onClick={(()=>{ 
+            //             remove();
+            //             localStorage.setItem('product',JSON.stringify({card}));
+            //              history.push(`/Customer/ProductDetails/${card.id}`)
+            //           })
+                       
+            //             }> 
+            //             <span className="shop-prod_buttn">View </span>
+                        
+            //             </AnimatedButton>
 
-                        )
+                       // )
                         
                       :
 
@@ -361,13 +431,6 @@ export default function Album(props) {
                     </Typography>
                    
                   </CardContent>
-                  {/* <CardActions> 
-                  <Typography>                
-                    <h6 align="center">{card.inStock? " ":"Sold Out"} </h6>
-                 
-                    </Typography>
-                    
-                </CardActions>   */}
                 </Card>
               </Grid>
 

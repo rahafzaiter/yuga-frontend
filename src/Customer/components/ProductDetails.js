@@ -10,9 +10,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ProductDetails.scss'
-
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,7 +102,7 @@ export default function ProductDetails({additem,user}) {
   var button;
 
   if(!user){
-    button=(<button onClick={()=>alert("please login to buy")} background="secondary">Add to Cart</button>)
+    button=(<button onClick={()=>alert("please login to buy")} background="secondary"> <ShoppingCartIcon/> Add to Cart</button>)
   }else{
     button=(<button display="block" onClick={() =>{
       if (!size ){
@@ -111,8 +111,9 @@ export default function ProductDetails({additem,user}) {
       }else{
          console.log(item)
         additem(item)
+        alert("Added to Cart");
       }    }} >
-        Add to Cart
+        <ShoppingCartIcon/> Add to Cart
     
       </button>)
   }
@@ -120,11 +121,13 @@ export default function ProductDetails({additem,user}) {
   
 
   useEffect(() => {
-    // setItem({ ...item, Product: Product });
 
-    
-  
   },[] );
+
+  const NumberFormatPrice=(y)=>{
+    var price=new Intl.NumberFormat();
+    return price.format(y);
+  }
 
  
  
@@ -133,8 +136,8 @@ export default function ProductDetails({additem,user}) {
   return (
    
     <div className="container" style={{ width: '80%' }} >
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item  xs={5} container  md={4} >
+      <Grid container spacing={3} className={classes.root}>
+        <Grid item  xs={5}  md={4} >
           <img src={Product.card.image} style={{objectFit: "cover",width:"100%",height:"100%",maxHeight:"100%"}} />
         </Grid>
 
@@ -142,12 +145,12 @@ export default function ProductDetails({additem,user}) {
 
         <Grid  xs={12} className={classes.formControl}>
           <Paper className={classes.paper} bold >
-            <h3  marginButton="2px"> {Product.card.title}</h3>
-            <h5  marginButton="2px"> Product Info
+            <h3  marginButton="2px" style={{fontWeight:"700",fontSize:"26px"}}> {Product.card.title}</h3>
+            <h5  marginButton="2px" > Features
             </h5>
             <p  marginButton="2px"> {Product.card.description}</p>
             <p  marginButton="2px">{Product.card.collection}</p>           
-            <p marginButton="2px">Price: {Product.card.price} LBP</p>
+            <p marginButton="2px" style={{fontWeight:"700",fontSize:"24px"}}>{NumberFormatPrice(Product.card.price)} LBP</p>
            
           </Paper>
         </Grid>
@@ -175,7 +178,8 @@ export default function ProductDetails({additem,user}) {
          
 
               <FormControl className={classes.formControl} >
-                <InputLabel htmlFor="age-native-simple">Select Size</InputLabel>
+              
+                <InputLabel htmlFor="age-native-simple" style={{fontWeight:"400",fontSize:"20px",marginButton:"20px",color:"black"}}>Select Size</InputLabel>
                 <Select
                   native
                   value={size}
@@ -185,11 +189,9 @@ export default function ProductDetails({additem,user}) {
                   inputProps={{
                     name: 'size',
                     id: 'age-native-simple',
-
-                   
+                
                   }}
                   
-                  // style={{ align: "left", width: "100%" }}
 
                 >
                   <option aria-label="None" value="" />
@@ -197,13 +199,13 @@ export default function ProductDetails({additem,user}) {
                   <option value={"M"}>M</option>
                   <option value={"L"}>L</option>
                   <option value={"XL"}>XL</option>
-                  <option value={"XXL"}>XXL</option>
+                  <option value={"XXL"}>2XL</option>
 
                 </Select>
               </FormControl>
               </Grid>
-              
 
+            
              
               {/* <Link to={`/Customer/CustCart`}> */}
               {/* <button display="block" onClick={() =>{

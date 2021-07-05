@@ -75,7 +75,12 @@ const TutorialsList = (props) => {
     console.log("products",JSON.parse(localStorage.getItem("Products")))
     setProducts(JSON.parse(localStorage.getItem("Products")))
 
-  },[])
+  },[JSON.parse(localStorage.getItem("Products"))]);
+
+  const NumberFormatPrice=(y)=>{
+    var price=new Intl.NumberFormat();
+    return price.format(y);
+  }
 
   
   // const products = [
@@ -146,7 +151,7 @@ const deleteUser=(id)=>{
                 <TableCell scope="row">{product.id}</TableCell>
                 <TableCell>{product.title}</TableCell>
                 <TableCell>{product.color}</TableCell>
-                <TableCell>{product.price}</TableCell>
+                <TableCell>{NumberFormatPrice(product.price)}</TableCell>
                 <TableCell>{product.inStock?"in Stock":"Out of Stock"}</TableCell>
                 <TableCell align="center" >
                   

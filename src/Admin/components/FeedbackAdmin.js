@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Admin_Orders/Title';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 // Generate Order Data
 function createData(id,customerid,name, rate,comment,category) {
@@ -16,11 +18,11 @@ function createData(id,customerid,name, rate,comment,category) {
 }
 
 const rows = [
-  createData(0, '23 Jun, 2021', 'rahaf zaiter','81769794', 'Saida, mia o mia street b1 1', 'Cash on Delivery'),
-  createData(1, '16 May, 2021', 'Elie Presley','81769796', 'Jezzin, MS', 'Cash on Delivery'),
-  createData(2, '29 April, 2021', 'Alexandra McCartney','81769797', 'Nabatieh, UK', 'Cash on Delivery'),
-  createData(3, '26 Mar, 2021', 'Avon Scholz','81769798', 'Jounieh, MA', 'Cash on Delivery'),
-  createData(4, '23 Mar, 2021', 'Lea Jackson', '81769799','Ghaziye, IN', 'Cash on Delivery'),
+  createData(0, 1, 'rahaf zaiter', 4 , 'I like to add more skirts', 'Skirts'),
+  createData(1, 2, 'Elie Presley', 4 , 'I loved the pants ', 'Pants'),
+  createData(2, 2, 'Alexandra McCartney',5, 'I enjoyed shopping and would like to add more dresses', 'Dresses'),
+  createData(3, 1, 'Yvona Scholz', 3, 'Would you please add more Boyfriend Pants?', 'Pants'),
+  createData(4, 1, 'Lea Jackson',3, 'The Black JumpSuit was wonderfull when i received it ', "JumpSuits"),
  
 ];
 
@@ -37,8 +39,10 @@ const useStyles = makeStyles((theme) => ({
 export default function FeedbackAdmin() {
   const classes = useStyles();
   return (
-    <div className="container" style={{minHeight:"900px",marginTop:"40px"}}>
+    <div className="container"  style={{minHeight:"900px",marginTop:"40px"}}>
     <React.Fragment>
+    {/* <ReactNotification /> */}
+      {/* <Application /> */}
       <Title >Recent Feedbacks</Title>
     <TableContainer component={Paper}>      
       <Table  aria-label="simple table">
