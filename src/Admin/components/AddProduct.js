@@ -454,8 +454,8 @@ useEffect (()=>{
                 <div>
                   <button className="btn btn-block shadow" 
                   onClick={Submit} 
-                  style={{backgroundColor:'#FC3C80',color:'white'}}>
-                      Add new product</button>
+                  style={{backgroundColor:'rgb(240, 18, 155)',color:'black'}}>
+                      Add A New Product</button>
                 </div>
 
               </div>

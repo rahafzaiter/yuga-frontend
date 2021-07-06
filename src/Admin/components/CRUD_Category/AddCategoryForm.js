@@ -38,7 +38,7 @@ const AddCategoryForm = props => {
       />
        
      
-      <button className="btn btn-inline" style={{backgroundColor:'#FC3C80',color:'white'}}>Add new category</button>
+      <button className="btn btn-inline" style={{backgroundColor:'rgb(240, 18, 155)',color:'black'}}>Add New Category</button>
     <br/>
     </Form>
   );

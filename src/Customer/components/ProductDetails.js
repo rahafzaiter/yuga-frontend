@@ -13,7 +13,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ProductDetails.scss'
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-
+import Modal from '@material-ui/core/Modal';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 2,
@@ -39,11 +39,33 @@ const useStyles = makeStyles((theme) => ({
     // display:'block'
 
 },
+
+paperModel: {
+  position: 'absolute',
+  width: 400,
+  backgroundColor: theme.palette.background.paper,
+  border: '2px solid #000',
+  boxShadow: theme.shadows[5],
+  padding: theme.spacing(2, 4, 3),
+},
 }));
 
 
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
 
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 export default function ProductDetails({additem,user}) {
   const classes = useStyles();
 
@@ -58,6 +80,8 @@ export default function ProductDetails({additem,user}) {
       //  quantity:' '
    }
   );
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
 
   const [state, setState] = useState({
 
@@ -99,23 +123,124 @@ export default function ProductDetails({additem,user}) {
   //   setItem({ ...item,quantity: value });
   // };
 
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   var button;
 
+  const body = (
+    <div style={modalStyle} className={classes.paperModel}>
+      <h2 id="simple-modal-title">Yuga: Login</h2>
+      <p id="simple-modal-description">
+        Please login in order to buy
+      </p>
+      {/* <SimpleModal /> */}
+    </div>
+  );
+
+  const bodyAfterLogin = (
+    <div style={modalStyle} className={classes.paperModel}>
+      <h2 id="simple-modal-title">Yuga</h2>
+      <p id="simple-modal-description">
+        Please Fill The Size
+      </p>
+      {/* <SimpleModal /> */}
+    </div>
+  );
+
+  const bodyAfterAdd = (
+    <div style={modalStyle} className={classes.paperModel}>
+      <h2 id="simple-modal-title">Yuga</h2>
+      <p id="simple-modal-description">
+        Item is Added
+      </p>
+      {/* <SimpleModal /> */}
+    </div>
+  );
+
   if(!user){
-    button=(<button onClick={()=>alert("please login to buy")} background="secondary"> <ShoppingCartIcon/> Add to Cart</button>)
-  }else{
-    button=(<button display="block" onClick={() =>{
-      if (!size ){
-        alert("please fill size")
-        return 
-      }else{
-         console.log(item)
-        additem(item)
-        alert("Added to Cart");
-      }    }} >
-        <ShoppingCartIcon/> Add to Cart
+    button=(
+      <div>
+    <button onClick={handleOpen} style={{backgroundColor:"grey",color:"white"}}> <ShoppingCartIcon/> ADD TO CART</button>
+    <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
+      </div>);
+  }
+  else if(!size){
+    button=(
+     <div>
+      <button  className="button" onClick={handleOpen}>  <ShoppingCartIcon/> ADD TO CART</button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {bodyAfterLogin}
+      </Modal>
+      </div>
+
+    // <button display="block" 
+    // className="button"
+    //  onClick={() =>{
+     
+    //   if (!size ){
+
+    //     handleOpen();
+    //     <Modal
+    //     open={open}
+    //     onClose={handleClose}
+    //     aria-labelledby="simple-modal-title"
+    //     aria-describedby="simple-modal-description"
+    //   >
+    //     {bodyAfterLogin}
+    //   </Modal>
+
+
+
+    //     // alert("please fill size")
+    //     // return 
+    //   }else{
+    //      console.log(item)
+    //     additem(item)
+    //     alert("Added to Cart");
+    //   }    }} >
+    //     <ShoppingCartIcon/> ADD TO CART
     
-      </button>)
+    //   </button>
+
+      )
+  }else{
+    button=(
+      <div>
+       <button  className="button" onClick={()=>{
+         handleOpen();
+         additem(item);
+
+         }}>  <ShoppingCartIcon/> ADD TO CART</button>
+       <Modal
+         open={open}
+         onClose={handleClose}
+         aria-labelledby="simple-modal-title"
+         aria-describedby="simple-modal-description"
+       >
+         {bodyAfterAdd}
+       </Modal>
+       </div>
+    )
+
   }
 
   
@@ -150,7 +275,7 @@ export default function ProductDetails({additem,user}) {
             </h5>
             <p  marginButton="2px"> {Product.card.description}</p>
             <p  marginButton="2px">{Product.card.collection}</p>           
-            <p marginButton="2px" style={{fontWeight:"700",fontSize:"24px"}}>{NumberFormatPrice(Product.card.price)} LBP</p>
+            <p marginButton="2px" style={{fontWeight:"400",fontSize:"23px"}}>{NumberFormatPrice(Product.card.price)} LBP</p>
            
           </Paper>
         </Grid>
@@ -179,7 +304,7 @@ export default function ProductDetails({additem,user}) {
 
               <FormControl className={classes.formControl} >
               
-                <InputLabel htmlFor="age-native-simple" style={{fontWeight:"400",fontSize:"20px",marginButton:"20px",color:"black"}}>Select Size</InputLabel>
+                <InputLabel htmlFor="age-native-simple" style={{fontWeight:"400",fontSize:"17px",marginButton:"20px",color:"black"}}>Select Size</InputLabel>
                 <Select
                   native
                   value={size}

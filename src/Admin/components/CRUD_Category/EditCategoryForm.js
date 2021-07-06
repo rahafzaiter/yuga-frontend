@@ -35,13 +35,13 @@ const EditCategoryForm = props => {
       />
      
       <button className="btn btn-inline"
-        style={{backgroundColor:'pink'}}>Update category</button>
+        style={{backgroundColor:'pink'}}>Update Category</button>
       <button
         onClick={() => props.setEditing(false)}
         className="btn btn-inline"
-        style={{backgroundColor:'#FC3C80',color:'white'}}
+        style={{backgroundColor:'rgb(240, 18, 155)',color:'black'}}
       >
-        Cancel
+        CANCEL
       </button>
     </Form>
   );

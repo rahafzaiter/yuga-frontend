@@ -44,11 +44,11 @@ export default function FeedbackAdmin() {
       <Table  aria-label="simple table">
         <TableHead style={{backgroundColor:'#5e5e5e'}}>
           <TableRow>
-            <TableCell style={{ color: 'white' }} >Date</TableCell>
-            <TableCell style={{ color: 'white' }}>Customer Name </TableCell>
-            <TableCell style={{ color: 'white' }}>Phone nb</TableCell>
-            <TableCell style={{ color: 'white' }}>Address</TableCell>
-            <TableCell style={{ color: 'white' }}>Payment Method</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }} >Date</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Customer Name </TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Phone nb</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Address</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Payment Method</TableCell>
           </TableRow>
         </TableHead>
         <TableBody style={{backgroundColor:'#f1f1f1'}}>

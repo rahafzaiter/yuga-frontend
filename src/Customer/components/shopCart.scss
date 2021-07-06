@@ -1,0 +1,28 @@
+button {
+    border: 1px solid white;			
+    border-radius: 5px;
+    // padding: 10px;			
+    font-size: 19px;
+    font-weight: bold;
+    background: rgb(240, 18, 155);
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+
+    border-radius: 5px;
+			//border: 1px solid rgb(214, 34, 145);
+			padding: 10px;
+			//background: transparent;
+			transition: 0.15s ease-in-out;
+			margin: 10px 0;
+			//color: rgb(214, 34, 145);
+			margin-left: 22px;
+		//	font-size: 16px;
+		//	font-weight: bold;
+
+    &:hover {
+        
+        color: rgb(240, 18, 155);
+        background: transparent;
+        border: 1px solid rgb(214, 34, 145);
+    }
+}

@@ -147,8 +147,8 @@ function Navigation(props) {
         </NavDropdown>
 
         <NavLink activeClassName="active"  className={currentRoute.includes("custshipping") ? "navC" : "navD"} to="/Customer/CustShipping"  >Shipping Policies</NavLink>
-        <NavLink activeClassName="active"  className={currentRoute.includes("CustFeedback") ? "navC" : "navD"} to="/Customer/CustFeedback"  >Feedback</NavLink>
-        <NavLink activeClassName="active"  className={currentRoute.includes("CustCart") ? "navC" : "navD"} to="/Customer/CustCart"   ><LocalMallIcon /></NavLink>
+        <NavLink activeClassName="active"  className={currentRoute.includes("custfeedback") ? "navC" : "navD"} to="/Customer/CustFeedback"  >Feedback</NavLink>
+        <NavLink activeClassName="active"  className={currentRoute.includes("custcart") ? "navC" : "navD"} to="/Customer/CustCart"   ><LocalMallIcon /></NavLink>
         <NavLink activeClassName="active"  className={currentRoute.includes("/CustHomePage") ? "navC" : "navD"} to="/Customer/CustHomePage" 
         onClick={(e) => {
                       e.preventDefault()

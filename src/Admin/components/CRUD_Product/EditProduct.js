@@ -506,7 +506,7 @@ var y="";
 
                 <div>
                   <button className="btn btn-block shadow" 
-                   style={{backgroundColor:'#FC3C80',color:'white'}}
+                   style={{backgroundColor:'rgb(240, 18, 155)',color:'black'}}
                   onClick={ ()=>{history.push("/Admin/tutorials")}}
                   // {() =>Edit
                   //   history.push("/Admin/tutorials")} 

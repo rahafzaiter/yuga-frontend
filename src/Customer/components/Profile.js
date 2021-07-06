@@ -39,11 +39,13 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
         backgroundColor: '#FF00A7',
-        color: 'white',
+        color: 'black',
         // padding: 10,
         // width: '80%',
         borderRadius: 10,
-        border: "1px solid rgb(122, 121, 121)",
+        border: "1px solid rgb(214, 34, 145)",
+        fontSize: "16px",
+        fontWeight: 'bold'
         // marginright: 10,
         // marginleft: 20,
 

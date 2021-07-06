@@ -81,23 +81,6 @@ function AdminNav(props) {
         </Box>
         <Box marginTop="30px">
 
-        {/* <Navbar bg="light" style={{align:"right", display:"inline-block"}} variant="light" >
-        <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse class="navbar-nav" id="basic-navbar-nav">
-        {/* <Navbar.Brand href="/Customer/CustHomePage" className="navC" align="left">Home</Navbar.Brand> */}
-        {/* <Nav className="me-auto"  >
-          <NavLink  activeClassName="active" className={currentRoute.includes("custhomepage") ? "navC" : "navD"} to="/Customer/CustHomePage"  >Home</NavLink>
-          <NavLink activeClassName="active"  className={currentRoute.includes("custproductgallery") ? "navC" : "navD"} to="/Customer/CustProductGallery"  >Shop</NavLink>
-
-        <NavLink activeClassName="active"  className={currentRoute.includes("custshipping") ? "navC" : "navD"} to="/Customer/CustShipping"  >Shipping Policies</NavLink>
-        <NavLink activeClassName="active"  className={currentRoute.includes("custAuthentication") ? "navC" : "navD"} to="/Customer/custAuthentication"  ><AccountCircleIcon /></NavLink>
-       
-    
-        </Nav>
-        </Navbar.Collapse>
-        </Container>
-       </Navbar> */} 
           <Typography component="div">
 
             <BottomNavigation
@@ -107,12 +90,12 @@ function AdminNav(props) {
               }}
               showLabels
               className={classes.root}>
-              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("HomePage") ? "navC" : "navD"}  label="YUGA" component={Link} to="/Admin/HomePage" icon={<HomeIcon />} />
-              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("Add product") ? "navC" : "navD"} label="Add product" icon={<AddCircleOutlineIcon />} component={Link} to="/Admin/addProduct" />
-              <BottomNavigationAction className={currentRoute.includes("categoryList") ? "navC" : "navD"} label="Category" icon={<LocalMallIcon />} component={Link} to="/Admin/categoryList" />
-              <BottomNavigationAction className={currentRoute.includes("feedbacks") ? "navC" : "navD"} label="Feedbacks" icon={<FeedbackIcon />} component={Link} to="/Admin/feedbacks" />
-              <BottomNavigationAction className={currentRoute.includes("orders") ? "navC" : "navD"} label="Orders" icon={<ShoppingCartIcon />} component={Link} to="/Admin/orders" />
-              <BottomNavigationAction className={currentRoute.includes("Customer") ? "navC" : "navD"} label="Logout" icon={<MeetingRoomIcon />} component={Link} to="Customer"  onClick={(e) => {
+              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("homepage") ? "navC" : "navD"}  label="YUGA" component={Link} to="/Admin/HomePage" icon={<HomeIcon />} />
+              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("add product") ? "navC" : "navD"} label="Add product" icon={<AddCircleOutlineIcon />} component={Link} to="/Admin/addProduct" />
+              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("categorylist") ? "navC" : "navD"} label="Category" icon={<LocalMallIcon />} component={Link} to="/Admin/categoryList" />
+              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("feedbacks") ? "navC" : "navD"} label="Feedbacks" icon={<FeedbackIcon />} component={Link} to="/Admin/feedbacks" />
+              <BottomNavigationAction activeClassName="active"  className={currentRoute.includes("orders") ? "navC" : "navD"} label="Orders" icon={<ShoppingCartIcon />} component={Link} to="/Admin/orders" />
+              <BottomNavigationAction activeClassName="active" className={currentRoute.includes("Customer") ? "navC" : "navD"} label="Logout" icon={<MeetingRoomIcon />} component={Link} to="Customer"  onClick={(e) => {
                 e.preventDefault()
                 remove();
                 //<Redirect to={'/Customer/'} />

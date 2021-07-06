@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor:"#FC3C80",
+    backgroundColor:"rgb(214, 34, 145)",
     color:"white",
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
@@ -99,7 +99,15 @@ export default function Checkout(props) {
     customer:props.user.user,
     customerName:fname+" "+lname,
     cart:JSON.parse(window.localStorage.getItem("cartItems")),
-    totalprice:((JSON.parse(localStorage.getItem("cartTotalPrice"))*0.1)+1)*10,
+    totalprice:(
+
+      // parseInt(TotalPrice, 10) + 10000
+
+      parseInt(JSON.parse(localStorage.getItem("cartTotalPrice")),10)+1000),
+      
+      
+      // (JSON.parse(localStorage.getItem("cartTotalPrice"))*0.1) +1)*10,
+      
     date:new Date().toLocaleString(),
     custaddress:address
       });

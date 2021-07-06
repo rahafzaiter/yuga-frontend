@@ -21,14 +21,16 @@ const useStyles = makeStyles((theme) => ({
     submit: {
        
             margin: theme.spacing(3, 0, 2),
-            background: '#FF00A7',
-            color: 'white',
+            background: 'rgb(240, 18, 155)',
+            color: 'black',
             padding: 10,
             width: '80%',
             borderRadius: 10,
             border: "1px solid rgb(122, 121, 121)",
             marginright: 10,
             marginleft: 20, 
+            fontSize: "16px",
+            fontWeight: 'bold'
 
     },
   }));
@@ -97,7 +99,7 @@ export default function Password(){
            variant="contained"
            color="lightcoral"
            className={classes.submit}
-           onmouseover="this.style.color='lightcoral'">Update Password</Button>
+           onmouseover="this.style.color='lightcoral'">UPDATE PASSWORD</Button>
           </Grid>
           </Grid>
           

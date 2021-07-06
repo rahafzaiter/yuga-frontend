@@ -55,7 +55,9 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor:"#FC3C80"
+    backgroundColor:"rgb(214, 34, 145)",
+    fontSize:"20px",
+    color:"black"
   },
 }));
 

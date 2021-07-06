@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     submit: {
        
             margin: theme.spacing(3, 0, 2),
-            background: 'lightcoral',
-            color: 'white',
+            background: 'rgb(240, 18, 155)',
+            color: 'black',
             padding: 10,
             width: '80%',
             borderRadius: 10,
@@ -104,7 +104,7 @@ export default function Address(){
            variant="contained"
            color="lightcoral"
            className={classes.submit}
-           onmouseover="this.style.color='lightcoral'">Update Address</Button>
+           onmouseover="this.style.color=rgb(214, 34, 145)">Update Address</Button>
           </Grid>
           
           

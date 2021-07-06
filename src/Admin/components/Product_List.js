@@ -133,12 +133,12 @@ const deleteUser=(id)=>{
         <Table aria-label="simple table">
           <TableHead style={{backgroundColor:'#5e5e5e'}}>
             <TableRow>
-              <TableCell style={{ color: 'white' }} scope="col">ID</TableCell>
-              <TableCell style={{ color: 'white' }} scope="col"> Product Name</TableCell>
-              <TableCell style={{ color: 'white' }} scope="col">Color</TableCell>
-              <TableCell style={{ color: 'white' }} scope="col">Price (LBP)</TableCell>
-              <TableCell style={{ color: 'white' }} scope="col">In Stock ?</TableCell>
-              <TableCell style={{ color: 'white' }} align="center">Action</TableCell>
+              <TableCell style={{ color: 'white',fontSize:"18px" }} scope="col">ID</TableCell>
+              <TableCell style={{ color: 'white',fontSize:"18px" }} scope="col"> Product Name</TableCell>
+              <TableCell style={{ color: 'white',fontSize:"18px" }} scope="col">Color</TableCell>
+              <TableCell style={{ color: 'white',fontSize:"18px" }} scope="col">Price (LBP)</TableCell>
+              <TableCell style={{ color: 'white',fontSize:"18px" }} scope="col">In Stock?</TableCell>
+              <TableCell style={{ color: 'white',fontSize:"18px" }} align="center" scope="col">Action</TableCell>
             </TableRow>
           </TableHead>
 
@@ -147,15 +147,15 @@ const deleteUser=(id)=>{
            
 
             {products.map((product, id) => (
-              <TableRow key={id}>
+              <TableRow key={id}  align="center" style={{fontSize:"16px"}}>
                 <TableCell scope="row">{product.id}</TableCell>
                 <TableCell>{product.title}</TableCell>
                 <TableCell>{product.color}</TableCell>
                 <TableCell>{NumberFormatPrice(product.price)}</TableCell>
                 <TableCell>{product.inStock?"in Stock":"Out of Stock"}</TableCell>
-                <TableCell align="center" >
+                <TableCell  ml={8} align="center">
                   
-                  <Link class="btn btn-outline-inherit mr-2"   
+                  <Link class="btn btn-outline-inherit ml-3"   
                   style={{backgroundColor: '#FC3C80', color: '#FFFFFF'}}                
                     to={`./Admin/ViewProduct`}
                     onClick={(e)=>{
@@ -167,7 +167,7 @@ const deleteUser=(id)=>{
                     View
                   </Link>
                   <Link
-                    class="btn btn-outline-primary mr-2"                   
+                    class="btn btn-outline-primary ml-3"                   
                     to={`./Product/EditUser/${product.id}`}
                     onClick={(e)=>{
                       e.preventDefault()
@@ -181,7 +181,7 @@ const deleteUser=(id)=>{
                     Edit
                   </Link>
                   <Link
-                    class="btn btn-outline-danger mr-2"
+                    class="btn btn-outline-danger ml-3"
                     onClick={() => deleteUser(product.id)}
                   >
                     Delete

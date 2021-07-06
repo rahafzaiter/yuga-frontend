@@ -48,11 +48,11 @@ export default function FeedbackAdmin() {
       <Table  aria-label="simple table">
         <TableHead style={{backgroundColor:'#5e5e5e'}}>
           <TableRow>
-            <TableCell style={{ color: 'white' }} component="th" scope="row">Customer id</TableCell>
-            <TableCell style={{ color: 'white' }}>Name</TableCell>
-            <TableCell style={{ color: 'white' }}>Rate</TableCell>
-            <TableCell style={{ color: 'white' }}>Comment</TableCell>
-            <TableCell style={{ color: 'white' }}>Favorite Category</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }} component="th" scope="row">Customer id</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Name</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Rate</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Comment</TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Favorite Category</TableCell>
           </TableRow>
         </TableHead>
 

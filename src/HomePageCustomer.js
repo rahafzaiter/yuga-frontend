@@ -116,12 +116,13 @@ function HomePageCustomer (props){
               Get in touch if you have any question.</p>
              
               <AnimatedButton 
-              color="#FF00A7" 
+              color="rgb(240, 18, 155)" 
+              width="200px"
           // fontSize="50px" style={{ color:"#FF00A7",fontSize:"30px",
           // // width:"400px",
           // fontWeight:"700",
           // marginTop:"4%"}} 
-          className="home-page-customer_buttn"
+         
           
           onClick={()=>{history.push(`/CustProductGallery`)}}   >
                 {/* <Link to="/Customer/CustProductGallery"              

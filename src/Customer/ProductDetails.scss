@@ -1,40 +1,48 @@
-button {
+.button {
     border-radius: 5px;
-    border: 1px solid rgb(197, 115, 128);
+    border: 1px solid rgb(214, 34, 145);
     padding: 10px;
     background: transparent;
     transition: 0.15s ease-in-out;
     margin: 10px 0;
     background: whitesmoke;
-    color: rgb(146, 83, 94);
+    color: rgb(214, 34, 145);
     margin-left: 22px;
     transition: all 0.5s;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: 'Montserrat', sans-serif;
 
-    // &:hover {
-    //     cursor: pointer;
-    //     background: rgb(197, 115, 128);
-    //     color: white;
-    // }
-
-    .button span {
+    &:hover {
         cursor: pointer;
-        display: inline-block;
-        position: relative;
-        transition: 0.5s;
-      }
+        background: rgb(214, 34, 145);
+        color: black;
+    }
+
+    
       
-      .button span:after {
-        content: '\00bb';
-        position: absolute;
-        opacity: 0;
-        top: 0;
-        right: -20px;
-        transition: 0.5s;
-      }
+    // rgb(197, 115, 128)  
       
-      .button:hover span {
-        padding-right: 25px;
-      }
-      
+}
+.button:hover  {
+  padding-right: 25px;
+  background-color:rgb(240, 18, 155);
+  color:white(10, 10, 10);
+  font-family: 'Montserrat', sans-serif;
+}
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }

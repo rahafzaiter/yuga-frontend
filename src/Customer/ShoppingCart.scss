@@ -57,19 +57,21 @@
 
 		button {
 			border-radius: 5px;
-			border: 1px solid #FF00A7;
+			border: 1px solid rgb(214, 34, 145);
 			padding: 10px;
 			background: transparent;
 			transition: 0.15s ease-in-out;
 			margin: 10px 0;
-			color: #FF00A7;
+			color: rgb(214, 34, 145);
 			margin-left: 22px;
+			font-size: 16px;
+			font-weight: bold;
 			
 
 			&:hover {
 				cursor: pointer;
-				background: #FF00A7;
-				color: white;
+				background: rgb(214, 34, 145);
+				color: black;
 				font-weight: bold;
 			}
 		}
@@ -92,15 +94,19 @@
 	   
 
 		button {
-			border: 1px solid white;
-			background: transparent;
+			border: 1px solid white;			
 			border-radius: 5px;
-			// padding: 10px;
-			color: white;
+			// padding: 10px;			
+			font-size: 19px;
+			font-weight: bold;
+			background: rgb(214, 34, 145);
+			color: black;
 
 			&:hover {
-				background: #FF00A7;
-				color: black;
+				
+				color: rgb(214, 34, 145);
+				background: transparent;
+				border: 1px solid rgb(214, 34, 145);
 			}
 		}
 	}
