@@ -28,7 +28,7 @@ const rows = [
   createData(2, 2, 'Alexandra Kodjabachi',5, 'I enjoyed shopping and would like to add more dresses', 'Dresses'),
   createData(3, 3, 'Yvona Nehme', 3, 'Would you please add more Boyfriend Pants?', 'Pants'),
   createData(4, 4, 'Zaina Saab',3, 'The Black JumpSuit was wonderfull when i received it ', "JumpSuits"),
-  createData(0, 5, 'rahaf zaiter', 4 , 'I like to add more skirts', 'Skirts'),
+  createData(0, 5, 'Rahaf Zaiter', 4 , 'I like to add more skirts', 'Skirts'),
  
 ];
 
@@ -80,7 +80,7 @@ export default function FeedbackAdmin() {
             </IconButton>
           }
         >
-         A new feedback was added by {rows[0].name} 3 mins ago .
+         A new feedback was added by {rows[rows.length-1].name} 3 mins ago .
         </Alert>
       </Collapse>
       <Button
