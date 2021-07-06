@@ -131,7 +131,7 @@ function Navigation(props) {
     navBar = (
 
 
-        <Navbar bg="light" style={{align:"right", display:"inline-block"}} variant="light" >
+        <Navbar bg="light" style={{align:"right"}} variant="light" >
         <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse class="navbar-nav" id="basic-navbar-nav">

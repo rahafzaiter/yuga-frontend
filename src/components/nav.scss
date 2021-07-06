@@ -1,15 +1,15 @@
 .navC {
+  
     margin-right:40px;
     font-size: 23px;
     font-family:fantasy;
     color: rgb(231, 10, 147);
     align-items: right;
-    // font-weight: bolder;
-
    
 }
 
 .navD{
+ 
     margin-right:40px;
     font-size: 23px;
     font-family:fantasy;
@@ -20,13 +20,17 @@
 .navC:hover {
     background-color:pink;
     // color: black; 
+    padding-left:20px;
+    padding-right:20px;
     font-family: 'Viaoda Libre', cursive;	
 }
 // .navC:active {
 //     color: black;
 //     font-family: 'Viaoda Libre', cursive;	
 //   }
-  .navD:hover {
+.navD:hover {
+    padding-left:20px;
+    padding-right:20px;
     background-color:pink;
     
     font-family: 'Viaoda Libre', cursive;	

@@ -9,6 +9,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
+
 
 // Generate Order Data
 function createData(id,date,name, phone,shipTo,paymentMethod) {
@@ -32,14 +38,56 @@ const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
+  root: {
+    width: '100%',
+    color:"black",
+    backgroundColor:"pink",
+    // marginLeft:"20px",
+    marginRight:"20px",
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    }
+  }
 }));
 
 export default function FeedbackAdmin() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
   return (
     <div className="container" style={{minHeight:"900px",marginTop:"40px"}}>
     <React.Fragment >
       <Title >Recent Orders</Title>
+      <Collapse in={open} className={classes.root}>
+        <Alert
+        variant="filled" severity="info"
+        
+          action={
+            <IconButton
+              aria-label="close"
+              color="pink"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+         A new order was added by {rows[0].name} on {rows[0].date}  .
+        </Alert>
+      </Collapse>
+      <Button
+      
+      style={{margin:"20px"}}
+        disabled={open}
+        variant="outlined"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Re-open
+      </Button>
       <TableContainer component={Paper}>
       <Table  aria-label="simple table">
         <TableHead style={{backgroundColor:'#5e5e5e'}}>

@@ -133,8 +133,8 @@ function ShoppingCart({ cart }) {
                     className={classes.root}
                 // className="shopping-cart"
                 >
-                    <Typography variant="h4" align="left" style={{ marginBotton: "20px" }}>Shopping Cart</Typography>
-
+                    <Typography variant="h4" align="left" className="CartTitle">My Cart</Typography>
+                   {/* <p className="CartTitle">MyCart</p> */}
                     <Grid container spacing={3} style={{ marginTop: "40px" }}>
 
 

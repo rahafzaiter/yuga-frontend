@@ -11,6 +11,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
 
 // Generate Order Data
 function createData(id,customerid,name, rate,comment,category) {
@@ -18,11 +23,12 @@ function createData(id,customerid,name, rate,comment,category) {
 }
 
 const rows = [
-  createData(0, 1, 'rahaf zaiter', 4 , 'I like to add more skirts', 'Skirts'),
-  createData(1, 2, 'Elie Presley', 4 , 'I loved the pants ', 'Pants'),
-  createData(2, 2, 'Alexandra McCartney',5, 'I enjoyed shopping and would like to add more dresses', 'Dresses'),
-  createData(3, 1, 'Yvona Scholz', 3, 'Would you please add more Boyfriend Pants?', 'Pants'),
-  createData(4, 1, 'Lea Jackson',3, 'The Black JumpSuit was wonderfull when i received it ', "JumpSuits"),
+ 
+  createData(1, 1, 'Elie Kozah', 4 , 'I loved the pants ', 'Pants'),
+  createData(2, 2, 'Alexandra Kodjabachi',5, 'I enjoyed shopping and would like to add more dresses', 'Dresses'),
+  createData(3, 3, 'Yvona Nehme', 3, 'Would you please add more Boyfriend Pants?', 'Pants'),
+  createData(4, 4, 'Zaina Saab',3, 'The Black JumpSuit was wonderfull when i received it ', "JumpSuits"),
+  createData(0, 5, 'rahaf zaiter', 4 , 'I like to add more skirts', 'Skirts'),
  
 ];
 
@@ -34,16 +40,60 @@ const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
+  root: {
+    width: '100%',
+    color:"black",
+    backgroundColor:"pink",
+    // marginLeft:"20px",
+    marginRight:"20px",
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    }
+  }
 }));
 
 export default function FeedbackAdmin() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
   return (
     <div className="container"  style={{minHeight:"900px",marginTop:"40px"}}>
     <React.Fragment>
+   
     {/* <ReactNotification /> */}
       {/* <Application /> */}
       <Title >Recent Feedbacks</Title>
+      {/* <Alert onClose={() => {}}>This is a success alert — check it out!</Alert> */}
+      <Collapse in={open} className={classes.root}>
+        <Alert
+       variant="filled" severity="info"
+        
+          action={
+            <IconButton
+              aria-label="close"
+              color="white"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+         A new feedback was added by {rows[0].name} 3 mins ago .
+        </Alert>
+      </Collapse>
+      <Button
+      
+      style={{margin:"20px"}}
+        disabled={open}
+        variant="outlined"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Re-open
+      </Button>
     <TableContainer component={Paper}>      
       <Table  aria-label="simple table">
         <TableHead style={{backgroundColor:'#5e5e5e'}}>
