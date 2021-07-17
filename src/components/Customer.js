@@ -72,20 +72,13 @@ export default function Customer() {
     // { id: 9, name: "Sportswear" },
     // { id: 10, name: "Tunics" },
     // { id: 11, name: "Jackets" }]);
+
     const [categories,setCategories]=useState([]);
     const [products,setProducts]=useState([]);
-
-   
     const [cart, setCart] = useState([]);
-    
-    //Styles:(
-    const classes = useStyles();
     const history=useHistory();
-    const [value, setValue] = useState(0);
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
-
     const[orders,setOrders]=useState([]);
-
     const addItem = item => {
         const newList = cart.concat(item);
         setCart(newList)
@@ -98,14 +91,11 @@ export default function Customer() {
         setOrders(JSON.parse(window.localStorage.getItem("orders")))
     };
 
-
     const loadCategories = async () => {
         const result = await axios.get("http://127.0.0.1:8000/api/categories/");
         setCategories(result.data.reverse())
-    
       };
 
-    
       function dynamicSort(property) {
         return function (a, b) {
           return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;

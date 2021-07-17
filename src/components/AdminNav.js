@@ -91,8 +91,6 @@ function AdminNav(props) {
               <BottomNavigationAction style={{ color: 'black' }} label="Logout" icon={<MeetingRoomIcon />} component={Link} to="Customer"  onClick={(e) => {
                 e.preventDefault()
                 remove();
-                //<Redirect to={'/Customer/'} />
-                // props.setUser()
                  history.push("../Customer")
               }} />
 

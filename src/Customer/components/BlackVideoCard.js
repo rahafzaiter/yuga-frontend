@@ -23,9 +23,9 @@ import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontE
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    backgroundColor:'#F2CBCB',
-    padding:'4%',
-   
+    backgroundColor: '#F2CBCB',
+    padding: '4%',
+
   },
   details: {
     width: 500,
@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flex: '1 0 auto',
-    fontFamily:'Viaoda Libre',
+    fontFamily: 'Viaoda Libre',
   },
   cover: {
-    objectFit:"cover",shadowOpacity: 1,
+    objectFit: "cover", shadowOpacity: 1,
     shadowColor: '#fff',
-    
+
   },
   controls: {
     display: 'flex',
@@ -49,55 +49,47 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
 
   },
-  
+
 }));
 
 export default function MediaControlCardBlack() {
   const classes = useStyles();
   const theme = useTheme();
-  const videoSrc=VideoColor;
-    const videoSrcBlack=VideoBlack;
-    const poster=Img;
+  const videoSrc = VideoColor;
+  const videoSrcBlack = VideoBlack;
+  const poster = Img;
 
-    const posterBlack=BlackImg;
+  const posterBlack = BlackImg;
 
   return (
     <div alignItems="center">
-    <Card className={classes.root}>
-      <div className="home-page-custmer">
-        <CardContent className={classes.content}>
-          <Typography component="h3" variant="h3">
-            <p className="home-page-customer_item"> Dark</p>
-         
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary" >
-        Dark Colors Collection
-          <p className="home-page-customer_p">Girlieees! where are you elegant ladies? We have also got dark color collection for you  </p>
-          </Typography>
-        </CardContent>
-       
-      </div>
-     
+      <Card className={classes.root}>
+        <div className="home-page-custmer">
+          <CardContent className={classes.content}>
+            <Typography component="h3" variant="h3">
+              <p className="home-page-customer_item"> Dark</p>
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" >
+              Dark Colors Collection
+              <p className="home-page-customer_p">Girlieees! where are you elegant ladies? We have also got dark color collection for you  </p>
+            </Typography>
+          </CardContent>
+        </div>
+
 
         <VideoPlayer
+          image={HomePageImage}
+          title="Live from space album cover"
+          src={videoSrcBlack}
+          poster={posterBlack}
+          className={classes.paper}
+          width="200px"
+          frameBorder='0'
+          background='grey'
+          height="360px"
+        />
 
-        // className={classes.cover}
-        image={HomePageImage}
-        title="Live from space album cover"
-        src={videoSrcBlack}
-        poster={posterBlack}
-        className={classes.paper}
-        // frameborder="0" scrolling="no" allowfullscreen
-        // xs={6}
-       
-
-        width="200px"
-        frameBorder='0'
-        background='grey'
-        height="360px"
-      />
-      
-    </Card>
+      </Card>
     </div>
   );
 }

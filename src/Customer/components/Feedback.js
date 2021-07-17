@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/feedbackB.png'
@@ -18,48 +13,27 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import { shadows } from '@material-ui/system';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Submit from "react-formal/cjs/Submit";
 import Modal from '@material-ui/core/Modal';
-
-
-
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
-  }
-  
-  function getModalStyle() {
+}
+
+function getModalStyle() {
     const top = 50 + rand();
     const left = 50 + rand();
-  
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      transform: `translate(-${top}%, -${left}%)`,
-    };
-  }
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // height: '100%',
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
@@ -109,12 +83,8 @@ const useStyles = makeStyles((theme) => ({
 
     formControl: {
         margin: theme.spacing(1),
-        // Width: "100%",
         minWidth: "100%",
         fontSize: "100%"
-
-        // display:'block'
-
     },
 
 }));
@@ -129,13 +99,8 @@ export default function Feedback(props) {
     });
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
-
     const [comment, setComment] = useState('');
     const [rate, setRate] = useState('');
-
-
-
-
 
     const handleChangeCategory = (e) => {
         setState({
@@ -152,24 +117,15 @@ export default function Feedback(props) {
         setOpen(false);
     };
 
-    const [text,setText]=useState('');
+    const [text, setText] = useState('');
 
-    const bodyAfterAdd= (
+    const bodyAfterAdd = (
         <div style={modalStyle} className={classes.paperModel}>
             <h2 id="simple-modal-title">Yuga</h2>
             <p id="simple-modal-description">
-
-                {/* {
-
-            (!rate || !comment || !state.selectedCategory ) ?
-            text="please fill all inputs"         :
-            text="Thankyou for your feedback" 
-
-                } */}
-               {text}
+                {text}
             </p>
-            {/* <SimpleModal /> */}
-        </div> 
+        </div>
     );
 
 
@@ -178,32 +134,26 @@ export default function Feedback(props) {
         handleOpen();
 
         if (!rate || !comment || !state.selectedCategory) {
-           
-            setText("please fill all inputs") ;  
+
+            setText("please fill all inputs");
             <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-        >
-            {bodyAfterAdd}
-        </Modal>
-
-
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {bodyAfterAdd}
+            </Modal>
         } else {
-
-            setText("Thankyou for your feedback") ;
+            setText("Thankyou for your feedback");
             <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-        >
-            {bodyAfterAdd}
-        </Modal>
-            // handleOpen();
-            // alert("Thankyou for your feedback");
-            // text="Thankyou for your feedback" 
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+            >
+                {bodyAfterAdd}
+            </Modal>
             console.log("rate", rate)
             setRate('')
             setComment('')
@@ -212,26 +162,20 @@ export default function Feedback(props) {
                 selectedCategory: ''
             });
         }
-
     }
 
     return (
         <Grid container
-            //  component="main" 
-            className={classes.root}
-        >
+            className={classes.root} >
             <Grid item xs={5} sm={4} md={6} className={classes.image} />
             <Grid item xs={5} sm={9} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper} >
-
                     <Typography component="h1" variant="h4" >
                         How satisfied were you with Yuga ?
                     </Typography>
 
                     <form className={classes.form} noValidate onSubmit={e => e.preventDefault()}>
-
                         <FormControl component="fieldset">
-
                             <RadioGroup row aria-label="position" name="position" defaultValue="top"
                                 value={rate}
                                 onChange={e => setRate(e.target.value)}>
@@ -272,7 +216,6 @@ export default function Feedback(props) {
                             type="textarea"
                             value={comment}
                             onChange={e => setComment(e.target.value)}
-
                         />
 
                         <FormControl className={classes.formControl}>
@@ -303,8 +246,6 @@ export default function Feedback(props) {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            // color="lightcoral"
-                            // style={{ backgroundColor: '#FC3C80', color: 'white' }}
                             className={classes.submit}
                             onmouseover="this.style.color='#FC3C80'"
                             onClick={Submit} > SUBMIT </Button>

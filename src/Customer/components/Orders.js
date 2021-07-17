@@ -45,25 +45,19 @@ export default function Orders(props) {
         console.log("user in orders", props.user.user)
     }, []);
 
-    const NumberFormatPrice=(y)=>{
-        var price=new Intl.NumberFormat();
+    const NumberFormatPrice = (y) => {
+        var price = new Intl.NumberFormat();
         return price.format(y);
-      }
+    }
 
     return (
         <div>
             <div container className={classes.root} >
                 <Grid className="container" spacing={3} >
-                    <Grid item xs={12} className="shopping-cart_item">
-                        {/* <Grid item xs={12}  >
-                            <h2 style={{ fontSize: 40, marginBottom: "30px", marginTop: "40px" }}>Thank you for your orders {props.user.user.firstname} {props.user.user.lastname}
+                    {/* <Grid item xs={12} className="shopping-cart_item">
+                    </Grid> */}
 
-                                <img src={Logo} style={{ height: "40px", width: "200px" }} alt="Yuga logo" />
-                            </h2>
-                        </Grid> */}
-                    </Grid>
-
-                    { allorders == null ? (
+                    {allorders == null ? (
                         <div>
                             <Grid item xs={12}>
                                 <h1> Hey Sweety! What are you waiting for? Order your item now !</h1>
@@ -72,68 +66,46 @@ export default function Orders(props) {
                         </div>
                     )
                         :
+                        (
+                            <div>
+                                <Grid item xs={12} style={{ fontSize: 30, marginBottom: "30px", marginTop: "40px" }}>
+
+                                    <h2 className="Order_title">Thank you Sweety {props.user.user.firstname} {props.user.user.lastname} for your orders
+
+                                    </h2>
+                                </Grid>
+
+                                {allorders.map((order, index) => (
+                                    <Accordion key={index} style={{ width: "100%" }}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header">
+                                            <Typography className={classes.heading} style={{ fontSize: 19 }}>Order {index + 1} /  Date: {order.date}</Typography>
+                                        </AccordionSummary>
+
+                                        <AccordionDetails >
+                                            <Typography style={{ width: "95%" }}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <OneOrder item={order.cart.allcarts} total={order.totalprice} />
+                                                    </Grid>
+
+                                                </Grid>
 
 
-                     (  
-                         <div>
-                          <Grid item xs={12} style={{ fontSize: 30, marginBottom: "30px", marginTop: "40px" }}>
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))}
 
-                        <h2  className="Order_title">Thank you Sweety {props.user.user.firstname} {props.user.user.lastname} for your orders 
+                            </div>
 
-                        </h2>
-                    </Grid>
-                   
+                        )}
 
-                            { 
-                                allorders.map((order, index) => (
-                            <Accordion key={index} style={{ width: "100%" }}>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header">
-                                    <Typography className={classes.heading} style={{ fontSize: 19 }}>Order {index + 1} /  Date: {order.date}</Typography>
-                                </AccordionSummary>
-
-                                <AccordionDetails >
-                                    <Typography style={{ width: "95%" }}>
-
-                                        <Grid container spacing={2}>
-                                            {/* <Grid item xs={6} >
-                                            <Box  fontSize="h6.fontSize">
-                                            <Paper fontWeight="fontWeightBold">Total </Paper>
-                                            <Paper className={classes.paper}>{order.totalprice} LBP</Paper>
-                                            </Box>
-                                        </Grid>
-
-                                        <Grid item xs={6} >
-                                            <Box>
-                                            <Paper>Date</Paper>
-                                            <Paper shadow className={classes.paper}> {order.date}</Paper>
-                                            </Box>
-                                        </Grid> */}
-
-                                          
-                                       
-
-                                        <Grid item xs={12}>
-                                            <OneOrder item={order.cart.allcarts} total={order.totalprice} />
-                                        </Grid>
-
-                                    </Grid>
-
-
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                    ))}
-
-                    </div>
-
-                     )}
-                    
                 </Grid>
-                
-        </div>
+
+            </div>
 
         </div >
     )

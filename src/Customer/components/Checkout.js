@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,12 +8,10 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-// import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
-// import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams,useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -41,16 +39,16 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
-    color:"#FC3C80"
-    
+    color: "#FC3C80"
+
   },
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor:"rgb(214, 34, 145)",
-    color:"white",
+    backgroundColor: "rgb(214, 34, 145)",
+    color: "white",
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
@@ -58,12 +56,12 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Shipping address', 'Review your order'];
 
-function getStepContent(step,user,address,setAddress,fname,setfName,lname,setlName) {
+function getStepContent(step, user, address, setAddress, fname, setfName, lname, setlName) {
   switch (step) {
     case 0:
-      return <AddressForm  user={user} address={address} setAddress={setAddress} fname={fname} setfName={setfName} lname={lname} setlName={setlName}/>;
+      return <AddressForm user={user} address={address} setAddress={setAddress} fname={fname} setfName={setfName} lname={lname} setlName={setlName} />;
     case 1:
-      return <Review user={user} address={address} fname={fname} lname={lname}/>;
+      return <Review user={user} address={address} fname={fname} lname={lname} />;
     default:
       throw new Error('Unknown step');
   }
@@ -71,9 +69,9 @@ function getStepContent(step,user,address,setAddress,fname,setfName,lname,setlNa
 
 export default function Checkout(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0); 
-  const[fname,setfName]=useState(props.user.user.firstname)
-  const[lname,setlName]=useState(props.user.user.lastname)
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [fname, setfName] = useState(props.user.user.firstname)
+  const [lname, setlName] = useState(props.user.user.lastname)
   const [address, setAddress] = useState({
     city: '',
     street: '',
@@ -82,59 +80,51 @@ export default function Checkout(props) {
 
   });
 
-  const [checked,setChecked]=useState(false);
-  const [order,setOrder]=useState({})
-  const history=useHistory();
-  const remove=()=>{
+  const [checked, setChecked] = useState(false);
+  const [order, setOrder] = useState({})
+  const history = useHistory();
+  const remove = () => {
     localStorage.removeItem("cartItems");
     localStorage.removeItem("cartTotalPrice");
   };
-  
 
-  const handleNext = async() => {
+
+  const handleNext = async () => {
     setActiveStep(activeStep + 1);
-    if(activeStep === steps.length -1){
+    if (activeStep === steps.length - 1) {
       console.log("hello"),
-     setOrder({
-    customer:props.user.user,
-    customerName:fname+" "+lname,
-    cart:JSON.parse(window.localStorage.getItem("cartItems")),
-    totalprice:(
-
-      // parseInt(TotalPrice, 10) + 10000
-
-      parseInt(JSON.parse(localStorage.getItem("cartTotalPrice")),10)+1000),
-      
-      
-      // (JSON.parse(localStorage.getItem("cartTotalPrice"))*0.1) +1)*10,
-      
-    date:new Date().toLocaleString(),
-    custaddress:address
-      });
+        setOrder({
+          customer: props.user.user,
+          customerName: fname + " " + lname,
+          cart: JSON.parse(window.localStorage.getItem("cartItems")),
+          totalprice: (
+            parseInt(JSON.parse(localStorage.getItem("cartTotalPrice")), 10) + 1000),
+          date: new Date().toLocaleString(),
+          custaddress: address
+        });
       setChecked(true);
-   }
-    
+    }
+
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
-  useEffect(()=>{
-    console.log("order before change",order)
-    if(checked==true){
-    console.log("order after change ",order)
-    props.addOrders(order)
-    remove()
-    props.setCart([])
-    //history.push("/Customer/Orders")
+  useEffect(() => {
+    console.log("order before change", order)
+    if (checked == true) {
+      console.log("order after change ", order)
+      props.addOrders(order)
+      remove()
+      props.setCart([])
     }
-  },[order]);
+  }, [order]);
 
   return (
     <React.Fragment>
       <CssBaseline />
-     
+
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -160,7 +150,7 @@ export default function Checkout(props) {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep,props.user.user,address,setAddress,fname,setfName,lname,setlName)}
+                {getStepContent(activeStep, props.user.user, address, setAddress, fname, setfName, lname, setlName)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
@@ -172,7 +162,7 @@ export default function Checkout(props) {
                     color="primary"
                     onClick={handleNext}
                     textColor="white" backgroundColor="#FF00A7"
-                    className={classes.button} 
+                    className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                   </Button>
@@ -181,7 +171,7 @@ export default function Checkout(props) {
             )}
           </React.Fragment>
         </Paper>
-       
+
       </main>
     </React.Fragment>
   );
