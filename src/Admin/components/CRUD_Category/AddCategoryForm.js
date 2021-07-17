@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Form} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Row, Col, Grid } from 'react-bootstrap';
 
 
@@ -16,7 +16,7 @@ const AddCategoryForm = props => {
     // localStorage.setItem("categoires",JSON.stringify({user}))
   };
 
-  
+
   return (
     <Form inline
       onSubmit={event => {
@@ -27,19 +27,19 @@ const AddCategoryForm = props => {
       }}
     >
       <Form.Label>Category Name</Form.Label>
-    
+
       <input
         className="form-control mx-sm-3"
         type="text"
         name="name"
         value={user.name}
         onChange={handleInputChange}
-        
+
       />
-       
-     
-      <button className="btn btn-inline" style={{backgroundColor:'rgb(240, 18, 155)',color:'black'}}>Add New Category</button>
-    <br/>
+
+
+      <button className="btn btn-inline" style={{ backgroundColor: 'rgb(240, 18, 155)', color: 'black' }}>Add New Category</button>
+      <br />
     </Form>
   );
 };

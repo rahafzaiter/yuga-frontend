@@ -124,7 +124,7 @@ function HomePageCustomer (props){
           // marginTop:"4%"}} 
          
           
-          onClick={()=>{history.push(`/CustProductGallery`)}}   >
+          onClick={()=>{history.push(`/Customer/CustProductGallery`)}}   >
                 {/* <Link to="/Customer/CustProductGallery"              
                 >Shop now</Link> */}
                <span className="home-page-customer_buttn"> Shop Now </span>

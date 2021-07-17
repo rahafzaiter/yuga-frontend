@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 //import TutorialDataService from "../services/TutorialService";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -23,7 +23,7 @@ import 'image-upload-react/dist/index.css'
 import ImageUploader from 'react-images-upload';
 import { SketchPicker } from 'react-color';
 import { HistoryOutlined } from "@material-ui/icons";
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     backgroundColor: "white",
     height: "10%",
-    color:"black"
+    color: "black"
   },
   root: {
     '& .MuiTextField-root': {
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   formControlSelect: {
     margin: theme.spacing(1),
     width: '75%',
-   
+
   },
 
 }));
@@ -103,61 +103,93 @@ export default function EditProduct() {
     JSON.parse(localStorage.getItem("product"))
 
   )
+  const [productId]=useState(JSON.parse(localStorage.getItem("productId")))
+  const [productB,setproductB] = useState(null);
 
-  const [AllProducts,setAllProducts]=useState( JSON.parse(localStorage.getItem("Products")));
-  const [newProducts,setnewProducts]=useState([0]);
+  const [AllProducts, setAllProducts] = useState(JSON.parse(localStorage.getItem("Products")));
+  const [newProducts, setnewProducts] = useState([0]);
+
   const [product, setProduct] = useState(ProductLocal.product);
+  // const [product, setProduct] = useState(productB);
+
   const [imageSrc, setImageSrc] = useState();
   const [colorHexCode, setColorHexCode] = useState('#000000');
   const [pictures, setPictures] = useState(null);
-  const[changed,setChange]=useState(false);
-  const [quantity, setQuantity] = useState({
-    id: 0,
-    S: 1,
-    M: 2,
-    L: 3,
-    XL: 1,
-    XXL: 0,
-    productId: product.id
+  const [changed, setChange] = useState(false);
+  // const [quantity, setQuantity] = useState({
+  //   id: 0,
+  //   S: 1,
+  //   M: 2,
+  //   L: 3,
+  //   XL: 1,
+  //   XXL: 0,
+  //   productId: product.id
 
 
-  });
-  const Categories = [
-    { id: 1, name: "Pants" },
-    { id: 2, name: "Shirts"},
-    { id: 3, name: "Dresses" },
-    { id: 4, name: "Suits" },
-    { id: 5, name: "Skirts" },
-    { id: 6, name: "Jumpsuits" },
-    { id: 7, name: "Outerwear" },
-    { id: 8, name: "Sweat-shirt" },
-    { id: 9, name: "Sportswear" },
-    { id: 10, name: "Tunics" }
+  // });
+  const [Categories,setCategories] = useState([
+    // { id: 1, name: "Pants" },
+    // { id: 2, name: "Shirts" },
+    // { id: 3, name: "Dresses" },
+    // { id: 4, name: "Suits" },
+    // { id: 5, name: "Skirts" },
+    // { id: 6, name: "Jumpsuits" },
+    // { id: 7, name: "Outerwear" },
+    // { id: 8, name: "Sweat-shirt" },
+    // { id: 9, name: "Sportswear" },
+    // { id: 10, name: "Tunics" }
 
-  ];
+  ]);
   const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
+
+  const loadUsers = async () => {
+    const result = await axios.get("http://127.0.0.1:8000/api/categories/");
+    // setUser(result.data.reverse());
+    setCategories(result.data.reverse())
+    
+  };
+
+  const loadProductById = async (id) => {
+    const result = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
+    // setUser(result.data.reverse());
+    setproductB(result.data)
+    console.log(result.data);
+    
+  };
 
 
 
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setProduct({...product,[name]: value });
+    setProduct({ ...product, [name]: value });
     setChange(true);
   };
+
+  const handleSizeChange=event=>{
+    const { name, value } = event.target;
+    setProduct({ ...product, [name]: Number(value) });
+    setChange(true);
+  }
+
+  const handlePriceChange=event=>{
+    const { name, value } = event.target;
+    setProduct({ ...product, [name]: Number(value) });
+    setChange(true);
+  }
 
   const handleImageSelect = (e) => {
     setImageSrc(URL.createObjectURL(e.target.files[0]))
   }
 
 
-var y="";
+  var y = "";
 
   // const Edit=()=>{
 
   //   if(AllProducts!=undefined){
-   
+
 
   //     AllProducts.map((prod)=>{
   //     if(prod.id==product.id){
@@ -165,13 +197,13 @@ var y="";
   //       // prod=product;
   //       const pr=newProducts.concat(product);
   //       setnewProducts(pr);
-       
+
   //         // history.push("/Admin/tutorials");
-       
+
   //       // return;
-        
+
   //     }else{
-       
+
 
   //       const pr=newProducts.concat(prod);
   //       setnewProducts(pr);
@@ -179,7 +211,7 @@ var y="";
 
   //     }
   //   }) ; 
-   
+
 
   //   //history.push("/Admin/tutorials");
   //   }else{
@@ -188,10 +220,13 @@ var y="";
 
   // }
 
-  // useEffect(()=>{
-  //   setAllProducts(localStorage.getItem('Products').products)
+  useEffect(()=>{
+    loadProductById(productId);
+    loadUsers();
+    console.log('product to be edited',productB)
+    // setAllProducts(localStorage.getItem('Products').products)
 
-  // },[y])
+  },[])
 
   // useEffect(()=>{
   //   localStorage.setItem('Products',JSON.stringify({newProducts}));
@@ -200,10 +235,28 @@ var y="";
   //   if (y!=""){
   //   history.push("/Admin/tutorials");
   //   }
-    
+
   //   // console.log("all products in edit page",AllProducts);
 
   // },[newProducts])
+
+
+  const updateProducts = async (id,updateduser) => {
+    console.log('in updateUser id ',id)
+    console.log('in updateUser method',updateduser)
+    await axios.put(`http://127.0.0.1:8000/api/products/${id}`,updateduser)
+    .then(response => {
+      console.log(response.data)
+      console.error('all cat',response.data)
+      //props.setRefresh(!props.refresh)
+    }
+     
+      )
+          .catch(error => {
+            // setUsers({ errorMessage: error.message });
+            console.error(error.response.data);
+          });  
+  };
 
 
   const saveTutorial = () => {
@@ -229,6 +282,16 @@ var y="";
     //       console.log(e);
     //     });
   };
+
+
+
+  const submit = () => {
+    // setProduct({ ...product, id: parseInt(prodLength,10)+1 });
+    updateProducts(product.id,product);
+    // props.addProducts(product)
+
+    // history.push("/Admin/tutorials")
+  }
 
   const onSubmit = e => {
     e.preventDefault();
@@ -259,265 +322,244 @@ var y="";
 
   // }
 
-  
+
 
 
 
   return (
     <div className="container" >
 
-      <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%" }}>
+      <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%", borderRadius: "25px", marginTop: "30px" }}>
         <h2 className="text-center mb-4">Edit A Product</h2>
-        {/* {submitted ? (
-          <div>
-            <h4>You submitted successfully!</h4>
-            <button className="btn btn-success" onClick={newTutorial}>
-              Add
-          </button>
-          </div>
-        ) : ( */}
-          <div className="container">
+        <div className="container">
+          <form noValidate onSubmit={onSubmit} className={classes.form}>
+            {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
+            <TextField
+              required
+              type="text"
+              id="outlined-required"
+              label="Title"
+              defaultValue="title"
+              variant="outlined"
+              className={classes.formControl}
+              value={product.title}
+              onChange={handleInputChange}
+              name="title"
+            />
 
-            <form noValidate onSubmit={onSubmit} className={classes.form}>
-              {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
-            
+            <TextField
+
+              multiline
+              variant="outlined"
 
 
-                <TextField
-                  required
-                  type="text"
-                  id="outlined-required"
-                  label="Title"
-                  defaultValue="title"
-                  variant="outlined"
-                  className={classes.formControl}
-                  value={product.title}
-                  onChange={handleInputChange}
-                  name="title"
+              className={classes.formControl}
+
+              id="description"
+              name="description"
+              value={product.description}
+              label="Description"
+              fullWidth
+              autoComplete="given-name"
+              onChange={handleInputChange}
+            />
+
+            <FormControl className={classes.formControl} variant="outlined" required>
+              <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-amount"
+                value={product.price}
+                type="number"
+                style={{ backgroundColor: "white" }}
+                onChange={handlePriceChange}
+                // className={classes.formControl}
+                startAdornment={<InputAdornment position="start">LBP</InputAdornment>}
+                labelWidth={60}
+              />
+            </FormControl>
+
+            <TextField
+              required
+              id="outlined-required"
+              label="Color"
+              defaultValue="color"
+              variant="outlined"
+              value={product.color}
+              onChange={handleInputChange}
+              // style={{backgroundColor:"white"}}
+              className={classes.formControl}
+              name="color"
+              type="text"
+            />
+            <TextField
+              required
+              multiline
+              id="outlined-required"
+              label="Image Link"
+              defaultValue={product.image}
+              variant="outlined"
+              value={product.image}
+              name="image"
+              onChange={handleInputChange}
+              className={classes.formControl}
+
+              type="link"
+            />
+            <hr />
+
+
+            <FormControl className={classes.formControlSelect}>
+
+              <Typography >Select Collection</Typography>
+              <Select
+                style={{ backgroundColor: "white", color: 'black' }}
+                label="Select Collection"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                inputProps={{
+                  name: 'collection',
+                  id: 'age-native-simple',
+                }}
+                name="collection"
+                value={product.collection}
+                onChange={handleInputChange}
+              >
+                <MenuItem value={"light"}>Light</MenuItem>
+                <MenuItem value={"dark"}>Dark</MenuItem>
+
+
+              </Select>
+            </FormControl>
+
+
+
+
+            <FormControl className={classes.formControlSelect} >
+              <Typography  >Select Category</Typography>
+              <Select
+
+                // className={classes.formControl}
+                value={product.category}
+
+                required
+                style={{ backgroundColor: "white", color: 'black' }}
+
+                inputProps={{
+                  name: 'category',
+                  id: 'age-native-simple',
+
+
+                }}
+                onChange={handleInputChange}
+
+              >
+                {Categories.map((cat) => (
+                  <option align="center"  value={cat.name}>{cat.name}</option>))}
+              
+              </Select>
+            </FormControl>
+
+
+            <hr />
+
+            <div className="form-group">
+              <h4>Select Quantity of each size</h4>
+              <FormControl className={classes.marginQuantity} variant="outlined" required>
+
+
+                <InputLabel htmlFor="outlined-adornment-amount">Small</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={product.S}
+                  type="number"
+                  name="S"
+                  style={{ backgroundColor: "white" }}
+                  onChange={handleSizeChange}
+                  startAdornment={<InputAdornment position="start">S</InputAdornment>}
+                  labelWidth={60}
+
                 />
 
-                <TextField
-              //  // type="text"
-              //     id="description"
-              //     label="description"
-              //     defaultValue={product.description}
-                  multiline
-                  variant="outlined"
-              //     margin="normal"
-              //     required
-              //     fullWidth
-              //     autoComplete="email"
-              //     autoFocus
+              </FormControl>
+              <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                  className={classes.formControl}
-              //     value={product.description}
-              //     onChange={handleInputChange}
-              //     name="description"
+                <InputLabel htmlFor="outlined-adornment-amount">Medium</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={product.M}
+                  name="M"
+                  style={{ backgroundColor: "white" }}
+                  onChange={handleSizeChange}
+                  type="number"
+                  startAdornment={<InputAdornment position="start">M</InputAdornment>}
+                  labelWidth={60}
 
-
-
-
-                
-            id="description"
-            name="description"
-            value={product.description}
-            label="Description"
-            fullWidth
-            autoComplete="given-name"
-            onChange={handleInputChange}
                 />
 
-                <FormControl className={classes.formControl} variant="outlined" required>
-                  <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    value={product.price}
-                    type="number"
-                    style={{ backgroundColor: "white" }}
-                    onChange={handleInputChange}
-                    // className={classes.formControl}
-                    startAdornment={<InputAdornment position="start">LBP</InputAdornment>}
-                    labelWidth={60}
-                  />
-                </FormControl>
+              </FormControl>
+              <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Color"
-                  defaultValue="color"
-                  variant="outlined"
-                  value={product.color}
-                  onChange={handleInputChange}
-                  // style={{backgroundColor:"white"}}
-                  className={classes.formControl}
-                  name="color"
-                  type="text"
+                <InputLabel htmlFor="outlined-adornment-amount">Large</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={product.L}
+                  name="L"
+                  onChange={handleSizeChange}
+
+                  style={{ backgroundColor: "white" }}
+                  startAdornment={<InputAdornment position="start">L</InputAdornment>}
+                  type="number"
+                  labelWidth={60}
+
+                />
+              </FormControl>
+              <FormControl className={classes.marginQuantity} variant="outlined" required>
+
+                <InputLabel htmlFor="outlined-adornment-amount">X Large</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={product.XL}
+                  style={{ backgroundColor: "white" }}
+                  onChange={handleSizeChange}
+                  type="number"
+                  startAdornment={<InputAdornment position="start">XL</InputAdornment>}
+                  labelWidth={60}
+                  name="XL"
                 />
 
+              </FormControl>
+              <FormControl className={classes.marginQuantity} variant="outlined" required>
 
-                <hr />
-
-                <FormControl className={classes.formControlSelect}>
-
-                <Typography lassName={classes.formControlSelect} >Select Collection</Typography>
-                  <Select
-                   style={{ backgroundColor: "white", color: 'black' }}
-                  label="Select Collection"
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    inputProps={{
-                      name: 'collection',
-                      id: 'age-native-simple',
-                    }}
-                    value={product.collection}
-                    onChange={handleInputChange}
-                  >
-                    <MenuItem value={"Light"}>Light</MenuItem>
-                    <MenuItem value={"Dark"}>Dark</MenuItem>
-
-
-                  </Select>
-                </FormControl>
-
-
-                <FormControl className={classes.formControlSelect} >
-                <Typography className={classes.formControlSelect} >Select Category</Typography>
-                  <Select
-                    native
-                    className={classes.formControl}
-                    value={product.category}
-                   
-                    required
-                    style={{ backgroundColor: "white", color: 'black' }}
-
-                    inputProps={{
-                      name: 'category',
-                      id: 'age-native-simple',
-
-
-                    }}
-                     onChange={handleInputChange}
-
-                  >
-                    <option aria-label="None" value="" />
-
-                     {Categories.map((cat)=>(
-                    <option align="center" value={cat.name}>{cat.name}</option>))}
-                    {/* <option aria-label="None" value="" />
-                    <option value={"T-shirt"}>T-shirt</option>
-                    <option value={"Skirt"}>Skirt</option>
-                    <option value={"Dress"}>Dress</option>
-                    <option value={"Pant"}>Pant</option>
-                    <option value={"Set"}>Set</option>
-                    <option value={"Chemis"}>Chemis</option> */}
-
-
-                  </Select>
-                </FormControl>
-
-                <TextField
-                  required
-                  id="outlined-required"
-                  label="Image Link"
-                  defaultValue="color"
-                  variant="outlined"
-                  value={product.image}
-                  onChange={handleInputChange}
-                  className={classes.formControl}
-                  name="color"
-                  type="link"
+                <InputLabel htmlFor="outlined-adornment-amount">XX Large</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={product.XXL}
+                  type="number"
+                  style={{ backgroundColor: "white" }}
+                  onChange={handleSizeChange}
+                  startAdornment={<InputAdornment position="start">XXL</InputAdornment>}
+                  labelWidth={60}
+                  name="XXL"
                 />
-                <hr />
-
-                <div className="form-group">
-                  <h4>Select Quantity of each size</h4>
-                  <FormControl className={classes.marginQuantity} variant="outlined" required>
+              </FormControl>
 
 
-                    <InputLabel htmlFor="outlined-adornment-amount">Small</InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-amount"
-                      value={product.S}
-                      type="number"
-                      style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
-                      startAdornment={<InputAdornment position="start">S</InputAdornment>}
-                      labelWidth={60}
-                    />
 
-                  </FormControl>
-                  <FormControl className={classes.marginQuantity} variant="outlined" required>
-
-                    <InputLabel htmlFor="outlined-adornment-amount">Medium</InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-amount"
-                      value={product.M}
-                      style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
-                      type="number"
-                      startAdornment={<InputAdornment position="start">M</InputAdornment>}
-                      labelWidth={60}
-                    />
-
-                  </FormControl>
-                  <FormControl className={classes.marginQuantity} variant="outlined" required>
-
-                    <InputLabel htmlFor="outlined-adornment-amount">Large</InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-amount"
-                      value={product.L}
-                      onChange={handleInputChange}
-                      style={{ backgroundColor: "white" }}
-                      startAdornment={<InputAdornment position="start">L</InputAdornment>}
-                      type="number"
-                      labelWidth={60}
-                    />
-                  </FormControl>
-                  <FormControl className={classes.marginQuantity} variant="outlined" required>
-
-                    <InputLabel htmlFor="outlined-adornment-amount">X Large</InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-amount"
-                      value={product.XL}
-                      style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
-                      type="number"
-                      startAdornment={<InputAdornment position="start">XL</InputAdornment>}
-                      labelWidth={60}
-                    />
-
-                  </FormControl>
-                  <FormControl className={classes.marginQuantity} variant="outlined" required>
-
-                    <InputLabel htmlFor="outlined-adornment-amount">XX Large</InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-amount"
-                      value={product.XXL}
-                      type="number"
-                      style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
-                      startAdornment={<InputAdornment position="start">XXL</InputAdornment>}
-                      labelWidth={60}
-                    />
-                  </FormControl>
-
-               
-
-                <div>
-                  <button className="btn btn-block shadow" 
-                   style={{backgroundColor:'rgb(240, 18, 155)',color:'black'}}
-                  onClick={ ()=>{history.push("/Admin/tutorials")}}
-                  // {() =>Edit
-                  //   history.push("/Admin/tutorials")} 
-                   >
-                    Update
-          </button>
-                </div>
-
+              <div>
+                <button className="btn btn-block shadow"
+                  style={{ backgroundColor: 'rgb(240, 18, 155)', color: 'black' }}
+                  // onClick={() => { history.push("/Admin/tutorials") }}
+                  onClick={submit}
+                // {() =>Edit
+                //   history.push("/Admin/tutorials")} 
+                >
+                  Update
+                </button>
               </div>
-            </form>
-          </div>
+
+            </div>
+          </form>
+        </div>
         {/* )} */}
       </div>
     </div>

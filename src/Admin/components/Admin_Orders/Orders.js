@@ -22,11 +22,14 @@ function createData(id,date,name, phone,shipTo,paymentMethod) {
 }
 
 const rows = [
-  createData(0, '23 Jun, 2021', 'Rahaf Zaiter','81769794', 'Saida, mia o mia street, Amjad Zaiter building, f1', 'Cash on Delivery',200000),
+  createData(0, '8 July, 2021', 'Rahaf Zaiter','81769794', 'Saida, mia o mia street, Amjad Zaiter building, f2', 'Cash on Delivery',271000),
   createData(1, '16 May, 2021', 'Elie Kozah','81769796', 'Jezzine, mia o mia street, Abu Sedo building, f1 ', 'Cash on Delivery',220000),
   createData(2, '29 April, 2021', 'Alexandra Kodjabatchi','81769797', 'Nabatieh, Haboush street, Zuwat building, f2 ', 'Cash on Delivery',300000),
   createData(3, '26 Mar, 2021', 'Ynonne Nehme','81769798', 'Beirut, BDD Bashoura, BDD 1234, f-1', 'Cash on Delivery',450000),
   createData(4, '23 Mar, 2021', 'Lea Jackson', '81769799','Beirut, BDD Bashoura, BDD 1234, f2', 'Cash on Delivery',200000),
+  
+  
+  
  
 ];
 

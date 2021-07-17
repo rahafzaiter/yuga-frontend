@@ -64,9 +64,9 @@ export default function Admin(props) {
 
     useEffect(()=>{
         localStorage.setItem('Products',JSON.stringify(Products))
-        console.log("in Admin Page",localStorage.getItem("Products"));
-        console.log("Categories in Admin",categories);
-        console.log("Categories in Admin with props",props.categories)
+        // console.log("in Admin Page",localStorage.getItem("Products"));
+        // console.log("Categories in Admin",categories);
+        // console.log("Categories in Admin with props",props.categories)
 
     },[])
 

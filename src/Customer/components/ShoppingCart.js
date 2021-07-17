@@ -77,12 +77,12 @@ const defaultProps = {
     border: 2,
     m: 2,
     borderColor: 'black',
-    style: { width: '5rem', height: '5rem' },
+    // style: { width: '5rem', height: '5rem' },
 };
 
 //https://github.com/LambdaSchool/react-shopping-cart/tree/master/src 
 
-function ShoppingCart({ cart }) {
+function ShoppingCart({ cart,setCart }) {
     const classes = useStyles();
     const [allcarts, setAllCarts] = useState(cart);
     const history = useHistory();
@@ -96,8 +96,15 @@ function ShoppingCart({ cart }) {
         }, 0).toFixed(0)
     };
     const x = 0;
+
     useEffect(() => {
         console.log("cart", cart)
+        setAllCarts(cart)
+    }, [cart]);
+
+    useEffect(() => {
+        console.log("cart", cart)
+      
     }, []);
 
     const remove = () => {
@@ -124,6 +131,13 @@ function ShoppingCart({ cart }) {
         </div>
     );
 
+   const  removeItemFromBasket=(itemId) =>{
+        const items = allcarts.filter(item => item.id !== itemId);
+     
+        // setAllCarts({items});
+        setCart(items);
+      }
+
 
     return (
         <React.Fragment>
@@ -135,7 +149,7 @@ function ShoppingCart({ cart }) {
                 >
                     <Typography variant="h4" align="left" className="CartTitle">My Cart</Typography>
                    {/* <p className="CartTitle">MyCart</p> */}
-                    <Grid container spacing={3} style={{ marginTop: "40px" }}>
+                    <Grid container spacing={2} style={{ marginTop: "40px" }}>
 
 
 
@@ -147,7 +161,7 @@ function ShoppingCart({ cart }) {
 
                                 <Table borderBottom={2} style={
                                     {
-                                        border: '2px solid black'
+                                        border: '3px solid black'
                                     }}
                                     className={classes.table} aria-label="simple table">
                                     <TableHead >
@@ -156,44 +170,44 @@ function ShoppingCart({ cart }) {
                                                 border: '2px solid black'
                                             }
                                         }>
-                                            <TableCell></TableCell>
-                                            <TableCell style={{ fontSize: 20 }} align="right">Product</TableCell>
-                                            <TableCell style={{ fontSize: 20 }} align="right">Size</TableCell>
-                                            <TableCell style={{ fontSize: 20 }} align="right">Price (LBP)</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="left">Image</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="left">Product</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="left">Size</TableCell>
+                                            <TableCell style={{ fontSize: 20 }} align="left">Price (LBP)</TableCell>
                                             <TableCell align="right"></TableCell>
                                         </TableRow>
                                     </TableHead>
-                                    <TableBody>
+                                   
+                                        {allcarts.length==0?
+                                        (
+                                              <TableBody></TableBody>
+                                        ):
+                                       
+                                             <TableBody>
                                         {allcarts.map((item, index) => (
                                             <TableRow key={index} {...item}>
-                                                <TableCell component="th" scope="row">
-                                                    <img width="150px" height="100px" objectFit="cover" src={item.Product.card.image} alt={`${item.Product.card.title} book`} />
+                                                <TableCell align="left">
+                                                    <img width="150px" height="150px" objectFit="cover" src={item.Product.card.image} alt={`${item.Product.card.title} book`} />
                                                 </TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="right">{item.Product.card.title}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="right">{item.size}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="right">{y = new Intl.NumberFormat(),
+                                                <TableCell style={{ fontSize: 18 }} align="left">{item.Product.card.title}</TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="left">{item.size}</TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="left">{y = new Intl.NumberFormat(),
                                                     y.format(item.Product.card.price)}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="right"><button>X</button></TableCell>
+                                                <TableCell style={{ fontSize: 18 }} align="right"><button onClick={()=>removeItemFromBasket(item.id)}>X</button></TableCell>
                                             </TableRow>
                                         ))}
-                                    </TableBody>
+                                          </TableBody>
+                                       
+                                        }
+                                  
                                 </Table>
                             </TableContainer>
-
-
-                            {/* {allcarts.map((item, index) => (
-                                    <Grid item xs={4} spacing={3}>
-                                        <Paper className={classes.paper} shadow>
-                                            <Item key={index} {...item} />
-                                        </Paper>
-                                    </Grid>
-                                ))} */}
 
                         </Grid>
 
                         <Grid item xs={4}>
 
-                            <p><h4>Subtotal :  </h4>
+                            <p><h4>Subtotal : </h4>
                                 {/* {getCartTotal().toLocaleString(undefined, {maximumFractionDigits:4})} */}
                                 {
                                     y = new Intl.NumberFormat(),

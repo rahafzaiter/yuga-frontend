@@ -20,7 +20,8 @@ import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontE
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 2,
-    flexDirection:"row"
+    flexDirection:"row",
+    width: '100%'
   },
   paper: {
     padding: theme.spacing(2),
@@ -30,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems:'left',
     alignContent:'left',
     width:'100%',
-    height:"100%"
+    height:"100%",
+    borderRadius: "25px"
   
   },
   formControl: {
@@ -114,12 +116,12 @@ export default function ViewProduct({additem,user}) {
   return (
    
     <div className="container" style={{ width: '100%' }} >
-      <Grid container spacing={1} className={classes.root}>
-        <Grid item  xs={4} container  md={4} style={{maxHeight:"600px"}} >
-          <img src={Product.image} style={{objectFit: "cover",width:"100%",height:"600px",maxHeight:"600px"}} />
+      <Grid container  className={classes.root}>
+        <Grid item  xs={5}   style={{maxHeight:"600px",width:"100%",marginTop:"35px"}} >
+          <img src={Product.image} style={{objectFit: "cover",width:"100%",height:"600px",maxHeight:"600px", borderRadius: "25px"}} />
         </Grid>
 
-        <Grid xs={7} md={7} spacing={4} item style={{minHeight:"600px"}} className={classes.formControl}>
+        <Grid xs={6}  item style={{minHeight:"600px",borderRadius: "25px"}} className={classes.formControl}>
 
         {/* <Grid  xs={12} className={classes.formControl}> */}
           <Paper className={classes.paper} bold >
@@ -131,7 +133,7 @@ export default function ViewProduct({additem,user}) {
             <p  marginButton="2px">Color: {Product.color}</p>
             
             <p marginButton="2px">Price: {NumberFormatPrice(Product.price)} LBP</p>
-            <p marginButton="2px">Category: {Product.category}</p>
+            <p marginButton="2px">Category: {Product.name}</p>
             <div>
             <TableContainer component={Paper}>
       

@@ -23,12 +23,12 @@ function createData(id,customerid,name, rate,comment,category) {
 }
 
 const rows = [
- 
+  createData(0, 0, 'Rahaf Zaiter', 4 , 'I like the SE shirts', 'Shirts'),
   createData(1, 1, 'Elie Kozah', 4 , 'I loved the pants ', 'Pants'),
   createData(2, 2, 'Alexandra Kodjabachi',5, 'I enjoyed shopping and would like to add more dresses', 'Dresses'),
   createData(3, 3, 'Yvona Nehme', 3, 'Would you please add more Boyfriend Pants?', 'Pants'),
   createData(4, 4, 'Zaina Saab',3, 'The Black JumpSuit was wonderfull when i received it ', "JumpSuits"),
-  createData(0, 5, 'Rahaf Zaiter', 4 , 'I like to add more skirts', 'Skirts'),
+  
  
 ];
 
@@ -80,7 +80,7 @@ export default function FeedbackAdmin() {
             </IconButton>
           }
         >
-         A new feedback was added by {rows[rows.length-1].name} 3 mins ago .
+         A new feedback was added by {rows[0].name} today .
         </Alert>
       </Collapse>
       <Button
@@ -95,8 +95,8 @@ export default function FeedbackAdmin() {
         Re-open
       </Button>
     <TableContainer component={Paper}>      
-      <Table  aria-label="simple table">
-        <TableHead style={{backgroundColor:'#5e5e5e'}}>
+      <Table  aria-label="simple table" style={{borderRadius: "25px",}}>
+        <TableHead style={{backgroundColor:'#5e5e5e',borderRadius: "25px",}}>
           <TableRow>
             <TableCell style={{ color: 'white',fontSize:"18px" }} component="th" scope="row">Customer id</TableCell>
             <TableCell style={{ color: 'white',fontSize:"18px" }}>Name</TableCell>
@@ -107,7 +107,7 @@ export default function FeedbackAdmin() {
         </TableHead>
 
 
-        <TableBody style={{backgroundColor:'#f1f1f1'}}>
+        <TableBody style={{backgroundColor:'#f1f1f1',borderRadius: "25px",}}>
           {rows.map((row) => (
             <TableRow key={row.id}>
              <TableCell>{row.customerid}</TableCell>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/nav.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -7,7 +6,6 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Logo from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/logoPinkDress.jpeg"
-//const path='/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/';
 import Grid from '@material-ui/core/Grid';
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useHistory, NavLink } from "react-router-dom";
 import Menu from '@material-ui/core/Menu';
@@ -30,12 +28,8 @@ const useStyles = makeStyles({
     fontSize: 18,
     fontWeight: 300,
     color: "black",
-    // marginLeft:"40px",
-    marginRight:"40px",
-    align:"center"
-  
-    
-
+    marginRight: "40px",
+    align: "center"
   },
   pinkDiv: {
     background: '#F3E0E0',
@@ -50,14 +44,10 @@ const useStyles = makeStyles({
     m: 1,
     borderColor: 'grey',
   }
-
-
-
 });
 
 
 const theme = createMuiTheme();
-
 theme.typography.h3 = {
   fontSize: '1.2rem',
   '@media (min-width:600px)': {
@@ -71,11 +61,9 @@ theme.typography.h3 = {
 
 function Navigation(props) {
   const classes = useStyles();
-
   const [value, setValue] = useState(0);
   const [color, changeColor] = useState("#FFFFFF");
   const history = useHistory();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -91,11 +79,6 @@ function Navigation(props) {
     setAnchorEl(null);
     history.push(path)
   };
-
-  // const Navigation = props => {
-  //   // bgcolor: 'background.paper',
-
-  // };
 
   const changeColors = colors => {
     setState({ color });
@@ -122,30 +105,21 @@ function Navigation(props) {
             setValue(newValue);
           }}
           showLabels
-          // className="home-page-customer_size"
-          //  className="navig"
         >
 
 
           <Button className="nav-links" component={Link} align="left"
 
             to="/Customer/CustHomePage"
-            > <span align="left" className="nav-links" >Home</span>  </Button>
+          > <span align="left" className="nav-links" >Home</span>  </Button>
 
           <Button component={Link} align="left"
-            to="/Customer/CustProductGallery"  className="navig"> <span align="left" className="nav-links"  >Shop</span>  </Button>
-
-          {/* <Button component={Link} align="left"
-            to="/Customer/CustProductGallery"> <span className={classes.root}  >Shop</span>  </Button> */}
-
+            to="/Customer/CustProductGallery" className="navig"> <span align="left" className="nav-links"  >Shop</span>  </Button>
           <Button label="My Orders" align="left" component={Link}
-            to="/Customer/CustOrders"   className="navig"> <span align="left" className="nav-links" >My Orders</span></Button>
+            to="/Customer/CustOrders" className="navig"> <span align="left" className="nav-links" >My Orders</span></Button>
 
           <Button label="Account" align="left" component={Link}
-            // to="/Customer/CustProfile"
-            aria-controls="fade-menu" aria-haspopup="true"  className="navig" onClick={handleClick}  className="navig" > <span align="left" className="nav-links" >Account</span></Button>
-
-         
+            aria-controls="fade-menu" aria-haspopup="true" className="navig" onClick={handleClick} className="navig" > <span align="left" className="nav-links" >Account</span></Button>
           <Menu
             id="fade-menu"
             anchorEl={anchorEl}
@@ -158,10 +132,6 @@ function Navigation(props) {
               path = "/Customer/Profile"
               handleClose(path)
             }}>Profile</MenuItem>
-            {/* <MenuItem onClick={()=>{
-                path="/Customer/Address"
-                handleClose(path)
-                }}>Address</MenuItem> */}
             <MenuItem onClick={() => {
               path = "/Customer/Password"
               handleClose(path)
@@ -169,17 +139,13 @@ function Navigation(props) {
           </Menu>
 
           <Button label="Shipping Policies" align="left" component={Link}
-            to="/Customer/CustShipping"  className="navig" > <span align="left"   className="nav-links">Shipping Policies</span></Button>
+            to="/Customer/CustShipping" className="navig" > <span align="left" className="nav-links">Shipping Policies</span></Button>
 
           <Button label="Feedback" align="left" component={Link}
-            to="/Customer/CustFeedback"  className="navig"> <span align="left" className="nav-links">Feedback</span></Button>
-
-        
-            <Button label="Feedback" icon={<LocalMallIcon />} align="right" component={Link}
-            to="/Customer/CustCart"  className="navig"> <span align="right" className="nav-links"  icon={<LocalMallIcon />} ><LocalMallIcon /></span></Button>
-
+            to="/Customer/CustFeedback" className="navig"> <span align="left" className="nav-links">Feedback</span></Button>
+          <Button label="Feedback" icon={<LocalMallIcon />} align="right" component={Link}
+            to="/Customer/CustCart" className="navig"> <span align="right" className="nav-links" icon={<LocalMallIcon />} ><LocalMallIcon /></span></Button>
           <Button align="right" component={Link} label="Logout"
-          
             to="/Customer/"
             className="navig" onClick={(e) => {
               e.preventDefault()
@@ -187,8 +153,6 @@ function Navigation(props) {
               props.setUser()
               history.push("/Customer/CustHomePage")
             }} ><span align="right" className="nav-links">Logout</span> </Button>
-
-
         </BottomNavigation>
       </Typography>
     )
@@ -201,42 +165,32 @@ function Navigation(props) {
             setValue(newValue);
           }}
           showLabels
-
           className="home-page-customer_size">
-
-
-
           <Button fontSize="large" label="Home" align="left" component={Link}
-            to="/Customer/CustHomePage"  className="navig"> <span  className="nav-links">Home</span></Button>
-
-          <Button  label="Shop" align="left" component={Link}
-            to="/Customer/CustProductGallery"  className="navig"><span className="nav-links">Shop</span></Button>
-          <Button  label="Shipping Policies" align="left" component={Link}
-            to="/Customer/CustShipping"  className="navig"><span className="nav-links">Shipping Policies</span> </Button>
-          <Button   align="right" component={Link}
-            to="/Customer/custAuthentication"  className="navig"><span className="nav-links"><AccountCircleIcon /></span> </Button>
+            to="/Customer/CustHomePage" className="navig"> <span className="nav-links">Home</span></Button>
+          <Button label="Shop" align="left" component={Link}
+            to="/Customer/CustProductGallery" className="navig"><span className="nav-links">Shop</span></Button>
+          <Button label="Shipping Policies" align="left" component={Link}
+            to="/Customer/CustShipping" className="navig"><span className="nav-links">Shipping Policies</span> </Button>
+          <Button align="right" component={Link}
+            to="/Customer/custAuthentication" className="navig"><span className="nav-links"><AccountCircleIcon /></span> </Button>
         </BottomNavigation>
       </Typography>)
   }
 
 
   return (
-
     <Grid className="container" xs={10}>
-
       <Box className={classes.NavBox} align="center" className="home-page-customer_item">
         <span class="logo">
           <a href="/" >
             <img src={Logo} height="80px" width="115px" alt="Yuga logo" /> </a>
         </span>YUGA
-        </Box>
+      </Box>
       <Grid marginTop="37px" >
-
         {navBar}
       </Grid>
-
     </Grid>
-
   );
 }
 
