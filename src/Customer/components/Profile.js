@@ -1,13 +1,11 @@
 import { ListItemSecondaryAction } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/undraw_things_to_say_ewwb.svg'
-import ReactPhoneInput from 'react-phone-input-material-ui';
 import { TextField, withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,8 +57,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile(props) {
 
     const classes = useStyles();
-    const [users,setUsers]=useState(JSON.parse(localStorage.getItem("user")));
-    const [user,setUser]=useState(users.user);
+    // const [users,setUsers]=useState(JSON.parse(localStorage.getItem("customer")));
+    const [user,setUser]=useState(JSON.parse(localStorage.getItem("customer")));
     const [profule,setProfile]=useState({
         firstName:"",
         lastName:"",
@@ -68,15 +66,31 @@ export default function Profile(props) {
         passowrd:"",
 
     });
-     const maxLengthCheck = (object) => {
-        if (object.target.value.length > object.target.maxLength) {
-         object.target.value = object.target.value.slice(0, object.target.maxLength)
-          }
-        }
+
+    const [id]=useState(JSON.parse(localStorage.getItem("customerId")));
+
+      const UpdateUserById = async (id, updateduser) => {
+        console.log('in updateUser method', updateduser)
+        await axios.put(`http://127.0.0.1:8000/api/users/${id}`, updateduser)
+          .then(response => {
+            console.error('this user', response.data)
+            localStorage.setItem("customer",JSON.stringify(response.data));
+            // props.setRefresh(!props.refresh)
+          }).catch(error => {
+            console.error('There was an error!', error);
+          });
+      };  
+
+    //  const maxLengthCheck = (object) => {
+    //     if (object.target.value.length > object.target.maxLength) {
+    //      object.target.value = object.target.value.slice(0, object.target.maxLength)
+    //       }
+    //     }
 
        const submitProfile=(e)=>{
            e.preventDefault();
-           localStorage.setItem("user",JSON.stringify({user}));
+           UpdateUserById(id,user)
+           localStorage.setItem("user",JSON.stringify(user));
        }
 
     return (

@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/61cfa7945072e4c1793cdb244450d899.jpg'
 import { BrowserRouter as Router, Redirect, Switch, Route, useParams,useHistory } from "react-router-dom";
+import axios from 'axios';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -68,8 +70,8 @@ export default function SignInSide(props) {
   const [loggedIn,setLoggedIn]=useState(false);
   const history=useHistory();
   const [user,setUser]=useState([
-    {id:1,email:"rahafz@gmail.com",password:"123",firstname:"Rahaf",lastname:"Zait",phoneNb:"81811811"},
-    {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"Rahaf",lastname:"Zaiter",phoneNb:"71711711"}
+    {id:1,email:"rahafz@gmail.com",password:"123",firstname:"Rahaf",lastname:"Zait",phoneNb:81811811},
+    {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"Rahaf",lastname:"Zaiter",phoneNb:71711711}
   ])
 
   const setLog = (E,P) => {
@@ -80,44 +82,76 @@ export default function SignInSide(props) {
 
   }
 
+  const loginCust = () => {  
+
+  const data1 = { email: email, password: password};  
+    axios.post(`http://127.0.0.1:8000/api/login`,data1)  
+      .then((result) => {  
+        // debugger;  
+        console.log("statis",result.data.Status ); 
+        console.log(result.data.user);  
+        if (result.data.Status == 'Invalid')  
+          alert('Invalid User');  
+        else { 
+        console.log('new user added ');
+        localStorage.setItem("customer",JSON.stringify(result.data.user));
+        localStorage.setItem("customerToken",JSON.stringify(result.data.token));
+        localStorage.setItem("customerId",JSON.stringify(result.data.user.id));
+        }
+      })  
+
+  }  
+
   const login = (e) => {
     if (!email || !password ) {
       alert("please fill required data")
       return
     }
     else {
-      e.preventDefault()
+      e.preventDefault();
+      loginCust();
+      localStorage.setItem("user",JSON.stringify({user}))
+      setLoggedIn(true)
+
+      props.setUser({
+        user
+      },
+      console.log("user in sign in ",props.user))
+
+      setLog(email,password)       
+      history.push("/Customer/CustHomePage")   
+       
       // const timer = setTimeout(() => {
       //   if(!props.user){
       //     alert("email or password are incorrect, please try again")
       //     }
       // }, 100);
 
-      user.map(user=>{
-        if(user.email==email && user.password== password){
-          localStorage.setItem("user",JSON.stringify({user}))
-          setLoggedIn(true)
+      // user.map(user=>{
+      //   if(user.email==email && user.password== password){
+      //     localStorage.setItem("user",JSON.stringify({user}))
+      //     setLoggedIn(true)
 
-          props.setUser({
-            user
-          },
-          console.log("user in sign in ",props.user))
+      //     props.setUser({
+      //       user
+      //     },
+      //     console.log("user in sign in ",props.user))
 
-          setLog(email,password)       
-          history.push("/Customer/CustHomePage")   
+      //     setLog(email,password)       
+      //     history.push("/Customer/CustHomePage")   
            
-        }      
-      })
+      //   }      
+      // })
 
-       const timer = setTimeout(() => {
-         console.log(localStorage.getItem("user"))
-        if(!localStorage.getItem("user")){
-          alert("email or password are incorrect, please try again")
+      //  const timer = setTimeout(() => {
+      //    console.log(localStorage.getItem("user"))
+      //   if(!localStorage.getItem("user")){
+      //     alert("email or password are incorrect, please try again")
   
-        }
-      }, 100);
+      //   }
+      // }, 100);
 
-      return timer
+      // return timer
 
       
       //return clearTimeout(timer);
@@ -149,6 +183,7 @@ export default function SignInSide(props) {
               label="Email Address"
               name="email"
               autoComplete="email"
+              type="email"
               autoFocus
               onChange={e => setEmail(e.target.value)}
             />

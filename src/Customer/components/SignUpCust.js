@@ -16,6 +16,7 @@ import Image from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams,useHistory } from "react-router-dom";
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,6 +57,30 @@ export default function SignUp(props) {
   const [cpassword, setCPassword] = useState("");
   const history=useHistory();
 
+  const apiUrl = "http://127.0.0.1:8000/api/register";  
+
+  
+  const Registration = () => {  
+    // e.preventDefault();  
+    // debugger;  
+    const data1 = { email: email, password: password,firstname:fname,lastname:lname, phoneNb:phoneNb ,password_confirmation:password};  
+    axios.post(`http://127.0.0.1:8000/api/register`,data1)  
+      .then((result) => {  
+        // debugger;  
+        console.log("statis",result.data.Status ); 
+        console.log(result.data.user);  
+        if (result.data.Status == 'Invalid')  
+          alert('Invalid User');  
+        else { 
+        console.log('new user added ');
+        localStorage.setItem("customer",JSON.stringify(result.data.user));
+        localStorage.setItem("customerToken",JSON.stringify(result.data.token));
+        localStorage.setItem("customerId",JSON.stringify(result.data.user.id));
+        }
+      })  
+
+  }  
+
   const registered = (e) => {
     if (!email || !password || !fname || !lname || !cpassword) {
       alert("please fill required data")
@@ -75,7 +100,11 @@ export default function SignUp(props) {
           
           // handle the click event
         })
+
+        Registration();
+
         localStorage.setItem("user",JSON.stringify(props.user))
+        
         console.log(props.user)
         history.push("/Customer/CustHomePage")  
   
@@ -159,6 +188,7 @@ export default function SignUp(props) {
                   id="email"
                   label="Email Address"
                   name="email"
+                  type="email"
                   // autoComplete="email"
                   onChange={e => setEmail(e.target.value)}
                   validators={['required', 'isEmail']}
@@ -176,6 +206,7 @@ export default function SignUp(props) {
                   id="phone"
                   label="Phone Number"
                   name="phone"
+                  type="number"
                   // autoComplete="email"
                   onChange={e => setphoneNb(e.target.value)}                
                 />

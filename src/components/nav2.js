@@ -116,6 +116,9 @@ function Navigation(props) {
 
   const remove = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("customer");
+    localStorage.removeItem("customerId");
+    localStorage.removeItem("customerToken");
   };
 
   useEffect(() => {
@@ -127,7 +130,7 @@ function Navigation(props) {
 
   const currentRoute = useHistory().location.pathname.toLowerCase();
 
-  if (props.user) {
+  if (JSON.parse(localStorage.getItem("customerToken"))) {
     navBar = (
 
 
