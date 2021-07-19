@@ -70,9 +70,10 @@ export default function SignInSide(props) {
   const [loggedIn,setLoggedIn]=useState(false);
   const history=useHistory();
   const [user,setUser]=useState([
-    {id:1,email:"rahafz@gmail.com",password:"123",firstname:"Rahaf",lastname:"Zait",phoneNb:81811811},
-    {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"Rahaf",lastname:"Zaiter",phoneNb:71711711}
-  ])
+  //   {id:1,email:"rahafz@gmail.com",password:"123",firstname:"Rahaf",lastname:"Zait",phoneNb:81811811},
+  //   {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"Rahaf",lastname:"Zaiter",phoneNb:71711711}
+  // 
+])
 
   const setLog = (E,P) => {
     props.setUser({
@@ -88,9 +89,9 @@ export default function SignInSide(props) {
     axios.post(`http://127.0.0.1:8000/api/login`,data1)  
       .then((result) => {  
         // debugger;  
-        console.log("statis",result.data.Status ); 
-        console.log(result.data.user);  
-        if (result.data.Status == 'Invalid')  
+        console.log("statis",result.Status ); 
+        console.log(result.user);  
+        if (result.Status == 'Unauthorized access"')  
           alert('Invalid User');  
         else { 
         console.log('new user added ');

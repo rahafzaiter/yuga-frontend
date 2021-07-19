@@ -183,62 +183,13 @@ export default function EditProduct() {
     setImageSrc(URL.createObjectURL(e.target.files[0]))
   }
 
-
-  var y = "";
-
-  // const Edit=()=>{
-
-  //   if(AllProducts!=undefined){
-
-
-  //     AllProducts.map((prod)=>{
-  //     if(prod.id==product.id){
-
-  //       // prod=product;
-  //       const pr=newProducts.concat(product);
-  //       setnewProducts(pr);
-
-  //         // history.push("/Admin/tutorials");
-
-  //       // return;
-
-  //     }else{
-
-
-  //       const pr=newProducts.concat(prod);
-  //       setnewProducts(pr);
-
-
-  //     }
-  //   }) ; 
-
-
-  //   //history.push("/Admin/tutorials");
-  //   }else{
-  //     console.log("empty")
-  //   }
-
-  // }
-
   useEffect(()=>{
     loadProductById(productId);
     loadUsers();
     console.log('product to be edited',productB)
-    // setAllProducts(localStorage.getItem('Products').products)
 
   },[])
 
-  // useEffect(()=>{
-  //   localStorage.setItem('Products',JSON.stringify({newProducts}));
-  //   y=localStorage.getItem('Products')
-  //   console.log('new product',y)
-  //   if (y!=""){
-  //   history.push("/Admin/tutorials");
-  //   }
-
-  //   // console.log("all products in edit page",AllProducts);
-
-  // },[newProducts])
 
 
   const updateProducts = async (id,updateduser) => {
@@ -267,30 +218,12 @@ export default function EditProduct() {
     setSubmitted(true);
     console.log(submitted);
 
-    //   TutorialDataService.create(data)
-    //     .then(response => {
-    //       setTutorial({
-    //         id: response.data.id,
-    //         title: response.data.title,
-    //         description: response.data.description,
-    //         published: response.data.published
-    //       });
-    //       setSubmitted(true);
-    //       console.log(response.data);
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
   };
 
 
 
   const submit = () => {
-    // setProduct({ ...product, id: parseInt(prodLength,10)+1 });
     updateProducts(product.id,product);
-    // props.addProducts(product)
-
-    // history.push("/Admin/tutorials")
   }
 
   const onSubmit = e => {
@@ -317,15 +250,7 @@ export default function EditProduct() {
     console.log(pictures)
   };
 
-  // const Submit=()=>{
-  //   localStorage.setItem('product',JSON.stringify({product}))
-
-  // }
-
-
-
-
-
+  
   return (
     <div className="container" >
 

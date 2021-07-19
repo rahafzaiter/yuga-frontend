@@ -16,6 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Modal from '@material-ui/core/Modal';
+import axios from 'axios';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -101,6 +102,38 @@ export default function Feedback(props) {
     const [open, setOpen] = React.useState(false);
     const [comment, setComment] = useState('');
     const [rate, setRate] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [id]=useState(JSON.parse(localStorage.getItem("customerId")));
+
+
+    const loadCategories = async () => {
+      const result = await axios.get("http://127.0.0.1:8000/api/categories/");
+      setCategories(result.data.reverse())
+  
+    };
+  
+    const addFeedback = feedback => {
+
+        const article = feedback;
+        console.log('feedback',article)
+
+        axios.post('http://127.0.0.1:8000/api/feedbacks',article,{headers:{"Content-Type" : "application/json"}})
+        // axios.post('http://127.0.0.1:8000/api/feedbacks', article)
+        //   .then(
+        //     response => {
+            
+        //     console.log("response",response);
+        //     },
+        //     setText("Thankyou for your feedback"))
+        //   .catch(error => {
+        //     console.error('There was an error!', error);
+        //   });
+      };
+    
+
+    useEffect(()=>{
+        loadCategories();
+    },[])
 
     const handleChangeCategory = (e) => {
         setState({
@@ -129,6 +162,7 @@ export default function Feedback(props) {
     );
 
 
+
     const Submit = () => {
 
         handleOpen();
@@ -145,7 +179,11 @@ export default function Feedback(props) {
                 {bodyAfterAdd}
             </Modal>
         } else {
-            setText("Thankyou for your feedback");
+
+            // const data1 = { email: email, password: password};  
+            const data={rate:Number(rate),comment:comment,user_Id :id,category_name:state.selectedCategory};
+            addFeedback(data);
+            
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -154,13 +192,13 @@ export default function Feedback(props) {
             >
                 {bodyAfterAdd}
             </Modal>
-            console.log("rate", rate)
-            setRate('')
-            setComment('')
-            setState({
-                ...state,
-                selectedCategory: ''
-            });
+            // console.log("rate", rate)
+            // setRate('')
+            // setComment('')
+            // setState({
+            //     ...state,
+            //     selectedCategory: ''
+            // });
         }
     }
 
@@ -226,7 +264,7 @@ export default function Feedback(props) {
                                 onChange={handleChangeCategory}
                             >
                                 <option aria-label="None" value="" />
-                                {state.categories.map(category => {
+                                {categories.map(category => {
                                     return (
                                         <option
                                             key={category.id}
