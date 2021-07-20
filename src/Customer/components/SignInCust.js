@@ -70,9 +70,6 @@ export default function SignInSide(props) {
   const [loggedIn,setLoggedIn]=useState(false);
   const history=useHistory();
   const [user,setUser]=useState([
-  //   {id:1,email:"rahafz@gmail.com",password:"123",firstname:"Rahaf",lastname:"Zait",phoneNb:81811811},
-  //   {id:2,email:"rahafzaiter@gmail.com",password:"123456",firstname:"Rahaf",lastname:"Zaiter",phoneNb:71711711}
-  // 
 ])
 
   const setLog = (E,P) => {
@@ -80,15 +77,13 @@ export default function SignInSide(props) {
       email: E,
     password: P
     })
-
   }
 
+  //call login api
   const loginCust = () => {  
-
   const data1 = { email: email, password: password};  
     axios.post(`http://127.0.0.1:8000/api/login`,data1)  
       .then((result) => {  
-        // debugger;  
         console.log("statis",result.Status ); 
         console.log(result.user);  
         if (result.Status == 'Unauthorized access"')  
@@ -103,6 +98,7 @@ export default function SignInSide(props) {
 
   }  
 
+  //check if all data valid and call login url
   const login = (e) => {
     if (!email || !password ) {
       alert("please fill required data")
@@ -113,50 +109,12 @@ export default function SignInSide(props) {
       loginCust();
       localStorage.setItem("user",JSON.stringify({user}))
       setLoggedIn(true)
-
       props.setUser({
         user
       },
       console.log("user in sign in ",props.user))
-
       setLog(email,password)       
-      history.push("/Customer/CustHomePage")   
-       
-      // const timer = setTimeout(() => {
-      //   if(!props.user){
-      //     alert("email or password are incorrect, please try again")
-      //     }
-      // }, 100);
-
-      // user.map(user=>{
-      //   if(user.email==email && user.password== password){
-      //     localStorage.setItem("user",JSON.stringify({user}))
-      //     setLoggedIn(true)
-
-      //     props.setUser({
-      //       user
-      //     },
-      //     console.log("user in sign in ",props.user))
-
-      //     setLog(email,password)       
-      //     history.push("/Customer/CustHomePage")   
-           
-      //   }      
-      // })
-
-      //  const timer = setTimeout(() => {
-      //    console.log(localStorage.getItem("user"))
-      //   if(!localStorage.getItem("user")){
-      //     alert("email or password are incorrect, please try again")
-  
-      //   }
-      // }, 100);
-
-      // return timer
-
-      
-      //return clearTimeout(timer);
-      
+      history.push("/Customer/CustHomePage")        
   }
 
 }

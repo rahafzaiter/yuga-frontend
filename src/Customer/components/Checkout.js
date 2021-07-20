@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -77,12 +75,12 @@ export default function Checkout(props) {
     street: '',
     building: '',
     floor: 0,
-
   });
 
   const [checked, setChecked] = useState(false);
   const [order, setOrder] = useState({})
-  const history = useHistory();
+
+  //when submit order clear everything in cart 
   const remove = () => {
     localStorage.removeItem("cartItems");
     localStorage.removeItem("cartTotalPrice");
@@ -92,7 +90,6 @@ export default function Checkout(props) {
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
     if (activeStep === steps.length - 1) {
-      console.log("hello"),
         setOrder({
           customer: props.user.user,
           customerName: fname + " " + lname,
@@ -104,13 +101,13 @@ export default function Checkout(props) {
         });
       setChecked(true);
     }
-
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
+  //when submit call addOrder method and call remove to clear cart 
   useEffect(() => {
     console.log("order before change", order)
     if (checked == true) {
@@ -124,7 +121,6 @@ export default function Checkout(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">

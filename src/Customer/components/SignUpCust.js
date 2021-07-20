@@ -46,9 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp(props) {
   const classes = useStyles();
-
-
-
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -60,13 +57,11 @@ export default function SignUp(props) {
   const apiUrl = "http://127.0.0.1:8000/api/register";  
 
   
+  //add user to backend 
   const Registration = () => {  
-    // e.preventDefault();  
-    // debugger;  
     const data1 = { email: email, password: password,firstname:fname,lastname:lname, phoneNb:phoneNb ,password_confirmation:password};  
     axios.post(`http://127.0.0.1:8000/api/register`,data1)  
       .then((result) => {  
-        // debugger;  
         console.log("statis",result.data.Status ); 
         console.log(result.data.user);  
         if (result.data.Status == 'Invalid')  
@@ -78,9 +73,9 @@ export default function SignUp(props) {
         localStorage.setItem("customerId",JSON.stringify(result.data.user.id));
         }
       })  
-
   }  
 
+  //check if all data valid and call method containig api
   const registered = (e) => {
     if (!email || !password || !fname || !lname || !cpassword) {
       alert("please fill required data")
@@ -97,17 +92,11 @@ export default function SignUp(props) {
           phoneNb:phoneNb,
           email: email,
           password: password,
-          
-          // handle the click event
         })
-
         Registration();
-
         localStorage.setItem("user",JSON.stringify(props.user))
-        
         console.log(props.user)
         history.push("/Customer/CustHomePage")  
-  
         }
   }
 
@@ -119,23 +108,9 @@ export default function SignUp(props) {
   );
 
 
-  const renderEmailValidationError = email.valid ?
-    "" :
-    <ErrorValidationLabel txtLbl={email.typeMismatch ? email.formatErrorTxt : email.requiredTxt} />;
-
-  const renderPassValidationError = password.valid ? "" : <ErrorValidationLabel txtLbl={password.requiredTxt} />;
-  const renderLnameValidationError = lname.valid ? "" : <ErrorValidationLabel txtLbl={lname.requiredTxt} />;
-  const renderFnameValidationError = fname.valid ? "" : <ErrorValidationLabel txtLbl={fname.requiredTxt} />;
-
-
-
-
+ 
   return (
-
-
-
     <div style={{ background: '#F3E0E0',  backgroundImage: `url(${Image})` }} >
-
       <Container component="main" maxWidth="xs" style={{ background: 'white' }} >
         <CssBaseline />
         <div className={classes.paper}>
@@ -151,7 +126,6 @@ export default function SignUp(props) {
             onError={errors => console.log(errors)}
             noValidate
             onSubmit={e => e.preventDefault()}>
-            {/* className={classes.form}  */}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -189,7 +163,6 @@ export default function SignUp(props) {
                   label="Email Address"
                   name="email"
                   type="email"
-                  // autoComplete="email"
                   onChange={e => setEmail(e.target.value)}
                   validators={['required', 'isEmail']}
                   errorMessages={['this field is required', 'email is not valid']
@@ -207,7 +180,6 @@ export default function SignUp(props) {
                   label="Phone Number"
                   name="phone"
                   type="number"
-                  // autoComplete="email"
                   onChange={e => setphoneNb(e.target.value)}                
                 />
               </Grid>
@@ -224,7 +196,6 @@ export default function SignUp(props) {
                   autoComplete="password"
                   onChange={e => setPassword(e.target.value)}
                 />
-
               </Grid>
 
               <Grid item xs={12}>
@@ -253,8 +224,8 @@ export default function SignUp(props) {
             >
               Sign Up
           </button>
-            {/* </Link> */}
 
+            {/* </Link> */}
             <Grid container justify="flex-end">
               <Grid item>
                 <Link to={`/Customer/custAuthentication`} variant="body2">

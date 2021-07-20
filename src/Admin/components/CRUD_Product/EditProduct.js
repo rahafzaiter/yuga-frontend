@@ -79,11 +79,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
 export default function EditProduct() {
   const classes = useStyles();
-  const history = useHistory();
   const initialTutorialState = {
     id: null,
     title: "",
@@ -99,90 +96,64 @@ export default function EditProduct() {
     XXL: 0
   };
 
-  const [ProductLocal, setProductLocal] = useState(
-    JSON.parse(localStorage.getItem("product"))
-
-  )
+  const [ProductLocal, setProductLocal] = useState(JSON.parse(localStorage.getItem("product")))
   const [productId]=useState(JSON.parse(localStorage.getItem("productId")))
   const [productB,setproductB] = useState(null);
-
-  const [AllProducts, setAllProducts] = useState(JSON.parse(localStorage.getItem("Products")));
-  const [newProducts, setnewProducts] = useState([0]);
-
   const [product, setProduct] = useState(ProductLocal.product);
-  // const [product, setProduct] = useState(productB);
 
+  //image stuff to be implemented in future
   const [imageSrc, setImageSrc] = useState();
-  const [colorHexCode, setColorHexCode] = useState('#000000');
+
+  //not needed now 
   const [pictures, setPictures] = useState(null);
   const [changed, setChange] = useState(false);
-  // const [quantity, setQuantity] = useState({
-  //   id: 0,
-  //   S: 1,
-  //   M: 2,
-  //   L: 3,
-  //   XL: 1,
-  //   XXL: 0,
-  //   productId: product.id
-
-
-  // });
-  const [Categories,setCategories] = useState([
-    // { id: 1, name: "Pants" },
-    // { id: 2, name: "Shirts" },
-    // { id: 3, name: "Dresses" },
-    // { id: 4, name: "Suits" },
-    // { id: 5, name: "Skirts" },
-    // { id: 6, name: "Jumpsuits" },
-    // { id: 7, name: "Outerwear" },
-    // { id: 8, name: "Sweat-shirt" },
-    // { id: 9, name: "Sportswear" },
-    // { id: 10, name: "Tunics" }
-
-  ]);
+  const [Categories,setCategories] = useState([]);
   const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
 
+  //return all categories 
   const loadUsers = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
-    // setUser(result.data.reverse());
-    setCategories(result.data.reverse())
-    
+    setCategories(result.data.reverse())    
   };
 
+  //return this product by id
   const loadProductById = async (id) => {
     const result = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
-    // setUser(result.data.reverse());
     setproductB(result.data)
     console.log(result.data);
     
   };
 
 
-
-
+  //when type new input 
   const handleInputChange = event => {
     const { name, value } = event.target;
     setProduct({ ...product, [name]: value });
     setChange(true);
   };
 
+  //when type new size 
   const handleSizeChange=event=>{
     const { name, value } = event.target;
     setProduct({ ...product, [name]: Number(value) });
     setChange(true);
   }
 
+  //when type new price 
   const handlePriceChange=event=>{
     const { name, value } = event.target;
     setProduct({ ...product, [name]: Number(value) });
     setChange(true);
   }
 
-  const handleImageSelect = (e) => {
-    setImageSrc(URL.createObjectURL(e.target.files[0]))
-  }
 
+  //stuffs for picture to be implemented for future 
+  // const handleImageSelect = (e) => {
+  //   setImageSrc(URL.createObjectURL(e.target.files[0]))
+  // }
+
+  //to load the product when refresh page
   useEffect(()=>{
     loadProductById(productId);
     loadUsers();
@@ -192,6 +163,7 @@ export default function EditProduct() {
 
 
 
+  //update product to backend 
   const updateProducts = async (id,updateduser) => {
     console.log('in updateUser id ',id)
     console.log('in updateUser method',updateduser)
@@ -199,12 +171,7 @@ export default function EditProduct() {
     .then(response => {
       console.log(response.data)
       console.error('all cat',response.data)
-      //props.setRefresh(!props.refresh)
-    }
-     
-      )
-          .catch(error => {
-            // setUsers({ errorMessage: error.message });
+    }).catch(error => {
             console.error(error.response.data);
           });  
   };
@@ -222,28 +189,14 @@ export default function EditProduct() {
 
 
 
+  //submit when fill all data 
   const submit = () => {
+      e.preventDefault();
     updateProducts(product.id,product);
   }
 
-  const onSubmit = e => {
-    e.preventDefault();
-    saveTutorial();
-  };
-
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
-    setSubmitted(false);
-  };
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    setProduct({ ...tutorial, [name]: value });
-  };
-
-  const onDrop = (pictureFiles, pictureDataURLs) => {
-
+  //stuffs for picture to be implemented for future 
+  // const onDrop = (pictureFiles, pictureDataURLs) => {
     setPictures(pictureFiles);
     console.log("picture added");
     console.log(pictureFiles);
@@ -257,7 +210,7 @@ export default function EditProduct() {
       <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%", borderRadius: "25px", marginTop: "30px" }}>
         <h2 className="text-center mb-4">Edit A Product</h2>
         <div className="container">
-          <form noValidate onSubmit={onSubmit} className={classes.form}>
+          <form noValidate onSubmit={submit} className={classes.form}>
             {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
             <TextField
               required

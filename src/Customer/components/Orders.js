@@ -15,12 +15,8 @@ import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontE
 import back from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/undraw_Online_shopping_re_k1sv.svg"
 const useStyles = makeStyles((theme) => ({
     root: {
-        // flexGrow: 1,
-
         minHeight: '1000px',
         width: "100%",
-
-
     },
     paper: {
         padding: theme.spacing(2),
@@ -45,18 +41,11 @@ export default function Orders(props) {
         console.log("user in orders", props.user.user)
     }, []);
 
-    const NumberFormatPrice = (y) => {
-        var price = new Intl.NumberFormat();
-        return price.format(y);
-    }
 
     return (
         <div>
             <div container className={classes.root} >
                 <Grid className="container" spacing={3} >
-                    {/* <Grid item xs={12} className="shopping-cart_item">
-                    </Grid> */}
-
                     {allorders == null ? (
                         <div>
                             <Grid item xs={12}>
@@ -64,7 +53,7 @@ export default function Orders(props) {
                             </Grid>
 
                         </div>
-                    )
+                        )
                         :
                         (
                             <div>
@@ -90,19 +79,13 @@ export default function Orders(props) {
                                                     <Grid item xs={12}>
                                                         <OneOrder item={order.cart.allcarts} total={order.totalprice} />
                                                     </Grid>
-
                                                 </Grid>
-
-
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
                                 ))}
-
                             </div>
-
                         )}
-
                 </Grid>
 
             </div>

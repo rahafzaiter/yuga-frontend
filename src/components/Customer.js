@@ -58,7 +58,6 @@ export default function Customer() {
 // ]);
 
 
-
     // const [categories,setCategories]=useState(
     //     [
     // { id: 1, name: "Pants" },
@@ -79,45 +78,47 @@ export default function Customer() {
     const history=useHistory();
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
     const[orders,setOrders]=useState([]);
+
+    //add items to cart in shopping cart page 
     const addItem = item => {
         const newList = cart.concat(item);
         setCart(newList)
         history.push("/Customer/CustCart")
     };
 
+    //to add orders to localstorage when customer add purchase 
     const addOrders = item => {
         const newList = orders.concat(item);
         localStorage.setItem('orders',JSON.stringify(newList))
         setOrders(JSON.parse(window.localStorage.getItem("orders")))
     };
 
+    //return all catregories 
     const loadCategories = async () => {
         const result = await axios.get("http://127.0.0.1:8000/api/categories/");
         setCategories(result.data.reverse())
       };
 
+      //sort categories by id
       function dynamicSort(property) {
         return function (a, b) {
           return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
         }}
 
+        //return all products
     const loadProducts = async () => {
         const result = await axios.get("http://127.0.0.1:8000/api/products/");
         setProducts(result.data.sort(dynamicSort('id')))
         console.log(result.data.reverse())
       };
 
-    const defaultProps = {
-        m: 1,
-        borderColor: 'grey',
-    };
-
+      //if user is not null in local storage set user and send it by props to child 
+      //but nevermind this method was done before calling api from backend 
     useEffect(()=>{
         if(localStorage.getItem("user")!=null){
         setUser(JSON.parse(window.localStorage.getItem("user")));
          console.log("in Customer Part useEffect",JSON.parse(window.localStorage.getItem("user")));
         }
-
         console.log("orders in home",orders)
     },[window.localStorage.getItem("user"),orders])
 
@@ -125,6 +126,7 @@ export default function Customer() {
         console.log("orders when change",orders)
     },[orders])
 
+    //load all categories and products 
     useEffect(()=>{
         loadCategories();
         loadProducts();
@@ -132,6 +134,7 @@ export default function Customer() {
 
    
 
+    //routes of all customers routes 
     return (
         <div>
             <Router>
@@ -154,8 +157,6 @@ export default function Customer() {
                     <Route path="/Customer/ProductDetails/:id"  >
                         <ProductDetails additem={addItem} user={user} cart={cart} />
                     </Route>
-
-                    
 
                     <Route path={["/Customer/checkout"]} >               
                         <Checkout user={user} addOrders={addOrders} Orders={orders} cart={cart} setCart={setCart} setCart={setCart}/>
@@ -182,6 +183,7 @@ export default function Customer() {
                     <Route  path={["/Customer/Password"]} >
                         <Password/>
                     </Route>
+
                     {/* Scratch */}
                     <Route  path={["/Customer/HookCounterTwo"]} >
                         <HookCounterTwo/>

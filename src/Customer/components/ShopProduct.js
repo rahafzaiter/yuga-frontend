@@ -20,42 +20,42 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: "white",
-    color: "black",
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase);
+// import InputBase from '@material-ui/core/InputBase';
+// const BootstrapInput = withStyles((theme) => ({
+//   root: {
+//     'label + &': {
+//       marginTop: theme.spacing(3),
+//     },
+//   },
+//   input: {
+//     borderRadius: 4,
+//     position: 'relative',
+//     backgroundColor: "white",
+//     color: "black",
+//     border: '1px solid #ced4da',
+//     fontSize: 16,
+//     padding: '10px 26px 10px 12px',
+//     transition: theme.transitions.create(['border-color', 'box-shadow']),
+//     // Use the system font instead of the default Roboto font.
+//     fontFamily: [
+//       '-apple-system',
+//       'BlinkMacSystemFont',
+//       '"Segoe UI"',
+//       'Roboto',
+//       '"Helvetica Neue"',
+//       'Arial',
+//       'sans-serif',
+//       '"Apple Color Emoji"',
+//       '"Segoe UI Emoji"',
+//       '"Segoe UI Symbol"',
+//     ].join(','),
+//     '&:focus': {
+//       borderRadius: 4,
+//       borderColor: '#80bdff',
+//       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+//     },
+//   },
+// }))(InputBase);
 
 const defaultProps = {
   bgcolor: '#F3E0E0',
@@ -124,26 +124,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-
 export default function Album(props) {
   const classes = useStyles();
   const history = useHistory();
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  const [prod, setProd] = useState({});
   const [newProductC, setnewProductC] = useState([]);
   const [product, setProduct] = useState(newProductC);
-  const [newProduct, setNewProduct] = useState([]);
-
   const [refresh, setRefresh] = useState(false);
-
-
-
-
   const [state, setState] = useState({
     price: '',
     collection: '',
@@ -155,12 +141,15 @@ export default function Album(props) {
 
   const [categories, setCategories] = useState([]);
 
+  //sort products by id 
   function dynamicSort(property) {
     return function (a, b) {
       return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
     }}
 
-  const loadUsers = async () => {
+
+  //get All products
+  const loadProducts = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/products/");
     setProduct(result.data.sort(dynamicSort('id')))
     setnewProductC(result.data.sort(dynamicSort('id')))
@@ -168,6 +157,8 @@ export default function Album(props) {
     setRefresh(!refresh);
   };
 
+
+  //get All categories
   const loadCategories = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
     setCategories(result.data.reverse())
@@ -188,11 +179,9 @@ export default function Album(props) {
       newProductC.map((item) => {
         addProducts(item);
       })
-
     }
 
     else {
-
       newProductC.map((item) => {
         if (collection == item.collection) {
           console.log("collection in map", item.collection)
@@ -204,29 +193,21 @@ export default function Album(props) {
   }
 
 
-
   //To filter products based on category:
   const AddCatagery = async (category) => {
-    // console.log("new Product after map",newProduct)
     var List = []
     const addProducts = item => {
       const newList = List.concat(item);
       List = newList;
-      //  console.log("2");
       setNewProduct(newList)
-      //  console.log("3");
-      //  console.log("list",List);
     };
 
     if (category == "All") {
       newProductC.map((item) => {
         addProducts(item);
-      })
-
-    }
+      })}
 
     else {
-
       newProductC.map((item) => {
         if (category == item.name) {
           console.log("collection in map", item.collection)
@@ -238,17 +219,7 @@ export default function Album(props) {
     setProduct(List);
   }
 
-  const handleChangePrice = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
-
-
   const handleChangeColor = (event) => {
-    // const name = event.target.name;
     Add(event.target.value)
     setState({
       ...state,
@@ -271,9 +242,9 @@ export default function Album(props) {
   };
 
   useEffect(() => {
-    loadUsers();
+    loadProducts();
     loadCategories();
-    console.log('all prodcts in product page', product)
+    // console.log('all prodcts in product page', product)
   }, [])
 
   const remove = () => {
@@ -288,23 +259,16 @@ export default function Album(props) {
     <React.Fragment>
       <CssBaseline />
       <main style={{ minHeight: "1000px" }}>
-        {/* Hero unit */}
-        {/* <div className={classes.heroContent}>
-            <SearchBar />
-        
-        </div>
-       */}
         <Container className={classes.cardGrid} maxWidth="lg" width="90%" >
           <Grid spacing={3} className={classes.grids} container >
 
-            {/* End hero unit */}
             <Grid item xs={2} >
               <Box
                 borderRadius={16}
                 {...defaultProps} >
 
 
-                {/* collection */}
+                {/* filter by collection */}
 
                 <FormControl component="fieldset" className={classes.formControl} >
                   <FormLabel component="legend" style={{ fontWeight: "bold" }}>Choose Color</FormLabel>
@@ -316,14 +280,13 @@ export default function Album(props) {
                     />
                     <FormControlLabel value="dark" control={<Radio />} label="Dark" style={{ color: "black" }}
                       onChange={handleChangeColor} />
-
                   </RadioGroup>
                 </FormControl>
 
 
 
 
-                {/* Category2 */}
+               {/* filter by categories */}
 
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormLabel component="legend">Choose Category</FormLabel>
@@ -355,7 +318,7 @@ export default function Album(props) {
 
 
 
-            {/* All Items */}
+            {/* Display All Items */}
             <Grid container spacing={1}
               item
               xs={10}

@@ -7,25 +7,6 @@ import axios from 'axios';
 
 const CategoryList = (props) => {
 
-  // const usersData=props.categories;
-
-
-  const usersData = [
-    // { id: 1, name: "Pants" },
-    // { id: 2, name: "Shirts"},
-    // { id: 3, name: "Dresses" },
-    // { id: 4, name: "Suits" },
-    // { id: 5, name: "Skirts" },
-    // { id: 6, name: "Jumpsuits" },
-    // { id: 7, name: "Outerwear" },
-    // { id: 8, name: "Sweat-shirt" },
-    // { id: 9, name: "Sportswear" },
-    // { id: 10, name: "Tunics" }
-
-  ];
-  
-
-  // usersの状態
   const [users, setUsers] = useState(axios.get("http://127.0.0.1:8000/api/categories/"));
   const [refresh,setRefresh]=useState(false);
 
@@ -33,13 +14,10 @@ const CategoryList = (props) => {
 
   const loadUsers = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
-    // setUser(result.data.reverse());
-    setUsers(result.data.reverse())
-    
+    setUsers(result.data.reverse()) 
   };
-  // 更新関数を持つ追加メソッド
-  const addUser = user => {
 
+  const addUser = user => {
     const article = user;
     axios.post('http://127.0.0.1:8000/api/categories', article)
         .then(

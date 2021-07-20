@@ -54,11 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MediaControlCardBlack() {
   const classes = useStyles();
-  const theme = useTheme();
-  const videoSrc = VideoColor;
   const videoSrcBlack = VideoBlack;
-  const poster = Img;
-
   const posterBlack = BlackImg;
 
   return (

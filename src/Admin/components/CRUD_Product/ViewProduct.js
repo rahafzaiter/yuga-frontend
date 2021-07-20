@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(4),
-    // minWidth: "90%",
     fontSize: "24",
     minHeight:"800px"
 },
@@ -51,7 +50,6 @@ table: {
 
 export default function ViewProduct({additem,user}) {
   const classes = useStyles();
-
   const [ProductLocal,setProductLocal]=useState(
     JSON.parse(localStorage.getItem("product"))   
   )
@@ -62,56 +60,27 @@ export default function ViewProduct({additem,user}) {
     {
        Product,
        size:' ',
-      //  quantity:' '
    }
   );
 
   const [state, setState] = useState({
-
-
-    // product: {
-    //   id: 1,
-    //   title: 'jeans Skirt',
-    //   price: 220,
-    //   description: 'This flared pintucked denim skirt is a staff favoriteâ€¦ So we produced it in another quality denim fabric! The elegant lines and stitching make for a slenderizing silhouette, and the denim wash can easily be matched with anything. Stylish and flattering, pair it with any of our tunics, tops, or blouses. Note: This design is an Inventory Item, ready for immediate despatch.',
-    //   image: 'https://i.pinimg.com/564x/97/62/0f/97620f26c8f6ea7d2f00f9476e9876ed.jpg',
-    //   collection: 'color',
-    //   quantity: {
-    //     id: null,
-    //     XS: '1',
-    //     S: '3',
-    //     M: '2',
-    //     L: '3',
-    //     XL: '5'
-    //   },
-    //   category: {
-    //     id: null,
-    //     name: 'skirt'
-    //   },
-    //   inStock: true,
-    // }
-
   });
 
+  //when fill size 
   const handleChangeSize= (event) => {
     setSize(event.target.value)
     const { name, value } = event.target;
-    setItem({ ...item, size:value });
-    
+    setItem({ ...item, size:value });  
   };
 
   useEffect(() => {
-  
   },[] );
 
+  //format price to have coma ex: 200,000
   const NumberFormatPrice=(y)=>{
     var price=new Intl.NumberFormat();
     return price.format(y);
   }
-
- 
- 
-
 
   return (
    
@@ -122,16 +91,13 @@ export default function ViewProduct({additem,user}) {
         </Grid>
 
         <Grid xs={6}  item style={{minHeight:"600px",borderRadius: "25px"}} className={classes.formControl}>
-
-        {/* <Grid  xs={12} className={classes.formControl}> */}
           <Paper className={classes.paper} bold >
             <h3  marginButton="2px"> {Product.title}</h3>
             <h5  marginButton="2px"> Product Info
             </h5>
             <p  marginButton="2px">Description:  {Product.description}</p>
             <p  marginButton="2px">Collection: {Product.collection}</p>
-            <p  marginButton="2px">Color: {Product.color}</p>
-            
+            <p  marginButton="2px">Color: {Product.color}</p>  
             <p marginButton="2px">Price: {NumberFormatPrice(Product.price)} LBP</p>
             <p marginButton="2px">Category: {Product.name}</p>
             <div>
@@ -150,9 +116,6 @@ export default function ViewProduct({additem,user}) {
         <TableBody>
           
             <TableRow>
-              {/* <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell> */}
               <TableCell >{Product.S}</TableCell>
               <TableCell align="right">{Product.M}</TableCell>
               <TableCell align="right">{Product.L}</TableCell>
@@ -163,11 +126,8 @@ export default function ViewProduct({additem,user}) {
         </TableBody>
       </Table>
     </TableContainer>
-            </div>
-
-           
+            </div>   
           </Paper>
-        {/* </Grid> */}
         </Grid>
 
       </Grid>

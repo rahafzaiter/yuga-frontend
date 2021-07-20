@@ -4,7 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+//////////////////////////////////////
+//this page is not used yet untill add page for pay  by credit card
+/////////////////////////////
 export default function PaymentForm() {
   return (
     <React.Fragment>

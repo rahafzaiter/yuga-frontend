@@ -48,11 +48,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4];
-
 export default function OneOrder(props) {
   const classes = useStyles();
 
+  //add comma to the price
   const NumberFormatPrice=(y)=>{
     var price=new Intl.NumberFormat();
     return price.format(y);

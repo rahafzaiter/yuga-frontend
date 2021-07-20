@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -10,10 +9,6 @@ import Logo from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Y
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useHistory, NavLink } from "react-router-dom";
 import './home-page-customer.scss'
 import './nav.scss'
-import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
 //icons:
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
@@ -23,13 +18,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 
-//switch
-
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
-
   },
   pinkDiv: {
     background: '#F3E0E0',
@@ -43,13 +34,10 @@ const useStyles = makeStyles({
     fontSize: "h5.fontSize",
     m: 1,
     borderColor: 'grey',
-
   }
   , PinkColor: {
     background: '#F3E0E0',
   },
-
-
 });
 
 function AdminNav(props) {
@@ -57,13 +45,9 @@ function AdminNav(props) {
   const [value, setValue] = React.useState(0);
   const history = useHistory();
 
+  //when logout
   const remove = () => {
     localStorage.removeItem("admin");
-  };
-
-  const defaultProps = {
-    // bgcolor: 'background.paper',
-
   };
 
   var navAdmin
@@ -80,9 +64,7 @@ function AdminNav(props) {
         </span>YUGA
         </Box>
         <Box marginTop="30px">
-
           <Typography component="div">
-
             <BottomNavigation
               value={value}
               onChange={(event, newValue) => {
@@ -108,23 +90,14 @@ function AdminNav(props) {
     )
   } else {
     navAdmin = (<div></div>)
-
-
   }
 
 
 
   return (
-
     <div className="container">
-
       {navAdmin}
-
-
-
-
     </div>
-
   );
 }
 

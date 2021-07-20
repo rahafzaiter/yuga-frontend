@@ -94,6 +94,8 @@ export default function AddProduct(props) {
   const [Categories, setCategories] = useState([]);
 
   const [submitted, setSubmitted] = useState(false);
+  
+  //return all categories 
   const loadCategories = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
     setCategories(result.data.reverse())
@@ -112,8 +114,8 @@ export default function AddProduct(props) {
   };
 
 
+  //add product api
   const addUser = user => {
-
     const article = user;
     axios.post('http://127.0.0.1:8000/api/products', article)
       .then(
@@ -126,6 +128,7 @@ export default function AddProduct(props) {
       });
   };
 
+  //when submit call post for add product api and return to homepage
   const Submit = () => {
     addUser(product);
     props.addProducts(product)

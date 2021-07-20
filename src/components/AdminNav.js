@@ -18,18 +18,13 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 
-//switch
-
-
 const useStyles = makeStyles({
   root: {
     width: '100%',
-
   },
   pinkDiv: {
     background: '#F3E0E0',
     padding: '5%'
-
   },
   NavBox: {
     mb: 2,
@@ -38,13 +33,10 @@ const useStyles = makeStyles({
     fontSize: "h5.fontSize",
     m: 1,
     borderColor: 'grey',
-
   }
   , PinkColor: {
     background: '#F3E0E0',
   },
-
-
 });
 
 function AdminNav(props) {
@@ -54,11 +46,6 @@ function AdminNav(props) {
 
   const remove = () => {
     localStorage.removeItem("admin");
-  };
-
-  const defaultProps = {
-    // bgcolor: 'background.paper',
-
   };
 
   var navAdmin

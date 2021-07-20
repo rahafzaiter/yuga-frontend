@@ -26,18 +26,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'left',
     alignContent: 'left',
     width: '100%'
-    // marginLeft:'60px',
-    // marginTop:'60px',
-    // width:'100%'
   },
   formControl: {
     margin: theme.spacing(1),
-    // Width: "100%",
     minWidth: "90%",
     fontSize: "100%"
-
-    // display:'block'
-
   },
 
   paperModel: {
@@ -68,23 +61,16 @@ function getModalStyle() {
 }
 export default function ProductDetails({ additem, user,cart }) {
   const classes = useStyles();
-
-
-  const [Product, setProduct] = useState(JSON.parse(localStorage.getItem("product")));
+  const [modalStyle] = React.useState(getModalStyle);
   const [size, setSize] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [item, setItem] = useState(
-    {
+  const [item, setItem] = useState({
       id: 0,
       Product,
       size: ' ',
-      //  quantity:' '
     }
   );
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
 
-  const [state, setState] = useState({});
+  const [open, setOpen] = React.useState(false);
 
   const handleChangeSize = (event) => {
     setSize(event.target.value)
@@ -93,53 +79,50 @@ export default function ProductDetails({ additem, user,cart }) {
 
   };
 
-  // const handleChangeQuantity= (event) => {
-  //   setQuantity(event.target.value)
-  //   const { name, value } = event.target;
-  //   setItem({ ...item,quantity: value });
-  // };
-
-
+  //retated to modal feature
   const handleOpen = () => {
     setOpen(true);
   };
 
+  //retated to modal feature
   const handleClose = () => {
     setOpen(false);
   };
 
   var button;
 
+  //when click on button we have condition 
+  //if user not loggedt in :
   const body = (
     <div style={modalStyle} className={classes.paperModel}>
       <h2 id="simple-modal-title">Yuga: Login</h2>
       <p id="simple-modal-description">
         Please login in order to buy
       </p>
-      {/* <SimpleModal /> */}
     </div>
   );
-
+ //if user didnt fill size :
   const bodyAfterLogin = (
     <div style={modalStyle} className={classes.paperModel}>
       <h2 id="simple-modal-title">Yuga</h2>
       <p id="simple-modal-description">
         Please Fill The Size
       </p>
-      {/* <SimpleModal /> */}
     </div>
   );
 
+   //if all validation are true the item will be added (text will be item added):
   const bodyAfterAdd = (
     <div style={modalStyle} className={classes.paperModel}>
       <h2 id="simple-modal-title">Yuga</h2>
       <p id="simple-modal-description">
         Item is Added
       </p>
-      {/* <SimpleModal /> */}
     </div>
   );
 
+
+  //these codes below identify which button id be displayed 
   if (!user) {
     button = (
       <div>
@@ -168,7 +151,6 @@ export default function ProductDetails({ additem, user,cart }) {
         </Modal>
       </div>)
   }
-
   else {
     button = (
       <div>
@@ -176,9 +158,8 @@ export default function ProductDetails({ additem, user,cart }) {
           handleOpen();
           setItem({ ...item, id: cart.length+1 });
 
-         
-
-        }}>  <ShoppingCartIcon /> ADD TO CART</button>
+        }}> 
+         <ShoppingCartIcon /> ADD TO CART</button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -192,17 +173,19 @@ export default function ProductDetails({ additem, user,cart }) {
   }
 
 
+
   useEffect(() => {
     console.log('cart in products details',cart)
   }, []);
 
+  //when user choose size and item is ready call the additem props method to add to cart 
   useEffect(() => {
     if(item.id!=0){
-    // console.log('cart in products details',cart)
     additem(item);
     }
   }, [item.id]);
 
+  //method add comma to the price ex:200000 becomes 200,000
   const NumberFormatPrice = (y) => {
     var price = new Intl.NumberFormat();
     return price.format(y);
@@ -211,7 +194,6 @@ export default function ProductDetails({ additem, user,cart }) {
 
 
   return (
-
     <div className="container" style={{ width: '80%' }} >
       <Grid container spacing={3} className={classes.root}>
         <Grid item xs={5} md={4} >
@@ -219,7 +201,6 @@ export default function ProductDetails({ additem, user,cart }) {
         </Grid>
 
         <Grid xs={7} item >
-
           <Grid xs={12} className={classes.formControl}>
             <Paper className={classes.paper} bold >
               <h3 marginButton="2px" style={{ fontWeight: "700", fontSize: "26px" }}> {Product.card.title}</h3>
@@ -228,32 +209,15 @@ export default function ProductDetails({ additem, user,cart }) {
               <p marginButton="2px"> {Product.card.description}</p>
               <p marginButton="2px">{Product.card.collection}</p>
               <p marginButton="2px" style={{ fontWeight: "400", fontSize: "23px" }}>{NumberFormatPrice(Product.card.price)} LBP</p>
-
             </Paper>
           </Grid>
 
           <Grid xs={12} marginTop="40">
             <Paper className={classes.paper}>
-
-
               <Grid xs={12} className={classes.formControl}>
-
-
                 <form onSubmit={e => e.preventDefault()}
-                  noValidate
-
-                >
-
-                  {/* <Grid  xs={12}  >
-           
-            <p  >Quantity: </p>
-
-           
-              <input  type="number" name="quantity" required onChange={handleChangeQuantity}/>
-           </Grid> */}
+                  noValidate>
                   <Grid xs={12} >
-
-
                     <FormControl className={classes.formControl} >
 
                       <InputLabel htmlFor="age-native-simple" style={{ fontWeight: "400", fontSize: "17px", marginButton: "20px", color: "black" }}>Select Size</InputLabel>
@@ -266,11 +230,8 @@ export default function ProductDetails({ additem, user,cart }) {
                         inputProps={{
                           name: 'size',
                           id: 'age-native-simple',
+                        }}>
 
-                        }}
-
-
-                      >
                         <option aria-label="None" value="" />
                         <option value={"S"}>S</option>
                         <option value={"M"}>M</option>

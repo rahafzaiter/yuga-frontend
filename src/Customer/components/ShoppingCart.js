@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Item from './ShoppingCartItem';
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/App.css'
 import Grid from '@material-ui/core/Grid';
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -35,10 +32,7 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // flexGrow: 1,
         width: "100%",
-
-
     },
     paper: {
         padding: theme.spacing(2),
@@ -52,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
     },
     cardGrid: {
         minHeight: "900px",
-
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
     },
@@ -67,9 +60,6 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
     },
-
-
-
 }));
 
 const defaultProps = {
@@ -77,25 +67,23 @@ const defaultProps = {
     border: 2,
     m: 2,
     borderColor: 'black',
-    // style: { width: '5rem', height: '5rem' },
 };
 
 //https://github.com/LambdaSchool/react-shopping-cart/tree/master/src 
 
-function ShoppingCart({ cart,setCart }) {
+function ShoppingCart({ cart, setCart }) {
     const classes = useStyles();
     const [allcarts, setAllCarts] = useState(cart);
     const history = useHistory();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
-
+    //calculate the total
     const getCartTotal = () => {
         return cart.reduce((acc, value) => {
             return acc + value.Product.card.price;
         }, 0).toFixed(0)
     };
-    const x = 0;
 
     useEffect(() => {
         console.log("cart", cart)
@@ -104,24 +92,28 @@ function ShoppingCart({ cart,setCart }) {
 
     useEffect(() => {
         console.log("cart", cart)
-      
+
     }, []);
 
+    //to remove everything from cart when checkout
     const remove = () => {
         localStorage.removeItem("cartItems");
         localStorage.removeItem("cartTotalPrice");
     };
 
+    //related to modal
     const handleOpen = () => {
         setOpen(true);
     };
 
+    //related to modal
     const handleClose = () => {
         setOpen(false);
     };
 
     let y = 0;
 
+    //text in modal if the cart is empty and user click on checkout
     const bodyAfterAdd = (
         <div style={modalStyle} className={classes.paperModel}>
             <h2 id="simple-modal-title">Yuga</h2>
@@ -131,12 +123,11 @@ function ShoppingCart({ cart,setCart }) {
         </div>
     );
 
-   const  removeItemFromBasket=(itemId) =>{
+    //when remove item from the cart
+    const removeItemFromBasket = (itemId) => {
         const items = allcarts.filter(item => item.id !== itemId);
-     
-        // setAllCarts({items});
         setCart(items);
-      }
+    }
 
 
     return (
@@ -145,20 +136,11 @@ function ShoppingCart({ cart,setCart }) {
 
                 <Grid
                     className={classes.root}
-                // className="shopping-cart"
                 >
                     <Typography variant="h4" align="left" className="CartTitle">My Cart</Typography>
-                   {/* <p className="CartTitle">MyCart</p> */}
                     <Grid container spacing={2} style={{ marginTop: "40px" }}>
-
-
-
                         <Grid item xs={8}>
-
-
-
                             <TableContainer >
-
                                 <Table borderBottom={2} style={
                                     {
                                         border: '3px solid black'
@@ -177,43 +159,36 @@ function ShoppingCart({ cart,setCart }) {
                                             <TableCell align="right"></TableCell>
                                         </TableRow>
                                     </TableHead>
-                                   
-                                        {allcarts.length==0?
+
+                                    {allcarts.length == 0 ?
                                         (
-                                              <TableBody></TableBody>
-                                        ):
-                                       
-                                             <TableBody>
-                                        {allcarts.map((item, index) => (
-                                            <TableRow key={index} {...item}>
-                                                <TableCell align="left">
-                                                    <img width="150px" height="150px" objectFit="cover" src={item.Product.card.image} alt={`${item.Product.card.title} book`} />
-                                                </TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="left">{item.Product.card.title}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="left">{item.size}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="left">{y = new Intl.NumberFormat(),
-                                                    y.format(item.Product.card.price)}</TableCell>
-                                                <TableCell style={{ fontSize: 18 }} align="right"><button onClick={()=>removeItemFromBasket(item.id)}>X</button></TableCell>
-                                            </TableRow>
-                                        ))}
-                                          </TableBody>
-                                       
-                                        }
-                                  
+                                            <TableBody></TableBody>
+                                        ) :
+
+                                        <TableBody>
+                                            {allcarts.map((item, index) => (
+                                                <TableRow key={index} {...item}>
+                                                    <TableCell align="left">
+                                                        <img width="150px" height="150px" objectFit="cover" src={item.Product.card.image} alt={`${item.Product.card.title} book`} />
+                                                    </TableCell>
+                                                    <TableCell style={{ fontSize: 18 }} align="left">{item.Product.card.title}</TableCell>
+                                                    <TableCell style={{ fontSize: 18 }} align="left">{item.size}</TableCell>
+                                                    <TableCell style={{ fontSize: 18 }} align="left">{y = new Intl.NumberFormat(),
+                                                        y.format(item.Product.card.price)}</TableCell>
+                                                    <TableCell style={{ fontSize: 18 }} align="right"><button onClick={() => removeItemFromBasket(item.id)}>X</button></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    }
                                 </Table>
                             </TableContainer>
-
                         </Grid>
 
                         <Grid item xs={4}>
-
                             <p><h4>Subtotal : </h4>
-                                {/* {getCartTotal().toLocaleString(undefined, {maximumFractionDigits:4})} */}
                                 {
                                     y = new Intl.NumberFormat(),
-                                    y.format(getCartTotal())}
-
-                                LBP</p>
+                                    y.format(getCartTotal())}LBP</p>
 
                             <button
                                 className="buttn"
@@ -226,11 +201,7 @@ function ShoppingCart({ cart,setCart }) {
                                         history.push("/Customer/checkout")
                                     }
                                     else {
-
                                         handleOpen();
-
-
-                                        // alert("you should add items before checkout")
                                     }
                                 })}
                             > CHECKOUT</button>
@@ -243,11 +214,8 @@ function ShoppingCart({ cart,setCart }) {
                                 {bodyAfterAdd}
                             </Modal>
                             <p>excluding taxes and shipping costs</p>
-
                         </Grid>
-
                     </Grid>
-
                 </Grid>
             </Container>
 

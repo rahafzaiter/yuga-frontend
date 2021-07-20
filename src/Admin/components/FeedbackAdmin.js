@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -16,25 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
-
-// Generate Order Data
-function createData(id,customerid,name, rate,comment,category) {
-  return { id,customerid,name, rate,comment,category };
-}
-
-const rows = [
-  createData(0, 0, 'Rahaf Zaiter', 4 , 'I like the SE shirts', 'Shirts'),
-  createData(1, 1, 'Elie Kozah', 4 , 'I loved the pants ', 'Pants'),
-  createData(2, 2, 'Alexandra Kodjabachi',5, 'I enjoyed shopping and would like to add more dresses', 'Dresses'),
-  createData(3, 3, 'Yvona Nehme', 3, 'Would you please add more Boyfriend Pants?', 'Pants'),
-  createData(4, 4, 'Zaina Saab',3, 'The Black JumpSuit was wonderfull when i received it ', "JumpSuits"),
-  
- 
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -42,10 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     width: '100%',
-    color:"black",
-    backgroundColor:"pink",
-    // marginLeft:"20px",
-    marginRight:"20px",
+    color: "black",
+    backgroundColor: "pink",
+    marginRight: "20px",
     '& > * + *': {
       marginTop: theme.spacing(2),
     }
@@ -55,77 +36,95 @@ const useStyles = makeStyles((theme) => ({
 export default function FeedbackAdmin() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  return (
-    <div className="container"  style={{minHeight:"900px",marginTop:"40px"}}>
-    <React.Fragment>
+  const [feedbacks, setFeedbacks] = useState([]);
+
+  //sort feedbacks by id
+  function dynamicSort(property) {
+    return function (a, b) {
+      return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+    }
+  }
+
+ 
+// var name;
+  //get All feedbacks
+  const loadFeedbacks = async () => {
+    const result = await axios.get("http://127.0.0.1:8000/api/feedbacks/");
+    // name=result.data.sort(dynamicSort('id'));
+    setFeedbacks(result.data.sort(dynamicSort('id')));
+    console.log(result.data.reverse());
+  };
+
    
-    {/* <ReactNotification /> */}
-      {/* <Application /> */}
-      <Title >Recent Feedbacks</Title>
-      {/* <Alert onClose={() => {}}>This is a success alert — check it out!</Alert> */}
-      <Collapse in={open} className={classes.root}>
-        <Alert
-       variant="filled" severity="info"
-        
-          action={
-            <IconButton
-              aria-label="close"
-              color="white"
-              size="small"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
+
+  useEffect(() => {
+    loadFeedbacks()
+  }, [])
+
+  return (
+    <div className="container" style={{ minHeight: "900px", marginTop: "40px" }}>
+      <React.Fragment>
+
+        {/* <ReactNotification /> */}
+        {/* <Application /> */}
+        <Title >Recent Feedbacks</Title>
+        <Collapse in={open} className={classes.root}>
+          <Alert
+            variant="filled" severity="info"
+            action={
+              <IconButton
+                aria-label="close"
+                color="white"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+             {feedbacks.length!=0? (<div>  A new feedback was added by {feedbacks[0].firstname + " " + feedbacks[0].lastname} .</div>) : (<div></div>) }
+          </Alert>
+        </Collapse>
+        <Button
+
+          style={{ margin: "20px" }}
+          disabled={open}
+          variant="outlined"
+          onClick={() => {
+            setOpen(true);
+          }}
         >
-         A new feedback was added by {rows[0].name} today .
-        </Alert>
-      </Collapse>
-      <Button
-      
-      style={{margin:"20px"}}
-        disabled={open}
-        variant="outlined"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Re-open
-      </Button>
-    <TableContainer component={Paper}>      
-      <Table  aria-label="simple table" style={{borderRadius: "25px",}}>
-        <TableHead style={{backgroundColor:'#5e5e5e',borderRadius: "25px",}}>
-          <TableRow>
-            <TableCell style={{ color: 'white',fontSize:"18px" }} component="th" scope="row">Customer id</TableCell>
-            <TableCell style={{ color: 'white',fontSize:"18px" }}>Name</TableCell>
-            <TableCell style={{ color: 'white',fontSize:"18px" }}>Rate</TableCell>
-            <TableCell style={{ color: 'white',fontSize:"18px" }}>Comment</TableCell>
-            <TableCell style={{ color: 'white',fontSize:"18px" }}>Favorite Category</TableCell>
-          </TableRow>
-        </TableHead>
+          Re-open
+        </Button>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table" style={{ borderRadius: "25px", }}>
+            <TableHead style={{ backgroundColor: '#5e5e5e', borderRadius: "25px", }}>
+              <TableRow>
+                <TableCell style={{ color: 'white', fontSize: "18px" }} component="th" scope="row">Customer id</TableCell>
+                <TableCell style={{ color: 'white', fontSize: "18px" }}>Name</TableCell>
+                <TableCell style={{ color: 'white', fontSize: "18px" }}>Rate</TableCell>
+                <TableCell style={{ color: 'white', fontSize: "18px" }}>Comment</TableCell>
+                <TableCell style={{ color: 'white', fontSize: "18px" }}>Favorite Category</TableCell>
+              </TableRow>
+            </TableHead>
 
 
-        <TableBody style={{backgroundColor:'#f1f1f1',borderRadius: "25px",}}>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-             <TableCell>{row.customerid}</TableCell>
-             <TableCell >{row.name}</TableCell>
-              <TableCell >{row.rate}</TableCell>
-              <TableCell >{row.comment}</TableCell>
-              <TableCell >{row.category}</TableCell>  
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      </TableContainer>
-      {/* <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
-        </Link>
-      </div> */}
-    </React.Fragment>
+            <TableBody style={{ backgroundColor: '#f1f1f1', borderRadius: "25px", }}>
+              {feedbacks.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell>{row.user_id}</TableCell>
+                  <TableCell >{row.firstname + " " + row.lastname}</TableCell>
+                  <TableCell >{row.rate}</TableCell>
+                  <TableCell >{row.comment}</TableCell>
+                  <TableCell >{row.category_name}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </React.Fragment>
     </div>
   );
 }

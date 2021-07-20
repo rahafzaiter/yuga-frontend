@@ -93,48 +93,37 @@ const useStyles = makeStyles((theme) => ({
 export default function Feedback(props) {
     const classes = useStyles();
     const [state, setState] = useState({
-
         categories: props.categ,
         selectedCategory: " ",
-
     });
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const [comment, setComment] = useState('');
     const [rate, setRate] = useState('');
     const [categories, setCategories] = useState([]);
-    const [id]=useState(JSON.parse(localStorage.getItem("customerId")));
+    const [id] = useState(JSON.parse(localStorage.getItem("customerId")));
 
 
+    //display all categories 
     const loadCategories = async () => {
-      const result = await axios.get("http://127.0.0.1:8000/api/categories/");
-      setCategories(result.data.reverse())
-  
+        const result = await axios.get("http://127.0.0.1:8000/api/categories/");
+        setCategories(result.data.reverse())
+
     };
-  
+
+    //add feedback to backend 
     const addFeedback = feedback => {
-
         const article = feedback;
-        console.log('feedback',article)
+        console.log('feedback', article)
+        axios.post('http://127.0.0.1:8000/api/feedbacks', article, { headers: { "Content-Type": "application/json" } })
+    };
 
-        axios.post('http://127.0.0.1:8000/api/feedbacks',article,{headers:{"Content-Type" : "application/json"}})
-        // axios.post('http://127.0.0.1:8000/api/feedbacks', article)
-        //   .then(
-        //     response => {
-            
-        //     console.log("response",response);
-        //     },
-        //     setText("Thankyou for your feedback"))
-        //   .catch(error => {
-        //     console.error('There was an error!', error);
-        //   });
-      };
-    
 
-    useEffect(()=>{
+    useEffect(() => {
         loadCategories();
-    },[])
+    }, [])
 
+    //fill selected category whech choose one of the list
     const handleChangeCategory = (e) => {
         setState({
             ...state,
@@ -142,6 +131,7 @@ export default function Feedback(props) {
         });
     };
 
+    //related to modal
     const handleOpen = () => {
         setOpen(true);
     };
@@ -152,6 +142,7 @@ export default function Feedback(props) {
 
     const [text, setText] = useState('');
 
+    //text displayed in modal
     const bodyAfterAdd = (
         <div style={modalStyle} className={classes.paperModel}>
             <h2 id="simple-modal-title">Yuga</h2>
@@ -163,12 +154,10 @@ export default function Feedback(props) {
 
 
 
+    //when click on submit button
     const Submit = () => {
-
         handleOpen();
-
         if (!rate || !comment || !state.selectedCategory) {
-
             setText("please fill all inputs");
             <Modal
                 open={open}
@@ -179,11 +168,8 @@ export default function Feedback(props) {
                 {bodyAfterAdd}
             </Modal>
         } else {
-
-            // const data1 = { email: email, password: password};  
-            const data={rate:Number(rate),comment:comment,user_Id :id,category_name:state.selectedCategory};
+            const data = { rate: Number(rate), comment: comment, user_Id: id, category_name: state.selectedCategory };
             addFeedback(data);
-            
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -192,15 +178,9 @@ export default function Feedback(props) {
             >
                 {bodyAfterAdd}
             </Modal>
-            // console.log("rate", rate)
-            // setRate('')
-            // setComment('')
-            // setState({
-            //     ...state,
-            //     selectedCategory: ''
-            // });
         }
     }
+
 
     return (
         <Grid container
