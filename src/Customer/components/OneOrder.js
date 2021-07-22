@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -50,6 +51,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OneOrder(props) {
   const classes = useStyles();
+      const [items,setItems]=useState([]);
+      const [id]=useState(props.orderId)
+  
+  const loadOrderItemsByOrdersId = async (id) => {
+        const result = await axios.get(`http://127.0.0.1:8000/api/orderitems/${id}`);
+        setItems(result.data)
+        // setProduct(result.data[0])
+        console.log("orders items by orderid ",result.data);
+        
+      };
+
+      useEffect(()=>{
+        loadOrderItemsByOrdersId(id);
+      },[])
+
 
   //add comma to the price
   const NumberFormatPrice=(y)=>{
@@ -71,13 +87,24 @@ export default function OneOrder(props) {
             <TableCell align="left"  style={{ fontSize: 19 }}>Price(LBP)</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        {/* <TableBody>
           {props.item.map((card,index) => (
             <TableRow key={index}>
               <TableCell component="th" scope="row">  <img style={{width:"150px", height:"150px", objectFit:"cover"}}  src={card.Product.card.image}  /></TableCell>
               <TableCell align="left" style={{ fontSize: 18 }}>{card.Product.card.title}</TableCell>
               <TableCell align="left" style={{ fontSize: 18 }}>{card.size}</TableCell>
               <TableCell align="left" style={{ fontSize: 18 }}> {NumberFormatPrice(card.Product.card.price)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody> */}
+          <TableBody>
+            {items.length==0?(<div></div>):
+          items.map((card,index) => (
+            <TableRow key={index}>
+              <TableCell component="th" scope="row">  <img style={{width:"150px", height:"150px", objectFit:"cover"}}  src={card.image}  /></TableCell>
+              <TableCell align="left" style={{ fontSize: 18 }}>{card.title}</TableCell>
+              <TableCell align="left" style={{ fontSize: 18 }}>{card.size}</TableCell>
+              <TableCell align="left" style={{ fontSize: 18 }}> {NumberFormatPrice(card.price)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

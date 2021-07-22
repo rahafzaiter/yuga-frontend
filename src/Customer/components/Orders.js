@@ -1,18 +1,16 @@
 
 import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import OneOrder from './OneOrder';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Logo from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/logoPinkDress.jpeg"
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/Order.scss'
-import back from "/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Pictures/undraw_Online_shopping_re_k1sv.svg"
+import axios from 'axios'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: '1000px',
@@ -34,12 +32,33 @@ const useStyles = makeStyles((theme) => ({
 export default function Orders(props) {
     const classes = useStyles();
     const [allorders, setAllOrders] = useState(JSON.parse(window.localStorage.getItem("orders")));
+    const [customer_id] = useState(JSON.parse(localStorage.getItem("customerId")));
+    const[orders,setOrders]=useState([]);
+    const [firstname]=useState(JSON.parse(localStorage.getItem("customer")).firstname);
+    const [lastname]=useState(JSON.parse(localStorage.getItem("customer")).lastname);
+
+    const [orderId,setOrderId]=useState(0);
+
+    //return All orders  by customerid
+    const loadOrdersByCustId = async (id) => {
+        const result = await axios.get(`http://127.0.0.1:8000/api/ordersbyCustomer/${id}`);
+        setOrders(result.data)
+        console.log("orders by customer id ", result.data);
+    };
+
+    
 
     useEffect(() => {
+        loadOrdersByCustId(customer_id);
         setAllOrders(JSON.parse(window.localStorage.getItem("orders")));
         console.log("all Orders in order page", allorders);
         console.log("user in orders", props.user.user)
     }, []);
+
+    // useEffect(()=>{
+
+    //     loadOrderItemsByOrdersId(orderId);
+    // },[orderId])
 
 
     return (
@@ -53,18 +72,18 @@ export default function Orders(props) {
                             </Grid>
 
                         </div>
-                        )
+                    )
                         :
                         (
                             <div>
                                 <Grid item xs={12} style={{ fontSize: 30, marginBottom: "30px", marginTop: "40px" }}>
 
-                                    <h2 className="Order_title">Thank you Sweety {props.user.user.firstname} {props.user.user.lastname} for your orders
+                                    <h2 className="Order_title">Thank you Sweety {firstname} {lastname} for your orders
 
                                     </h2>
                                 </Grid>
 
-                                {allorders.map((order, index) => (
+                                {/* {allorders.map((order, index) => (
                                     <Accordion key={index} style={{ width: "100%" }}>
                                         <AccordionSummary
                                             expandIcon={<ExpandMoreIcon />}
@@ -85,6 +104,32 @@ export default function Orders(props) {
                                     </Accordion>
                                 ))}
                             </div>
+                        )} */}
+
+                                {orders.map((order, index) => 
+                                    // setOrderId(order.id);
+                                // loadOrderItemsByOrdersId(order.id)
+                                ( 
+                                    <Accordion key={index} style={{ width: "100%" }}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header">
+                                            <Typography className={classes.heading} style={{ fontSize: 19 }}>Order {order.id} /  Date: {order.date}</Typography>
+                                        </AccordionSummary>
+
+                                        <AccordionDetails >
+                                            <Typography style={{ width: "95%" }}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <OneOrder orderId={order.id} total={order.total_price} />
+                                                    </Grid>
+                                                </Grid>
+                                            </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                ))}
+                            </div>
                         )}
                 </Grid>
 
@@ -92,4 +137,5 @@ export default function Orders(props) {
 
         </div >
     )
+    
 }

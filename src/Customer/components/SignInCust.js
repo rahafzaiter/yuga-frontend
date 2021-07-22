@@ -86,7 +86,7 @@ export default function SignInSide(props) {
       .then((result) => {  
         console.log("statis",result.Status ); 
         console.log(result.user);  
-        if (result.Status == 'Unauthorized access"')  
+        if (result.message == 'Unauthorized access"')  
           alert('Invalid User');  
         else { 
         console.log('new user added ');

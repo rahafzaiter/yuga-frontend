@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 //Filter:
@@ -61,7 +61,9 @@ function getModalStyle() {
 }
 export default function ProductDetails({ additem, user,cart }) {
   const classes = useStyles();
+  const history=useHistory();
   const [modalStyle] = React.useState(getModalStyle);
+  const [Product]=useState(JSON.parse(localStorage.getItem('product')));
   const [size, setSize] = useState('');
   const [item, setItem] = useState({
       id: 0,
@@ -78,6 +80,7 @@ export default function ProductDetails({ additem, user,cart }) {
     setItem({ ...item, size: value });
 
   };
+
 
   //retated to modal feature
   const handleOpen = () => {
@@ -182,10 +185,11 @@ export default function ProductDetails({ additem, user,cart }) {
   useEffect(() => {
     if(item.id!=0){
     additem(item);
+    history.push("/Customer/CustCart");
     }
   }, [item.id]);
 
-  //method add comma to the price ex:200000 becomes 200,000
+  //method add comma to the price ex:2000000 becomes
   const NumberFormatPrice = (y) => {
     var price = new Intl.NumberFormat();
     return price.format(y);

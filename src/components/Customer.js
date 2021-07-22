@@ -78,19 +78,24 @@ export default function Customer() {
     const history=useHistory();
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
     const[orders,setOrders]=useState([]);
+    
+   
 
     //add items to cart in shopping cart page 
     const addItem = item => {
         const newList = cart.concat(item);
-        setCart(newList)
-        history.push("/Customer/CustCart")
+        setCart(newList);
+        localStorage.setItem('inCart',JSON.stringify(newList));
+        
     };
+
+    
 
     //to add orders to localstorage when customer add purchase 
     const addOrders = item => {
         const newList = orders.concat(item);
-        localStorage.setItem('orders',JSON.stringify(newList))
-        setOrders(JSON.parse(window.localStorage.getItem("orders")))
+        localStorage.setItem('orders',JSON.stringify(newList));
+        setOrders(JSON.parse(window.localStorage.getItem("orders")));
     };
 
     //return all catregories 
@@ -112,6 +117,7 @@ export default function Customer() {
         console.log(result.data.reverse())
       };
 
+      
       //if user is not null in local storage set user and send it by props to child 
       //but nevermind this method was done before calling api from backend 
     useEffect(()=>{
@@ -130,6 +136,7 @@ export default function Customer() {
     useEffect(()=>{
         loadCategories();
         loadProducts();
+        localStorage.setItem('inCart',JSON.stringify(cart));
     },[])
 
    

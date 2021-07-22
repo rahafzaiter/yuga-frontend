@@ -168,7 +168,7 @@ export default function Feedback(props) {
                 {bodyAfterAdd}
             </Modal>
         } else {
-            const data = { rate: Number(rate), comment: comment, user_Id: id, category_name: state.selectedCategory };
+            const data = { rate: parseInt(rate), comment: comment, user_Id: id, category_name: state.selectedCategory };
             addFeedback(data);
             <Modal
                 open={open}

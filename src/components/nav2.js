@@ -60,9 +60,7 @@ theme.typography.h3 = {
 
 function Navigation(props) {
   const classes = useStyles();
-  const [color, changeColor] = useState("#FFFFFF");
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
   //when logout
   const remove = () => {

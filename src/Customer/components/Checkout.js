@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import Review from './Review';
 import { BrowserRouter as Router, Redirect, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
-
+import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -70,6 +70,7 @@ export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [fname, setfName] = useState(props.user.user.firstname)
   const [lname, setlName] = useState(props.user.user.lastname)
+  const [ordId,setId]=useState(0);
   const [address, setAddress] = useState({
     city: '',
     street: '',
@@ -78,20 +79,82 @@ export default function Checkout(props) {
   });
 
   const [checked, setChecked] = useState(false);
-  const [order, setOrder] = useState({})
+  const [order, setOrder] = useState({});
+  const [cart,setCart]=useState(JSON.parse(localStorage.getItem("inCart")));
 
   //when submit order clear everything in cart 
   const remove = () => {
     localStorage.removeItem("cartItems");
     localStorage.removeItem("cartTotalPrice");
+    localStorage.setItem('inCart',JSON.stringify([]));
   };
+
+
+  //add order to database
+  const addOrder =() => {
+    var data={
+    'date':new Date().toLocaleString(),
+    'customer_name':fname + " " + lname,
+    'total_price': 
+    parseInt(JSON.parse(localStorage.getItem("cartTotalPrice")), 10) + 10000,
+     'customer_id':parseInt(JSON.parse(localStorage.getItem('customerId'))) ,
+     'city':address.city,
+     'street':address.street,
+     'building':address.building,
+     'floor':parseInt(address.floor)
+  };
+  console.log("data",data)
+    axios.post('http://127.0.0.1:8000/api/orders', data)
+      .then(
+        response => {
+          setId(response.data.id);
+          console.log("order id ",response.data.id);
+          // addOrderItems(response.data.id);
+          // loadUsers()
+          // setRefresh(!refresh)
+        })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+  };
+
+
+  //add order to database
+  const addOrderItems =() => {
+    cart.map((cart) => {
+      var data={
+        'order_id':ordId,
+        'size':cart.size,
+        'product_id': cart.Product.card.id,
+ };
+ console.log('data',data);
+
+ axios.post('http://127.0.0.1:8000/api/orderitems', data)
+ .then(
+   response => {
+    //  setId(response.data.id);
+    //  console.log("order id ",response.data.id);
+     // addOrderItems(response.data.id);
+     // loadUsers()
+     // setRefresh(!refresh)
+   })
+ .catch(error => {
+   console.error('There was an error!', error);
+ });
+
+});
+  };
+
+  
 
 
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
     if (activeStep === steps.length - 1) {
+      //addOrderItems();
+       addOrder();
         setOrder({
-          customer: props.user.user,
+          customer:JSON.parse(localStorage.getItem('customer')),
           customerName: fname + " " + lname,
           cart: JSON.parse(window.localStorage.getItem("cartItems")),
           totalprice: (
@@ -117,6 +180,12 @@ export default function Checkout(props) {
       props.setCart([])
     }
   }, [order]);
+
+  useEffect(() => {
+    if(ordId!=0){
+      addOrderItems();
+    } 
+  }, [ordId]);
 
   return (
     <React.Fragment>

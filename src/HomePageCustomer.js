@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 //Style:
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Animation from './Customer/components/Animation'

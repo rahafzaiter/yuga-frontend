@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditProduct() {
   const classes = useStyles();
+  const history=useHistory();
   const initialTutorialState = {
     id: null,
     title: "",
@@ -120,8 +121,9 @@ export default function EditProduct() {
   //return this product by id
   const loadProductById = async (id) => {
     const result = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
-    setproductB(result.data)
-    console.log(result.data);
+    setproductB(result.data[0])
+    setProduct(result.data[0])
+    console.log("product by id ",result.data[0]);
     
   };
 
@@ -136,14 +138,14 @@ export default function EditProduct() {
   //when type new size 
   const handleSizeChange=event=>{
     const { name, value } = event.target;
-    setProduct({ ...product, [name]: Number(value) });
+    setProduct({ ...product, [name]: parseInt(value) });
     setChange(true);
   }
 
   //when type new price 
   const handlePriceChange=event=>{
     const { name, value } = event.target;
-    setProduct({ ...product, [name]: Number(value) });
+    setProduct({ ...product, [name]: parseInt(value) });
     setChange(true);
   }
 
@@ -191,12 +193,13 @@ export default function EditProduct() {
 
   //submit when fill all data 
   const submit = () => {
-      e.preventDefault();
+      // e.preventDefault();
     updateProducts(product.id,product);
+    history.push("/Admin/tutorials")
   }
 
   //stuffs for picture to be implemented for future 
-  // const onDrop = (pictureFiles, pictureDataURLs) => {
+   const onDrop = (pictureFiles, pictureDataURLs) => {
     setPictures(pictureFiles);
     console.log("picture added");
     console.log(pictureFiles);
@@ -210,7 +213,7 @@ export default function EditProduct() {
       <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%", borderRadius: "25px", marginTop: "30px" }}>
         <h2 className="text-center mb-4">Edit A Product</h2>
         <div className="container">
-          <form noValidate onSubmit={submit} className={classes.form}>
+          <form noValidate  className={classes.form}>
             {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
             <TextField
               required
@@ -230,9 +233,7 @@ export default function EditProduct() {
               multiline
               variant="outlined"
 
-
               className={classes.formControl}
-
               id="description"
               name="description"
               value={product.description}
@@ -248,9 +249,9 @@ export default function EditProduct() {
                 id="outlined-adornment-amount"
                 value={product.price}
                 type="number"
+                name="price"
                 style={{ backgroundColor: "white" }}
                 onChange={handlePriceChange}
-                // className={classes.formControl}
                 startAdornment={<InputAdornment position="start">LBP</InputAdornment>}
                 labelWidth={60}
               />
@@ -260,11 +261,10 @@ export default function EditProduct() {
               required
               id="outlined-required"
               label="Color"
-              defaultValue="color"
+              // defaultValue="color"
               variant="outlined"
               value={product.color}
               onChange={handleInputChange}
-              // style={{backgroundColor:"white"}}
               className={classes.formControl}
               name="color"
               type="text"
@@ -274,7 +274,6 @@ export default function EditProduct() {
               multiline
               id="outlined-required"
               label="Image Link"
-              defaultValue={product.image}
               variant="outlined"
               value={product.image}
               name="image"
@@ -302,10 +301,8 @@ export default function EditProduct() {
                 value={product.collection}
                 onChange={handleInputChange}
               >
-                <MenuItem value={"light"}>Light</MenuItem>
-                <MenuItem value={"dark"}>Dark</MenuItem>
-
-
+                <option align="center" value="light" >lighto</option>
+                <option align="center" value="dark">darko</option>
               </Select>
             </FormControl>
 
@@ -315,28 +312,19 @@ export default function EditProduct() {
             <FormControl className={classes.formControlSelect} >
               <Typography  >Select Category</Typography>
               <Select
-
-                // className={classes.formControl}
-                value={product.category}
-
+                value={product.name}
                 required
                 style={{ backgroundColor: "white", color: 'black' }}
-
                 inputProps={{
-                  name: 'category',
+                  name: 'name',
                   id: 'age-native-simple',
-
-
                 }}
                 onChange={handleInputChange}
-
               >
                 {Categories.map((cat) => (
-                  <option align="center"  value={cat.name}>{cat.name}</option>))}
-              
+                  <option align="center"  value={cat.name}>{cat.name}</option>))}             
               </Select>
             </FormControl>
-
 
             <hr />
 
@@ -429,7 +417,7 @@ export default function EditProduct() {
                   // onClick={() => { history.push("/Admin/tutorials") }}
                   onClick={submit}
                 // {() =>Edit
-                //   history.push("/Admin/tutorials")} 
+                  // history.push("/Admin/tutorials")} 
                 >
                   Update
                 </button>

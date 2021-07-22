@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Typography } from '@material-ui/core';
 import './shopCart.scss'
 import Modal from '@material-ui/core/Modal';
+import { CardTravel } from '@material-ui/icons';
 
 
 function rand() {
@@ -73,32 +74,31 @@ const defaultProps = {
 
 function ShoppingCart({ cart, setCart }) {
     const classes = useStyles();
-    const [allcarts, setAllCarts] = useState(cart);
+    const [cartL,setCartL]=useState(JSON.parse(localStorage.getItem('inCart')));
+    const [allcarts, setAllCarts] = useState([]);
     const history = useHistory();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
 
     //calculate the total
     const getCartTotal = () => {
-        return cart.reduce((acc, value) => {
+        return cartL.reduce((acc, value) => {
             return acc + value.Product.card.price;
         }, 0).toFixed(0)
     };
 
     useEffect(() => {
         console.log("cart", cart)
-        setAllCarts(cart)
-    }, [cart]);
+        setAllCarts(cartL)
+    }, [cartL]);
 
-    useEffect(() => {
-        console.log("cart", cart)
 
-    }, []);
 
     //to remove everything from cart when checkout
     const remove = () => {
         localStorage.removeItem("cartItems");
         localStorage.removeItem("cartTotalPrice");
+      
     };
 
     //related to modal
@@ -127,6 +127,9 @@ function ShoppingCart({ cart, setCart }) {
     const removeItemFromBasket = (itemId) => {
         const items = allcarts.filter(item => item.id !== itemId);
         setCart(items);
+        localStorage.setItem('inCart',JSON.stringify(items));
+        setCartL(items);
+        setAllCarts(items);
     }
 
 
@@ -160,13 +163,13 @@ function ShoppingCart({ cart, setCart }) {
                                         </TableRow>
                                     </TableHead>
 
-                                    {allcarts.length == 0 ?
+                                    {cartL.length == 0 ?
                                         (
                                             <TableBody></TableBody>
                                         ) :
 
                                         <TableBody>
-                                            {allcarts.map((item, index) => (
+                                            {cartL.map((item, index) => (
                                                 <TableRow key={index} {...item}>
                                                     <TableCell align="left">
                                                         <img width="150px" height="150px" objectFit="cover" src={item.Product.card.image} alt={`${item.Product.card.title} book`} />
@@ -182,6 +185,7 @@ function ShoppingCart({ cart, setCart }) {
                                     }
                                 </Table>
                             </TableContainer>
+                            <button onClick={()=>{history.push("/Customer/CustProductGallery")}} style={{backgroundColor:"white",color:'blue'}}> Continue Shopping</button>
                         </Grid>
 
                         <Grid item xs={4}>
@@ -194,7 +198,7 @@ function ShoppingCart({ cart, setCart }) {
                                 className="buttn"
                                 style={{ width: "80%" }}
                                 onClick={(() => {
-                                    if (cart.length != 0) {
+                                    if (cartL.length != 0) {
                                         remove();
                                         localStorage.setItem('cartItems', JSON.stringify({ allcarts }))
                                         localStorage.setItem('cartTotalPrice', JSON.stringify(getCartTotal()))
