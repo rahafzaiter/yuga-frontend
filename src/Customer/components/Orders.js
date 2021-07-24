@@ -50,9 +50,9 @@ export default function Orders(props) {
 
     useEffect(() => {
         loadOrdersByCustId(customer_id);
-        setAllOrders(JSON.parse(window.localStorage.getItem("orders")));
-        console.log("all Orders in order page", allorders);
-        console.log("user in orders", props.user.user)
+        // setAllOrders(JSON.parse(window.localStorage.getItem("orders")));
+        // console.log("all Orders in order page", allorders);
+        // console.log("user in orders", props.user.user)
     }, []);
 
 

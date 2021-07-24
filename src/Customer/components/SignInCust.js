@@ -86,13 +86,21 @@ export default function SignInSide(props) {
       .then((result) => {  
         console.log("statis",result.Status ); 
         console.log(result.user);  
-        if (result.message == 'Unauthorized access"')  
-          alert('Invalid User');  
+        if (result.data.msg == 'Unauthorized access' )  
+          alert('incorrect emil or password, please try again ');  
         else { 
         console.log('new user added ');
         localStorage.setItem("customer",JSON.stringify(result.data.user));
         localStorage.setItem("customerToken",JSON.stringify(result.data.token));
         localStorage.setItem("customerId",JSON.stringify(result.data.user.id));
+         localStorage.setItem("user",JSON.stringify({user}))
+          setLoggedIn(true)
+      props.setUser({
+        user
+      },
+      console.log("user in sign in ",props.user))
+      setLog(email,password)       
+      history.push("/Customer/CustHomePage")        
         }
       })  
 
@@ -107,14 +115,8 @@ export default function SignInSide(props) {
     else {
       e.preventDefault();
       loginCust();
-      localStorage.setItem("user",JSON.stringify({user}))
-      setLoggedIn(true)
-      props.setUser({
-        user
-      },
-      console.log("user in sign in ",props.user))
-      setLog(email,password)       
-      history.push("/Customer/CustHomePage")        
+     
+     
   }
 
 }

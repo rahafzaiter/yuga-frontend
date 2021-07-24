@@ -71,6 +71,9 @@ export default function SignUp(props) {
         localStorage.setItem("customer",JSON.stringify(result.data.user));
         localStorage.setItem("customerToken",JSON.stringify(result.data.token));
         localStorage.setItem("customerId",JSON.stringify(result.data.user.id));
+        localStorage.setItem("user",JSON.stringify(props.user))
+        console.log(props.user)
+        history.push("/Customer/CustHomePage")  
         }
       })  
   }  
@@ -82,6 +85,7 @@ export default function SignUp(props) {
       return
     } else if(password!=cpassword){
       alert("password and confirm password dont match")
+      
     }
     else {
       e.preventDefault()
@@ -94,9 +98,7 @@ export default function SignUp(props) {
           password: password,
         })
         Registration();
-        localStorage.setItem("user",JSON.stringify(props.user))
-        console.log(props.user)
-        history.push("/Customer/CustHomePage")  
+       
         }
   }
 
