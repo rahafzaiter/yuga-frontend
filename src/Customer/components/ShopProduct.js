@@ -172,7 +172,7 @@ export default function Album(props) {
     const addProducts = item => {
       const newList = List.concat(item);
       List = newList;
-      setNewProduct(newList)
+      setProduct(newList)
     };
 
     if (collection == "All") {
@@ -199,7 +199,7 @@ export default function Album(props) {
     const addProducts = item => {
       const newList = List.concat(item);
       List = newList;
-      setNewProduct(newList)
+      setProduct(newList)
     };
 
     if (category == "All") {
@@ -275,10 +275,10 @@ export default function Album(props) {
                   <RadioGroup row aria-label="gender" name="row-radio-buttons-group" style={{ display: "flex", flexDirection: "column", align: "left" }}
                   >
                     <FormControlLabel value="All" control={<Radio />} label="All" onChange={handleChangeColor} />
-                    <FormControlLabel value="light" control={<Radio />} label="Light"
+                    <FormControlLabel value="Light" control={<Radio />} label="Light"
                       onChange={handleChangeColor}
                     />
-                    <FormControlLabel value="dark" control={<Radio />} label="Dark" style={{ color: "black" }}
+                    <FormControlLabel value="Dark" control={<Radio />} label="Dark" style={{ color: "black" }}
                       onChange={handleChangeColor} />
                   </RadioGroup>
                 </FormControl>

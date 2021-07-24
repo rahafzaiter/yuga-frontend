@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Orders(props) {
     const classes = useStyles();
-    const [allorders, setAllOrders] = useState(JSON.parse(window.localStorage.getItem("orders")));
+    const [allorders, setAllOrders] = useState([]);
     const [customer_id] = useState(JSON.parse(localStorage.getItem("customerId")));
     const[orders,setOrders]=useState([]);
     const [firstname]=useState(JSON.parse(localStorage.getItem("customer")).firstname);
@@ -55,17 +55,12 @@ export default function Orders(props) {
         console.log("user in orders", props.user.user)
     }, []);
 
-    // useEffect(()=>{
-
-    //     loadOrderItemsByOrdersId(orderId);
-    // },[orderId])
-
 
     return (
         <div>
             <div container className={classes.root} >
                 <Grid className="container" spacing={3} >
-                    {allorders == null ? (
+                    {orders.length==0 ? (
                         <div>
                             <Grid item xs={12}>
                                 <h1> Hey Sweety! What are you waiting for? Order your item now !</h1>

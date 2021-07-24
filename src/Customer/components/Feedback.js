@@ -140,7 +140,7 @@ export default function Feedback(props) {
         setOpen(false);
     };
 
-    const [text, setText] = useState('');
+    const [text, setText] = useState('Thank you for your feedback');
 
     //text displayed in modal
     const bodyAfterAdd = (

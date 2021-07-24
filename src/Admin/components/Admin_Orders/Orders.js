@@ -101,7 +101,8 @@ export default function FeedbackAdmin() {
         <TableHead style={{backgroundColor:'#5e5e5e'}}>
           <TableRow>
             <TableCell style={{ color: 'white',fontSize:"18px" }} >Date</TableCell>
-            <TableCell style={{ color: 'white',fontSize:"18px" }}>Customer Name </TableCell>
+             <TableCell style={{ color: 'white',fontSize:"18px" }}>Customer Id </TableCell>
+            <TableCell style={{ color: 'white',fontSize:"18px" }}>Customer Name in order </TableCell>
             <TableCell style={{ color: 'white',fontSize:"18px" }}>Total Paid(L.B.P)</TableCell>
             <TableCell style={{ color: 'white',fontSize:"18px" }}>Address</TableCell>
             <TableCell style={{ color: 'white',fontSize:"18px" }}>Payment Method</TableCell>
@@ -111,6 +112,7 @@ export default function FeedbackAdmin() {
           {orders.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
+              <TableCell>{row.customer_id}</TableCell>
               <TableCell>{row.customer_name}</TableCell>
               <TableCell>{row.total_price}</TableCell>
               <TableCell>{row.city+" "+row.street+" "+row.building+" "+row.floor}</TableCell>
