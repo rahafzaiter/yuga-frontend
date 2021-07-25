@@ -62,10 +62,10 @@ export default function SignUp(props) {
     const data1 = { email: email, password: password,firstname:fname,lastname:lname, phoneNb:phoneNb ,password_confirmation:password};  
     axios.post(`http://127.0.0.1:8000/api/register`,data1)  
       .then((result) => {  
-        console.log("statis",result.data.Status ); 
+        console.log("status",result.data.Status ); 
         console.log(result.data.user);  
-        if (result.data.Status == 'Invalid')  
-          alert('Invalid User');  
+        if (result.data.msg == 'Email is already used, please try another email')  
+          alert('Email is already used, please try another email');  
         else { 
         console.log('new user added ');
         localStorage.setItem("customer",JSON.stringify(result.data.user));
@@ -73,6 +73,13 @@ export default function SignUp(props) {
         localStorage.setItem("customerId",JSON.stringify(result.data.user.id));
         localStorage.setItem("user",JSON.stringify(props.user))
         console.log(props.user)
+        props.setUser({
+          firstName:fname,
+          lastName:lname,
+          phoneNb:phoneNb,
+          email: email,
+          password: password,
+        })
         history.push("/Customer/CustHomePage")  
         }
       })  
@@ -89,15 +96,9 @@ export default function SignUp(props) {
     }
     else {
       e.preventDefault()
-    
-        props.setUser({
-          firstName:fname,
-          lastName:lname,
-          phoneNb:phoneNb,
-          email: email,
-          password: password,
-        })
-        Registration();
+      Registration();
+      
+       
        
         }
   }

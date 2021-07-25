@@ -17,6 +17,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
+import db from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/firebase.js';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -37,6 +38,7 @@ export default function FeedbackAdmin() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [myNotifications, setMyNotifications] = useState([]);
 
   //sort feedbacks by id
   function dynamicSort(property) {
@@ -55,10 +57,35 @@ export default function FeedbackAdmin() {
     console.log(result.data.reverse());
   };
 
+  function getNotification() {
+    const ref =db.firestore().collection('feedback');
+		// const db = firebase.firestore();
+
+	ref.get()
+			.then((snapshot) => {
+				const n = [];
+				snapshot.forEach((doc) => {
+					const data = doc.data();
+					n.push(data);
+				});
+				setMyNotifications(n);
+        console.log('notifications',n[0])
+        console.log('notifications category',n[0].category_name)
+        if(n[0].category_name){
+          var z=n[0].category_name
+          alert( n[0].category_name + ' is recommended to be added in latest feedback by a customer  ')
+         
+        }
+        // alert('you got a new feedback to add ',n[0].category_name)
+			});
+	}
    
 
   useEffect(() => {
-    loadFeedbacks()
+    getNotification();
+    loadFeedbacks();
+    console.log('notifications',myNotifications[0])
+    // alert('you got a new feedback to add ',myNotifications[0].category_name)
   }, [])
 
   return (

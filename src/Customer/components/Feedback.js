@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import db from '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/firebase.js';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
@@ -32,6 +32,8 @@ function getModalStyle() {
         transform: `translate(-${top}%, -${left}%)`,
     };
 }
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -92,6 +94,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Feedback(props) {
     const classes = useStyles();
+    const loading=useState(false);
+    const ref =db.firestore().collection('feedback');
+
     const [state, setState] = useState({
         categories: props.categ,
         selectedCategory: " ",
@@ -121,6 +126,7 @@ export default function Feedback(props) {
 
     useEffect(() => {
         loadCategories();
+        console.log('ref',ref);
     }, [])
 
     //fill selected category whech choose one of the list
@@ -170,6 +176,19 @@ export default function Feedback(props) {
         } else {
             const data = { rate: parseInt(rate), comment: comment, user_Id: id, category_name: state.selectedCategory };
             addFeedback(data);
+            // const db = firebase.firestore();
+            ref.add({
+                    rate: 1,
+                    comment:"yeey",
+                    category_name:"Dresses"
+                    //sender:"me",
+                })
+                .then(() => {
+                    console.log('Document successfully written');
+                })
+                .catch((error) => {
+                    console.log("Error written", error);
+                });
             <Modal
                 open={open}
                 onClose={handleClose}
