@@ -87,16 +87,7 @@ export default function OneOrder(props) {
             <TableCell align="left"  style={{ fontSize: 19 }}>Price(LBP)</TableCell>
           </TableRow>
         </TableHead>
-        {/* <TableBody>
-          {props.item.map((card,index) => (
-            <TableRow key={index}>
-              <TableCell component="th" scope="row">  <img style={{width:"150px", height:"150px", objectFit:"cover"}}  src={card.Product.card.image}  /></TableCell>
-              <TableCell align="left" style={{ fontSize: 18 }}>{card.Product.card.title}</TableCell>
-              <TableCell align="left" style={{ fontSize: 18 }}>{card.size}</TableCell>
-              <TableCell align="left" style={{ fontSize: 18 }}> {NumberFormatPrice(card.Product.card.price)}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody> */}
+
           <TableBody>
             {items.length==0?(<div></div>):
           items.map((card,index) => (

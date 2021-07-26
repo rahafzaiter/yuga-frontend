@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react';
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/SeachBar.css';
 
+//note that this component is a feature will be used in the future to make search 
+
 //Filters :
-import Select from '@material-ui/core/Select';
 
 export default function SearchBar(){
 

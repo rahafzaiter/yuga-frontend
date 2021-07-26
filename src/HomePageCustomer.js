@@ -58,7 +58,7 @@ const useStyles = makeStyles({
 
 
 //switch
-import { Switch, Route, Link, useHistory } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 
 
 function HomePageCustomer(props) {
@@ -95,8 +95,7 @@ function HomePageCustomer(props) {
 
 
       {/* Pic */}
-      <div className={classes.bg}
-      >
+      <div className={classes.bg} >
         <Grid spacing={2} className={classes.card}>
           <Grid item xs={6}> <Animation className={classes.bg} /></Grid>
           <Grid item xs={6}>

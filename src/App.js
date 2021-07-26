@@ -8,18 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Admin from './components/Admin'
 import Customer from './components/Customer'
-////////////////////////////////////////////////////////////////////////
-import Feedback from './Customer/components/Feedback'
-
-//AdminHome:
-import HomePageAdmin from './HomePageAdmin'
 
 
 //Admin Pages:
 //login:
 import SignInSideAdmin from './Admin/components/SignInAdmin'
 
-import axios from 'axios';
 //switch
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -88,7 +82,6 @@ function App() {
   const [cart, setCart] = useState([]);
   //Styles:(
   const classes = useStyles();
-  const [value, setValue] = useState(0);
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
 
@@ -105,24 +98,6 @@ function App() {
     {id:10,title:"Lilac - Modest Dress",description:"40% Polyester, 60% CottonThere is approximately 4 cm difference between sizes",color:"lilac",collection:"light",categoryId:3,category:"Dresses",price:110000,image:'https://www.gizce.com/image/cache/catalog/products_2021/BS7T5698-800x1200.jpg',inStock:true, S: 4, M: 1, L: 2, XL: 3, XXL: 1},
 
   ]);
-
-  const [newProduct,setnewProduct]=useState([]);
-  const [refresh,setRefresh]=useState(false);
-
-  
-
-  // const [Products,setProduct]=useState([]);
-
-  // const loadUsers = async () => {
-  //   const result = await axios.get("http://127.0.0.1:8000/api/products/");
-  //   // setUser(result.data.reverse());
-  //   setnewProduct(result.data.reverse())
-  //   setRefresh(!refresh);
-    
-  // };
-
-
-  
 
   const [categories,setCategories]=useState([
       { id: 1, name: "Pants" },
@@ -144,25 +119,10 @@ function App() {
   };
 
 
-
-  // useEffect(() => {
-  //   loadUsers();
-
-  //   console.log('products from backend',newProduct);
-  // }, [refresh]);
-
   useEffect(()=>{
     setCategories(categories)
 
   },[categories])
-
-  // useEffect(()=>{
-  //   // loadUsers();
-  //   console.log('products from backend',Products);
-
-  // },[])
-
-
 
 
   return (

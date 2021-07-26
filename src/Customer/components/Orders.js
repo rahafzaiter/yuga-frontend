@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
@@ -31,13 +30,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Orders(props) {
     const classes = useStyles();
-    const [allorders, setAllOrders] = useState([]);
     const [customer_id] = useState(JSON.parse(localStorage.getItem("customerId")));
-    const[orders,setOrders]=useState([]);
-    const [firstname]=useState(JSON.parse(localStorage.getItem("customer")).firstname);
-    const [lastname]=useState(JSON.parse(localStorage.getItem("customer")).lastname);
-
-    const [orderId,setOrderId]=useState(0);
+    const [orders, setOrders] = useState([]);
+    const [firstname] = useState(JSON.parse(localStorage.getItem("customer")).firstname);
+    const [lastname] = useState(JSON.parse(localStorage.getItem("customer")).lastname);
 
     //return All orders  by customerid
     const loadOrdersByCustId = async (id) => {
@@ -46,13 +42,10 @@ export default function Orders(props) {
         console.log("orders by customer id ", result.data);
     };
 
-    
+
 
     useEffect(() => {
         loadOrdersByCustId(customer_id);
-        // setAllOrders(JSON.parse(window.localStorage.getItem("orders")));
-        // console.log("all Orders in order page", allorders);
-        // console.log("user in orders", props.user.user)
     }, []);
 
 
@@ -60,7 +53,7 @@ export default function Orders(props) {
         <div>
             <div container className={classes.root} >
                 <Grid className="container" spacing={3} >
-                    {orders.length==0 ? (
+                    {orders.length == 0 ? (
                         <div>
                             <Grid item xs={12}>
                                 <h1> Hey Sweety! What are you waiting for? Order your item now !</h1>
@@ -78,33 +71,8 @@ export default function Orders(props) {
                                     </h2>
                                 </Grid>
 
-                                {/* {allorders.map((order, index) => (
-                                    <Accordion key={index} style={{ width: "100%" }}>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header">
-                                            <Typography className={classes.heading} style={{ fontSize: 19 }}>Order {index + 1} /  Date: {order.date}</Typography>
-                                        </AccordionSummary>
-
-                                        <AccordionDetails >
-                                            <Typography style={{ width: "95%" }}>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12}>
-                                                        <OneOrder item={order.cart.allcarts} total={order.totalprice} />
-                                                    </Grid>
-                                                </Grid>
-                                            </Typography>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                ))}
-                            </div>
-                        )} */}
-
-                                {orders.map((order, index) => 
-                                    // setOrderId(order.id);
-                                // loadOrderItemsByOrdersId(order.id)
-                                ( 
+                                {orders.map((order, index) =>
+                                (
                                     <Accordion key={index} style={{ width: "100%" }}>
                                         <AccordionSummary
                                             expandIcon={<ExpandMoreIcon />}
@@ -132,5 +100,5 @@ export default function Orders(props) {
 
         </div >
     )
-    
+
 }

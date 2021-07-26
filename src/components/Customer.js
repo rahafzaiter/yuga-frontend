@@ -18,28 +18,12 @@ import Feedback from '../Customer/components/Feedback'
 import Password from '../Customer/components/Password'
 import Address from '../Customer/components/Address'
 import Profile from '../Customer/components/Profile'
-
-//Scratch:
-import HookCounterTwo from '../Customer/components/HookCounterTwo'
-import HookCounterThree from '../Customer/components/HookCounterThree'
-import HookCounterFour from '../Customer/components/HookCounterFour'
-import HookCounterOne from '../Customer/components/HookCounterOne'
 import Orders from  '../Customer/components/Orders'
-import FadeMenu from '../Customer/components/FadeMenu'
 import axios from 'axios';
-
-//Animation
-import SwipeableTextMobileStepper from '../Customer/components/Animation'
 
 //switch
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
 
-const useStyles = makeStyles({
-    root: {
-        width: '100%',
-    },
-
-});
 
 export const UserContext=React.createContext();
 
@@ -189,29 +173,6 @@ export default function Customer() {
                     </Route>
                     <Route  path={["/Customer/Password"]} >
                         <Password/>
-                    </Route>
-
-                    {/* Scratch */}
-                    <Route  path={["/Customer/HookCounterTwo"]} >
-                        <HookCounterTwo/>
-                    </Route>
-                    <Route  path={["/Customer/HookCounterThree"]} >
-                        <HookCounterThree/>
-                    </Route>
-                    <Route  path={["/Customer/HookCounterFour"]} >
-                        <HookCounterFour/>
-                    </Route>
-                    <Route  path={["/Customer/HookCounterOne"]} >
-                        <HookCounterOne/>
-                    </Route>
-                    <Route  path={["/Customer/FadeMenu"]} >
-                        <FadeMenu/>
-                    </Route>
-
-                    {/* Animation Trial  */}
-
-                    <Route  path={["/Customer/Slider"]} >
-                        <SwipeableTextMobileStepper/>
                     </Route>
                     
                 </Switch>

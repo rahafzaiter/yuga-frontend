@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -19,7 +19,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 //icons:
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles({
