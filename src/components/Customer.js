@@ -1,9 +1,8 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect} from "react";
 
 //Nav:
 import Navigation from './nav2'
 
-import { makeStyles } from '@material-ui/core/styles';
 //CustomerHome:
 import HomePageCustomer from '../HomePageCustomer'
 import SignInSide from '../Customer/components/SignInCust'
@@ -22,7 +21,7 @@ import Orders from  '../Customer/components/Orders'
 import axios from 'axios';
 
 //switch
-import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
 export const UserContext=React.createContext();
@@ -59,7 +58,6 @@ export default function Customer() {
     const [categories,setCategories]=useState([]);
     const [products,setProducts]=useState([]);
     const [cart, setCart] = useState([]);
-    const history=useHistory();
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user")));
     const[orders,setOrders]=useState([]);
     
@@ -98,7 +96,7 @@ export default function Customer() {
     const loadProducts = async () => {
         const result = await axios.get("http://127.0.0.1:8000/api/products/");
         setProducts(result.data.sort(dynamicSort('id')))
-        console.log(result.data.reverse())
+        // console.log(result.data.reverse())
       };
 
       
@@ -107,9 +105,9 @@ export default function Customer() {
     useEffect(()=>{
         if(localStorage.getItem("user")!=null){
         setUser(JSON.parse(window.localStorage.getItem("user")));
-         console.log("in Customer Part useEffect",JSON.parse(window.localStorage.getItem("user")));
+         //console.log("in Customer Part useEffect",JSON.parse(window.localStorage.getItem("user")));
         }
-        console.log("orders in home",orders)
+        //console.log("orders in home",orders)
     },[window.localStorage.getItem("user"),orders])
 
     useEffect(()=>{
@@ -131,19 +129,19 @@ export default function Customer() {
             <Router>
                 <Navigation user={user} setUser={setUser}/>
                 <Switch>
-                    <Route exact path={["/Customer/","/Customer/CustHomePage"]} component={HomePageCustomer} user={user} setUser={setUser} />
-                    <Route path="/Customer/custAuthentication">
+                    <Route exact path={["/Customer","/Customer/CustHomePage"]} component={HomePageCustomer} user={user} setUser={setUser} />
+                    <Route path="/Customer/custAuthentication/">
                         <SignInSide user={user} setUser={setUser}/>
                     </Route>
 
-                    <Route path="/Customer/SignUp" >
+                    <Route path="/Customer/SignUp/" >
                         <SignUp user={user} setUser={setUser} />
                     </Route>
 
                     <Route path={["/Customer/CustProductGallery"]}>
                         <Album cat={categories} addItem={addItem} products={products} /></Route>
 
-                    <Route path={["/Customer/CustShipping"]} component={ShippingDetails} />
+                    <Route path={["/Customer/CustShipping/"]} component={ShippingDetails} />
 
                     <Route path="/Customer/ProductDetails/:id"  >
                         <ProductDetails additem={addItem} user={user} cart={cart} />
@@ -153,7 +151,7 @@ export default function Customer() {
                         <Checkout user={user} addOrders={addOrders} Orders={orders} cart={cart} setCart={setCart} setCart={setCart}/>
                     </Route>
 
-                    <Route exact path={["/Customer/CustCart"]} component={ShoppingCart} >
+                    <Route  path={["/Customer/CustCart"]} component={ShoppingCart} >
                         <ShoppingCart cart={cart} setCart={setCart}/>
                     </Route>
                     <Route  path={["/Customer/CheckOutReview"]} component={Review} >

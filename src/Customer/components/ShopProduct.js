@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -19,43 +18,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core/styles';
-// import InputBase from '@material-ui/core/InputBase';
-// const BootstrapInput = withStyles((theme) => ({
-//   root: {
-//     'label + &': {
-//       marginTop: theme.spacing(3),
-//     },
-//   },
-//   input: {
-//     borderRadius: 4,
-//     position: 'relative',
-//     backgroundColor: "white",
-//     color: "black",
-//     border: '1px solid #ced4da',
-//     fontSize: 16,
-//     padding: '10px 26px 10px 12px',
-//     transition: theme.transitions.create(['border-color', 'box-shadow']),
-//     // Use the system font instead of the default Roboto font.
-//     fontFamily: [
-//       '-apple-system',
-//       'BlinkMacSystemFont',
-//       '"Segoe UI"',
-//       'Roboto',
-//       '"Helvetica Neue"',
-//       'Arial',
-//       'sans-serif',
-//       '"Apple Color Emoji"',
-//       '"Segoe UI Emoji"',
-//       '"Segoe UI Symbol"',
-//     ].join(','),
-//     '&:focus': {
-//       borderRadius: 4,
-//       borderColor: '#80bdff',
-//       boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-//     },
-//   },
-// }))(InputBase);
+
 
 const defaultProps = {
   bgcolor: '#F3E0E0',
@@ -128,7 +91,7 @@ export default function Album(props) {
   const classes = useStyles();
   const history = useHistory();
   const [newProductC, setnewProductC] = useState([]);
-  const [product, setProduct] = useState(newProductC);
+  const [product, setProduct] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [state, setState] = useState({
     price: '',
@@ -244,7 +207,7 @@ export default function Album(props) {
   useEffect(() => {
     loadProducts();
     loadCategories();
-    // console.log('all prodcts in product page', product)
+    console.log('all prodcts in product page', product)
   }, [])
 
   const remove = () => {
@@ -256,7 +219,7 @@ export default function Album(props) {
 
 
   return (
-    <React.Fragment>
+    <div>
       <CssBaseline />
       <main style={{ minHeight: "1000px" }}>
         <Container className={classes.cardGrid} maxWidth="lg" width="90%" >
@@ -290,10 +253,7 @@ export default function Album(props) {
 
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormLabel component="legend">Choose Category</FormLabel>
-                  <RadioGroup aria-label="category" name="gender1" value={state.selectedCategory} onChange={handleChangeCategory}
-
-                    className="circle"
-                  >
+                  <RadioGroup aria-label="category" name="gender1" value={state.selectedCategory} onChange={handleChangeCategory} className="circle">
                     <FormControlLabel value="All" control={<Radio />} label="All" />
 
                     {categories.map(category => {
@@ -351,19 +311,18 @@ export default function Album(props) {
                           <div></div>
                           :
                           (
-                            <Typography>
-                              <h6 color="Black" disabled="true">Sold Out</h6>
+                            <Typography component='h6' color="Black">
+                              Sold Out
+                              {/* <h6 color="Black">Sold Out</h6> */}
 
                             </Typography>
-                          )
-                        }
+                          )}
 
                       </Typography>
 
                     </CardContent>
                   </Card>
                 </Grid>
-
               ))}
             </Grid>
           </Grid>
@@ -371,6 +330,6 @@ export default function Album(props) {
 
       </main>
 
-    </React.Fragment>
+    </div>
   );
 }

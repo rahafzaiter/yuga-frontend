@@ -6,8 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import Clock from './Tutorial/components/Clock'
 import { BrowserRouter } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import "node_modules/video-react/dist/video-react.css"; 
-//import * as serviceWorker from "./serviceWorker";
 
 function tick(){
 ReactDOM.render(

@@ -1,7 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-// var firebase = require('firebase/app');
 var firebaseConfig = {
     apiKey: "AIzaSyBKDd5xW8xIZC-8-IC8ogGTXhEJbMm6vak",
     authDomain: "first-cloud-messaging-2409b.firebaseapp.com",
@@ -13,7 +12,5 @@ var firebaseConfig = {
   };
  
 
-
 const db = firebase.initializeApp(firebaseConfig);
-// const db = firebaseApp.firestore();
 export default db;

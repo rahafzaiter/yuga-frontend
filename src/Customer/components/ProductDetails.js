@@ -17,6 +17,7 @@ import Modal from '@material-ui/core/Modal';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 2,
+    marginTop:'30px',
   },
   paper: {
     padding: theme.spacing(2),
@@ -25,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     alignItems: 'left',
     alignContent: 'left',
-    width: '100%'
+    width: '100%',
+
   },
   formControl: {
     margin: theme.spacing(1),
@@ -178,7 +180,7 @@ export default function ProductDetails({ additem, user,cart }) {
 
 
   useEffect(() => {
-    console.log('cart in products details',cart)
+    //console.log('cart in products details',cart)
   }, []);
 
   //when user choose size and item is ready call the additem props method to add to cart 
@@ -198,26 +200,26 @@ export default function ProductDetails({ additem, user,cart }) {
 
 
   return (
-    <div className="container" style={{ width: '80%' }} >
+    <div className="container" >
       <Grid container spacing={3} className={classes.root}>
-        <Grid item xs={5} md={4} >
-          <img src={Product.card.image} style={{ objectFit: "cover", width: "100%", height: "100%", maxHeight: "100%" }} />
+        <Grid item xs={7} md={6} >
+          <img src={Product.card.image} style={{ objectFit: "cover", width: "100%", height: "90%", maxHeight: "100%" , borderRadius: "25px"}} />
         </Grid>
 
-        <Grid xs={7} item >
+        <Grid xs={6} item  md={6} style={{minHeight:'800px'}}>
           <Grid xs={12} className={classes.formControl}>
-            <Paper className={classes.paper} bold >
+            <div className={classes.paper} bold >
               <h3 marginButton="2px" style={{ fontWeight: "700", fontSize: "26px" }}> {Product.card.title}</h3>
               <h5 marginButton="2px" > Features
               </h5>
               <p marginButton="2px"> {Product.card.description}</p>
               <p marginButton="2px">{Product.card.collection}</p>
               <p marginButton="2px" style={{ fontWeight: "400", fontSize: "23px" }}>{NumberFormatPrice(Product.card.price)} LBP</p>
-            </Paper>
+            </div>
           </Grid>
 
           <Grid xs={12} marginTop="40">
-            <Paper className={classes.paper}>
+            <div className={classes.paper}>
               <Grid xs={12} className={classes.formControl}>
                 <form onSubmit={e => e.preventDefault()}
                   noValidate>
@@ -250,7 +252,7 @@ export default function ProductDetails({ additem, user,cart }) {
                 
                 </form>
               </Grid>
-            </Paper>
+            </div>
           </Grid>
         </Grid>
 
