@@ -5,7 +5,7 @@ import EditCategoryForm from "./CRUD_Category/EditCategoryForm";
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
 
-const CategoryList = (props) => {
+const CategoryList = () => {
 
   const [users, setUsers] = useState(axios.get("http://127.0.0.1:8000/api/categories/"));
   const [refresh,setRefresh]=useState(false);

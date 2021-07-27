@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 //source:https://github.com/toofaniCoder/React-Users/tree/master/src/components/users
 
-const TutorialsList = (props) => {
+const TutorialsList = () => {
   const history=useHistory();
   const [newProduct,setnewProduct]=useState([]);
   const [refresh,setRefresh]=useState(false);

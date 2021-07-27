@@ -67,15 +67,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
-export default function AddProduct(props) {
+export default function AddProduct() {
   const classes = useStyles();
   const history = useHistory();
   const [refresh, setRefresh] = useState(false);
-  const [prodLength] = useState(JSON.parse(localStorage.getItem("Products")).length);
   const [product, setProduct] = useState({
-    id: parseInt(prodLength, 10) + 1,
+    id: 0,
     title: '',
     description: '',
     price: '',
@@ -104,7 +101,7 @@ export default function AddProduct(props) {
 
   useEffect(() => {
     loadCategories();
-    console.log(product.id)
+    // console.log(product.id)
   }, [])
 
   const handleInputChange = (event) => {
@@ -131,7 +128,6 @@ export default function AddProduct(props) {
   //when submit call post for add product api and return to homepage
   const Submit = () => {
     addUser(product);
-    props.addProducts(product)
     history.push("/Admin/tutorials")
   }
 
