@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Link,useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { Link, useHistory } from 'react-router-dom';
 
 //Filter:
 import FormControl from '@material-ui/core/FormControl';
@@ -12,12 +10,20 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ProductDetails.scss'
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Modal from '@material-ui/core/Modal';
+
+
+import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
+import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter';
+import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
+import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 2,
-    marginTop:'30px',
+    marginTop: '30px',
   },
   paper: {
     padding: theme.spacing(2),
@@ -61,17 +67,23 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
-export default function ProductDetails({ additem, user,cart }) {
+export default function ProductDetails({ additem, user, cart }) {
+  const [alignment, setAlignment] = React.useState('left');
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+
   const classes = useStyles();
-  const history=useHistory();
+  const history = useHistory();
   const [modalStyle] = React.useState(getModalStyle);
-  const [Product]=useState(JSON.parse(localStorage.getItem('product')));
+  const [Product] = useState(JSON.parse(localStorage.getItem('product')));
   const [size, setSize] = useState('');
   const [item, setItem] = useState({
-      id: 0,
-      Product,
-      size: ' ',
-    }
+    id: 0,
+    Product,
+    size: ' ',
+  }
   );
 
   const [open, setOpen] = React.useState(false);
@@ -106,7 +118,7 @@ export default function ProductDetails({ additem, user,cart }) {
       </p>
     </div>
   );
- //if user didnt fill size :
+  //if user didnt fill size :
   const bodyAfterLogin = (
     <div style={modalStyle} className={classes.paperModel}>
       <h2 id="simple-modal-title">Yuga</h2>
@@ -116,7 +128,7 @@ export default function ProductDetails({ additem, user,cart }) {
     </div>
   );
 
-   //if all validation are true the item will be added (text will be item added):
+  //if all validation are true the item will be added (text will be item added):
   const bodyAfterAdd = (
     <div style={modalStyle} className={classes.paperModel}>
       <h2 id="simple-modal-title">Yuga</h2>
@@ -161,10 +173,10 @@ export default function ProductDetails({ additem, user,cart }) {
       <div>
         <button className="button" onClick={() => {
           handleOpen();
-          setItem({ ...item, id: cart.length+1 });
+          setItem({ ...item, id: cart.length + 1 });
 
-        }}> 
-         <ShoppingCartIcon /> ADD TO CART</button>
+        }}>
+          <ShoppingCartIcon /> ADD TO CART</button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -185,9 +197,9 @@ export default function ProductDetails({ additem, user,cart }) {
 
   //when user choose size and item is ready call the additem props method to add to cart 
   useEffect(() => {
-    if(item.id!=0){
-    additem(item);
-    history.push("/Customer/CustCart");
+    if (item.id != 0) {
+      additem(item);
+      history.push("/Customer/CustCart");
     }
   }, [item.id]);
 
@@ -203,10 +215,10 @@ export default function ProductDetails({ additem, user,cart }) {
     <div className="container" >
       <Grid container spacing={3} className={classes.root}>
         <Grid item xs={7} md={6} >
-          <img src={Product.card.image} style={{ objectFit: "cover", width: "100%", height: "90%", maxHeight: "100%" , borderRadius: "25px"}} />
+          <img src={Product.card.image} style={{ objectFit: "cover", width: "100%", height: "90%", maxHeight: "100%", borderRadius: "25px" }} />
         </Grid>
 
-        <Grid xs={6} item  md={6} style={{minHeight:'800px'}}>
+        <Grid xs={6} item md={6}>
           <Grid xs={12} className={classes.formControl}>
             <div className={classes.paper} bold >
               <h3 marginButton="2px" style={{ fontWeight: "700", fontSize: "26px" }}> {Product.card.title}</h3>
@@ -223,33 +235,58 @@ export default function ProductDetails({ additem, user,cart }) {
               <Grid xs={12} className={classes.formControl}>
                 <form onSubmit={e => e.preventDefault()}
                   noValidate>
-                  <Grid xs={12} >
-                    <FormControl className={classes.formControl} >
 
-                      <InputLabel htmlFor="age-native-simple" style={{ fontWeight: "400", fontSize: "17px", marginButton: "20px", color: "black" }}>Select Size</InputLabel>
-                      <Select
-                        native
-                        value={size}
-                        onChange={handleChangeSize}
-                        required
 
-                        inputProps={{
-                          name: 'size',
-                          id: 'age-native-simple',
-                        }}>
+                  {(Product.card.S == "0" && Product.card.M == "0" && Product.card.L == "0" && Product.card.XL == "0" && Product.card.XXL == "0") ?
+                    (<div>Sold Out</div>) :
+                    ( <div>
+                        <Grid xs={12} style={{ marginButton: "50px"}}>
+              
+                            <ToggleButtonGroup
+                             value={size}
+                             onChange={handleChangeSize}
+                             required
+                             className={classes.formControl}
+                             inputProps={{
+                               name: 'size',
+                               id: 'age-native-simple',
+                             }}
+                              exclusive
+                              style={{ marginButton: "50px", color: "black"}}
+                            >
+                              {Product.card.S != "0" &&
+                                (<ToggleButton value="S" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
+                                  S
+                                </ToggleButton>)
+                              }
+                              {Product.card.M != "0" &&
+                                (<ToggleButton value="M" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
+                                  M
+                                </ToggleButton>)
+                              }
+                             {Product.card.L != "0" &&
+                                (<ToggleButton value="L" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
+                                  L
+                                </ToggleButton>)
+                              }
+                             {Product.card.XL != "0" &&
+                                (<ToggleButton value="XL" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
+                                  XL
+                                </ToggleButton>)
+                              }
+                              {Product.card.XXL != "0" &&
+                                (<ToggleButton value="XXL" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
+                                  XXL
+                                </ToggleButton>)
+                              }
+                            </ToggleButtonGroup>                      
+                        </Grid>
+                        {button}
+                      </div>
+                    )
+                  }
 
-                        <option aria-label="None" value="" />
-                        <option value={"S"}>S</option>
-                        <option value={"M"}>M</option>
-                        <option value={"L"}>L</option>
-                        <option value={"XL"}>XL</option>
-                        <option value={"XXL"}>2XL</option>
 
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  {button}
-                
                 </form>
               </Grid>
             </div>

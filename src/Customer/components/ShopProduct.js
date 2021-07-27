@@ -285,7 +285,7 @@ export default function Album(props) {
 
             >
               {product.map((card) => (
-                <Grid item key={card.id} xs={12} sm={6} md={3}>
+                <Grid item key={card.id} xs={12} sm={5} md={4}>
                   <Card className={classes.card} style={{ backgroundColor: "#F3E0E0" }}>
                     <CardMedia
                       className={classes.cardMedia}
@@ -307,16 +307,17 @@ export default function Album(props) {
                       </Typography>
                       <Typography>
 
-                        {(card.S && card.M && card.L && card.XL && card.XXL) ?
-                          <div></div>
-                          :
+                        {(card.S ==0 && card.M ==0 && card.L ==0 && card.XL ==0 && card.XXL ==0) ?
+                         
+                          
                           (
                             <Typography component='h6' color="Black">
                               Sold Out
-                              {/* <h6 color="Black">Sold Out</h6> */}
-
                             </Typography>
-                          )}
+                          )
+                          :
+                          (<div></div>)
+                          }
 
                       </Typography>
 
