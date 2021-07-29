@@ -4,19 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import { Link, useHistory } from 'react-router-dom';
 
 //Filter:
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormControl from '@material-ui/core/FormControl';
+// import Select from '@material-ui/core/Select';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import '/home/rahafzaiter/Desktop/SE FACTORY (SUCCESS)/Final Project/Yuga/FrontEnd-Trial/frontend_tr/src/Customer/ProductDetails.scss'
 import Modal from '@material-ui/core/Modal';
-
-
-import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
-import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter';
-import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
-import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
@@ -118,6 +112,7 @@ export default function ProductDetails({ additem, user, cart }) {
       </p>
     </div>
   );
+
   //if user didnt fill size :
   const bodyAfterLogin = (
     <div style={modalStyle} className={classes.paperModel}>
@@ -195,6 +190,7 @@ export default function ProductDetails({ additem, user, cart }) {
     //console.log('cart in products details',cart)
   }, []);
 
+
   //when user choose size and item is ready call the additem props method to add to cart 
   useEffect(() => {
     if (item.id != 0) {
@@ -202,6 +198,7 @@ export default function ProductDetails({ additem, user, cart }) {
       history.push("/Customer/CustCart");
     }
   }, [item.id]);
+
 
   //method add comma to the price ex:2000000 becomes
   const NumberFormatPrice = (y) => {
@@ -239,51 +236,45 @@ export default function ProductDetails({ additem, user, cart }) {
 
                   {(Product.card.S == "0" && Product.card.M == "0" && Product.card.L == "0" && Product.card.XL == "0" && Product.card.XXL == "0") ?
                     (<div>Sold Out</div>) :
-                    ( <div>
-                        <Grid xs={12} style={{ marginButton: "50px"}}>
-              
-                            <ToggleButtonGroup
-                             value={size}
-                             onChange={handleChangeSize}
-                             required
-                             className={classes.formControl}
-                             inputProps={{
-                               name: 'size',
-                               id: 'age-native-simple',
-                             }}
-                              exclusive
-                              style={{ marginButton: "50px", color: "black"}}
-                            >
-                              {Product.card.S != "0" &&
-                                (<ToggleButton value="S" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
-                                  S
-                                </ToggleButton>)
-                              }
-                              {Product.card.M != "0" &&
-                                (<ToggleButton value="M" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
-                                  M
-                                </ToggleButton>)
-                              }
-                             {Product.card.L != "0" &&
-                                (<ToggleButton value="L" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
-                                  L
-                                </ToggleButton>)
-                              }
-                             {Product.card.XL != "0" &&
-                                (<ToggleButton value="XL" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
-                                  XL
-                                </ToggleButton>)
-                              }
-                              {Product.card.XXL != "0" &&
-                                (<ToggleButton value="XXL" style={{padding:"20px", fontSize: "20px"}} aria-label="left aligned">
-                                  XXL
-                                </ToggleButton>)
-                              }
+                    (<div>
+                      <Grid xs={12} style={{ marginButton: "50px" }}>
+
+                        <ToggleButtonGroup
+                          value={size}
+                          onChange={handleChangeSize}
+                          required
+                          className={classes.formControl}
+                          inputProps={{
+                            name: 'size',
+                            id: 'age-native-simple',
+                          }}
+                          exclusive
+                          style={{ marginButton: "50px", color: "black" }}
+                        >
+
+                          <ToggleButton value="S" style={{ padding: "18px", fontSize: "20px",border: "1px solid black" }} disabled={Product.card.S == "0"} aria-label="left aligned">
+                            S
+                          </ToggleButton>
+                          <ToggleButton value="M" style={{ padding: "18px", fontSize: "20px",border: "1px solid black"}} disabled={Product.card.M == "0"} aria-label="left aligned">
+                            M
+                          </ToggleButton>
+
+                          <ToggleButton value="L" style={{ padding: "18px", fontSize: "20px",border: "1px solid black" }} disabled={Product.card.L == "0"} aria-label="left aligned">
+                            L
+                          </ToggleButton>
+
+                          <ToggleButton value="XL" style={{ padding: "18px", fontSize: "20px",border: "1px solid black"}} disabled={Product.card.XL == "0"} aria-label="left aligned">
+                            XL
+                          </ToggleButton>
+
+                          <ToggleButton value="XXL" style={{ padding: "18px", fontSize: "20px",border: "1px solid black"}} disabled={Product.card.XXL == "0"} aria-label="left aligned">
+                            XXL
+                          </ToggleButton>   
                             </ToggleButtonGroup>                      
                         </Grid>
                         {button}
                       </div>
-                    )
+                      )
                   }
 
 
@@ -291,12 +282,12 @@ export default function ProductDetails({ additem, user, cart }) {
               </Grid>
             </div>
           </Grid>
+          </Grid>
+
         </Grid>
 
-      </Grid>
-
     </div>
-  );
+      );
 
 }
 

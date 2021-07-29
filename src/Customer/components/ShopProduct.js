@@ -45,19 +45,22 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(9),
   },
   card: {
-    height: '100%',
+    height: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    maxHeight: "560px"
+    // maxHeight: "460px",
+    marginTop:"10px"
   },
   cardMedia: {
     paddingTop: '95.25%', // 16:9,
-    height: "390px",
-    objectFit: "cover"
+    height: "auto",
+    objectFit: "cover",
+    minHeight:"290px"
   },
   cardContent: {
     flexGrow: 1,
-    maxHeight: "260px"
+    // maxHeight: "260px",
+    height:"auto"
 
   },
   footer: {
@@ -90,6 +93,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Album(props) {
   const classes = useStyles();
   const history = useHistory();
+  const singleStock={product_id:0,S:0,M:0,L:0,XL:0,XXL:0,inStock:false};
+  var sing=[];
+  const [stockies,setStockies]=useState([]);
+  const stockss=[];
+
   const [newProductC, setnewProductC] = useState([]);
   const [product, setProduct] = useState([]);
   const [refresh, setRefresh] = useState(false);
@@ -102,6 +110,8 @@ export default function Album(props) {
 
   });
 
+ 
+
   const [categories, setCategories] = useState([]);
 
   //sort products by id 
@@ -111,13 +121,68 @@ export default function Album(props) {
     }}
 
 
+
+
+
+
+
+    //return stock  by product id
+   const loadStockById = async (id) => {
+     
+    const result = await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`);
+
+    singleStock.product_id=id;
+    console.log(' singelstock id',singleStock.product_id);
+
+    console.log('results in stock method',result.data);
+
+    result.data.map((stock)=>{
+      if(stock.size=="S"){        
+        singleStock.S=stock.quantity
+      }
+      if(stock.size=="M"){
+        singleStock.M=stock.quantity
+      }
+      if(stock.size=="L"){
+        singleStock.L=stock.quantity
+      }
+      if(stock.size=="XL"){
+        singleStock.XL=stock.quantity
+      }
+      if(stock.size=="XXL"){
+        singleStock.XXL=stock.quantity
+      }
+      if(stock.quantity!=0){
+        singleStock.inStock=true;
+      }
+    }
+ );
+
+ console.log('Stockss before loop',stockss);
+console.log('singelStock after loop',singleStock);
+  // const newList = stockies.concat(singleStock);
+  const newArray = []; 
+  newArray.push(singleStock);
+  stockss.push(newArray);
+  console.log('Stockss after loop',stockss);
+
+  // setStockies(stockss);
+  };
+
+
+
+
   //get All products
   const loadProducts = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/products/");
-    setProduct(result.data.sort(dynamicSort('id')))
-    setnewProductC(result.data.sort(dynamicSort('id')))
-    console.log(result.data.reverse())
-    setRefresh(!refresh);
+    setProduct(result.data.sort(dynamicSort('id')));
+    setnewProductC(result.data.sort(dynamicSort('id')));
+    console.log(result.data.reverse());
+    result.data.map((product)=>{
+      loadStockById(product.id);
+    
+    })
+    
   };
 
 
@@ -178,7 +243,6 @@ export default function Album(props) {
         }
       })
     }
-
     setProduct(List);
   }
 
@@ -204,18 +268,20 @@ export default function Album(props) {
     });
   };
 
-  useEffect(() => {
-    loadProducts();
-    loadCategories();
-    console.log('all prodcts in product page', product)
-  }, [])
-
+  
   const remove = () => {
     localStorage.removeItem("product");
   };
 
 
 
+  useEffect(() => {
+    loadProducts();
+    loadCategories();
+    console.log('all prodcts in product page', product);
+  }, [])
+
+ 
 
 
   return (
@@ -245,11 +311,16 @@ export default function Album(props) {
                       onChange={handleChangeColor} />
                   </RadioGroup>
                 </FormControl>
+                </Box> 
+              
 
 
 
 
                {/* filter by categories */}
+               <Box
+                borderRadius={16}
+                {...defaultProps} >
 
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormLabel component="legend">Choose Category</FormLabel>
@@ -282,10 +353,10 @@ export default function Album(props) {
             <Grid container spacing={1}
               item
               xs={10}
-
             >
+
               {product.map((card) => (
-                <Grid item key={card.id} xs={12} sm={5} md={4}>
+                <Grid item key={card.id} xs={12} sm={4} md={3}>
                   <Card className={classes.card} style={{ backgroundColor: "#F3E0E0" }}>
                     <CardMedia
                       className={classes.cardMedia}
@@ -307,7 +378,10 @@ export default function Album(props) {
                       </Typography>
                       <Typography>
 
-                        {(card.S ==0 && card.M ==0 && card.L ==0 && card.XL ==0 && card.XXL ==0) ?
+                        {
+                        // !loadStockById(card.id)
+                         (card.S ==0 && card.M ==0 && card.L ==0 && card.XL ==0 && card.XXL ==0)
+                         ?
                          
                           
                           (
@@ -326,6 +400,7 @@ export default function Album(props) {
                 </Grid>
               ))}
             </Grid>
+
           </Grid>
         </Container>
 

@@ -87,11 +87,21 @@ export default function AddProduct() {
     XXL: 0,
   });
 
+  const [stock, setStock] = useState([
+    { product_id: 0, size: "S", quantity: 0 },
+    { product_id: 0, size: "M", quantity: 0 },
+    { product_id: 0, size: "L", quantity: 0 },
+    { product_id: 0, size: "XL", quantity: 0 },
+    { product_id: 0, size: "XXL", quantity: 0 }
+  ]);
+
+  var stocks = stock;
+
 
   const [Categories, setCategories] = useState([]);
 
   const [submitted, setSubmitted] = useState(false);
-  
+
   //return all categories 
   const loadCategories = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
@@ -110,6 +120,47 @@ export default function AddProduct() {
     setProduct({ ...product, [name]: value });
   };
 
+  const handleInputSizeChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setProduct({ ...product, [name]: value });
+
+    if (stocks.length != 0) {
+      stocks.map(stock => {
+        if (stock.size == name) {
+          stock.quantity = value;
+        }
+      });
+    }
+  };
+
+
+
+
+  const loadIdLastProduct = async () => {
+    const result = await axios.get("http://127.0.0.1:8000/api/countProducts/");
+    console.log('result', result.data)
+    // return result.data;
+    stocks.map((stock) => {
+      var data = {
+        'product_id': parseInt(result.data),
+        'size': stock.size,
+        'quantity': parseInt(stock.quantity),
+      };
+      console.log('data', data);
+
+      axios.post('http://127.0.0.1:8000/api/stocks', data)
+        .then(
+          response => {
+            // loadUsers()
+            // setRefresh(!refresh)
+          })
+        .catch(error => {
+          console.error('There was an error!', error);
+        });
+
+    });
+  };
 
   //add product api
   const addUser = user => {
@@ -117,13 +168,15 @@ export default function AddProduct() {
     axios.post('http://127.0.0.1:8000/api/products', article)
       .then(
         response => {
-          loadUsers()
-          setRefresh(!refresh)
+          loadIdLastProduct();
         })
       .catch(error => {
         console.error('There was an error!', error);
       });
+
   };
+
+
 
   //when submit call post for add product api and return to homepage
   const Submit = () => {
@@ -272,7 +325,7 @@ export default function AddProduct() {
                       type="number"
                       name="S"
                       style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
+                      onChange={handleInputSizeChange}
                       startAdornment={<InputAdornment position="start">S</InputAdornment>}
                       labelWidth={60}
                     />
@@ -284,7 +337,7 @@ export default function AddProduct() {
                       id="outlined-adornment-amount"
                       value={product.M}
                       style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
+                      onChange={handleInputSizeChange}
                       type="number"
                       name="M"
                       startAdornment={<InputAdornment position="start">M</InputAdornment>}
@@ -297,7 +350,7 @@ export default function AddProduct() {
                     <OutlinedInput
                       id="outlined-adornment-amount"
                       value={product.L}
-                      onChange={handleInputChange}
+                      onChange={handleInputSizeChange}
                       name="L"
                       style={{ backgroundColor: "white" }}
                       startAdornment={<InputAdornment position="start">L</InputAdornment>}
@@ -312,7 +365,7 @@ export default function AddProduct() {
                       id="outlined-adornment-amount"
                       value={product.XL}
                       style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
+                      onChange={handleInputSizeChange}
                       name="XL"
                       type="number"
                       startAdornment={<InputAdornment position="start">XL</InputAdornment>}
@@ -328,7 +381,7 @@ export default function AddProduct() {
                       type="number"
                       name="XXL"
                       style={{ backgroundColor: "white" }}
-                      onChange={handleInputChange}
+                      onChange={handleInputSizeChange}
                       startAdornment={<InputAdornment position="start">XXL</InputAdornment>}
                       labelWidth={60}
                     />

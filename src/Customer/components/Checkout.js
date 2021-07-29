@@ -68,8 +68,8 @@ function getStepContent(step, user, address, setAddress, fname, setfName, lname,
 export default function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [fname, setfName] = useState(props.user.user.firstname)
-  const [lname, setlName] = useState(props.user.user.lastname)
+  const [fname, setfName] = useState(JSON.parse(localStorage.getItem("inCart")).firstname)
+  const [lname, setlName] = useState(JSON.parse(localStorage.getItem("inCart")).lasttname)
   const [ordId, setId] = useState(0);
   const [address, setAddress] = useState({
     city: '',
@@ -133,6 +133,15 @@ export default function Checkout(props) {
           })
         .catch(error => {
           console.error('There was an error!', error);
+        });
+
+        axios.put('http://127.0.0.1:8000/api/selectedStock/',data)
+        .then(
+          response => {
+
+          })
+        .catch(error => {
+          console.error('There was an error in stock!', error);
         });
 
     });
