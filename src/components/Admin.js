@@ -43,7 +43,7 @@ export default function Admin(props) {
                 <AdminNav />
 
                 <Switch>      
-                    <Route  path={["/Admin/HomePage", "/Admin/tutorials"]} component={TutorialsList}/>
+                    <Route  path={["/Admin/HomePage"]} component={TutorialsList}/>
                     <Route path="/Admin/addProduct" >
                         <AddProduct/>
                     </Route>

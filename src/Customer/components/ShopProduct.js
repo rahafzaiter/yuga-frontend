@@ -49,18 +49,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     // maxHeight: "460px",
-    marginTop:"10px"
+    marginTop: "10px"
   },
   cardMedia: {
     paddingTop: '95.25%', // 16:9,
     height: "auto",
     objectFit: "cover",
-    minHeight:"290px"
+    minHeight: "290px"
   },
   cardContent: {
     flexGrow: 1,
     // maxHeight: "260px",
-    height:"auto"
+    height: "auto"
 
   },
   footer: {
@@ -93,104 +93,105 @@ const useStyles = makeStyles((theme) => ({
 export default function Album(props) {
   const classes = useStyles();
   const history = useHistory();
-  const singleStock={product_id:0,S:0,M:0,L:0,XL:0,XXL:0,inStock:false};
-  var sing=[];
-  const [stockies,setStockies]=useState([]);
-  const stockss=[];
-
   const [newProductC, setnewProductC] = useState([]);
   const [product, setProduct] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [state, setState] = useState({
     price: '',
     collection: '',
     categories: props.cat,
     selectedCategory: " ",
-    inStock: true
+    // inStock: true
 
   });
 
- 
-
-  const [categories, setCategories] = useState([]);
 
   //sort products by id 
   function dynamicSort(property) {
     return function (a, b) {
       return (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-    }}
-
-
-
-
-
-
-
-    //return stock  by product id
-   const loadStockById = async (id) => {
-     
-    const result = await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`);
-
-    singleStock.product_id=id;
-    console.log(' singelstock id',singleStock.product_id);
-
-    console.log('results in stock method',result.data);
-
-    result.data.map((stock)=>{
-      if(stock.size=="S"){        
-        singleStock.S=stock.quantity
-      }
-      if(stock.size=="M"){
-        singleStock.M=stock.quantity
-      }
-      if(stock.size=="L"){
-        singleStock.L=stock.quantity
-      }
-      if(stock.size=="XL"){
-        singleStock.XL=stock.quantity
-      }
-      if(stock.size=="XXL"){
-        singleStock.XXL=stock.quantity
-      }
-      if(stock.quantity!=0){
-        singleStock.inStock=true;
-      }
     }
- );
-
- console.log('Stockss before loop',stockss);
-console.log('singelStock after loop',singleStock);
-  // const newList = stockies.concat(singleStock);
-  const newArray = []; 
-  newArray.push(singleStock);
-  stockss.push(newArray);
-  console.log('Stockss after loop',stockss);
-
-  // setStockies(stockss);
-  };
+  }
 
 
-
+var productsAll=[];
 
   //get All products
   const loadProducts = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/products/");
     setProduct(result.data.sort(dynamicSort('id')));
     setnewProductC(result.data.sort(dynamicSort('id')));
+    productsAll=result.data.sort(dynamicSort('id'));
+    
     console.log(result.data.reverse());
-    result.data.map((product)=>{
-      loadStockById(product.id);
-    
+    result.data.map((product) => {
+      loadStockById(product.id)
     })
-    
   };
+
+
+  var lists = [];
+  const goThroughArrt = (list, productId,productsAll) => {
+
+    console.log('in the method', list);
+    const singleStock = { product_id: 0, S: 0, M: 0, L: 0, XL: 0, XXL: 0, inStock: false };
+    singleStock.product_id = productId;
+    list.map((stock) => {
+      if (stock.size == "S") {
+        singleStock.S = stock.quantity
+      } else
+        if (stock.size == "M") {
+          singleStock.M = stock.quantity
+        } else
+          if (stock.size == "L") {
+            singleStock.L = stock.quantity
+          } else
+            if (stock.size == "XL") {
+              singleStock.XL = stock.quantity
+            } else
+              if (stock.size == "XXL") {
+                singleStock.XXL = stock.quantity
+              }
+      if (stock.quantity != 0) {
+        singleStock.inStock = true;
+      }
+    }
+    );
+
+    productsAll.map((products)=>{
+      if(products.id==singleStock.product_id){
+        products.S=singleStock.S;
+        products.M=singleStock.M;
+        products.L=singleStock.L;
+        products.XL=singleStock.XL;
+        products.XXL=singleStock.XXL;
+
+      };
+    });
+
+    setProduct(productsAll);
+    setnewProductC(productsAll);
+    lists.push(singleStock);
+  }
+
+
+  
+
+  //return stock  by product id
+  const loadStockById = async (id) => {
+    await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`).then((result) => {
+      var arr2 = result.data;
+      var prodId = id;
+      goThroughArrt(arr2, prodId,productsAll);    
+    })
+  };
+
 
 
   //get All categories
   const loadCategories = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
     setCategories(result.data.reverse())
-
   };
 
 
@@ -233,7 +234,8 @@ console.log('singelStock after loop',singleStock);
     if (category == "All") {
       newProductC.map((item) => {
         addProducts(item);
-      })}
+      })
+    }
 
     else {
       newProductC.map((item) => {
@@ -268,20 +270,23 @@ console.log('singelStock after loop',singleStock);
     });
   };
 
-  
+
   const remove = () => {
     localStorage.removeItem("product");
   };
 
 
 
-  useEffect(() => {
-    loadProducts();
+  useEffect(()=>{
     loadCategories();
-    console.log('all prodcts in product page', product);
-  }, [])
+    loadProducts();
+  },[]);
 
  
+
+
+
+
 
 
   return (
@@ -311,14 +316,14 @@ console.log('singelStock after loop',singleStock);
                       onChange={handleChangeColor} />
                   </RadioGroup>
                 </FormControl>
-                </Box> 
-              
+              </Box>
 
 
 
 
-               {/* filter by categories */}
-               <Box
+
+              {/* filter by categories */}
+              <Box
                 borderRadius={16}
                 {...defaultProps} >
 
@@ -377,21 +382,17 @@ console.log('singelStock after loop',singleStock);
                         {NumberFormatPrice(card.price)}  LBP
                       </Typography>
                       <Typography>
-
                         {
-                        // !loadStockById(card.id)
-                         (card.S ==0 && card.M ==0 && card.L ==0 && card.XL ==0 && card.XXL ==0)
-                         ?
-                         
-                          
-                          (
-                            <Typography component='h6' color="Black">
-                              Sold Out
-                            </Typography>
-                          )
-                          :
-                          (<div></div>)
-                          }
+                          (card.S == 0 && card.M == 0 && card.L == 0 && card.XL == 0 && card.XXL == 0)
+                            ?
+                            (
+                              <Typography component='h6' color="Black">
+                                Sold Out
+                              </Typography>
+                            )
+                            :
+                            (<div></div>)
+                        }
 
                       </Typography>
 

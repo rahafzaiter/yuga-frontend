@@ -187,7 +187,7 @@ export default function ProductDetails({ additem, user, cart }) {
 
 
   useEffect(() => {
-    //console.log('cart in products details',cart)
+    //console.log('product in product details',Product)
   }, []);
 
 

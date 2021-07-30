@@ -181,7 +181,7 @@ export default function AddProduct() {
   //when submit call post for add product api and return to homepage
   const Submit = () => {
     addUser(product);
-    history.push("/Admin/tutorials")
+    history.push("/Admin/HomePage")
   }
 
 
