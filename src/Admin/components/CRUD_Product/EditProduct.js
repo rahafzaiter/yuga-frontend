@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditProduct() {
   const classes = useStyles();
-  const history=useHistory();
+  const history = useHistory();
   const initialTutorialState = {
     id: null,
     title: "",
@@ -98,9 +98,11 @@ export default function EditProduct() {
   };
 
   const [ProductLocal, setProductLocal] = useState(JSON.parse(localStorage.getItem("product")))
-  const [productId]=useState(JSON.parse(localStorage.getItem("productId")))
-  const [productB,setproductB] = useState(null);
+  const [productId] = useState(JSON.parse(localStorage.getItem("productId")))
+  const [productB, setproductB] = useState(null);
   const [product, setProduct] = useState(ProductLocal.product);
+  const [stock, setStock] = useState({});
+  const [allStock, setAllStock] = useState([]);
 
   //image stuff to be implemented in future
   const [imageSrc, setImageSrc] = useState();
@@ -108,23 +110,35 @@ export default function EditProduct() {
   //not needed now 
   const [pictures, setPictures] = useState(null);
   const [changed, setChange] = useState(false);
-  const [Categories,setCategories] = useState([]);
+  const [Categories, setCategories] = useState([]);
   const [tutorial, setTutorial] = useState(initialTutorialState);
   const [submitted, setSubmitted] = useState(false);
 
   //return all categories 
   const loadUsers = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/categories/");
-    setCategories(result.data.reverse())    
+    setCategories(result.data.reverse())
   };
+
+  //return stock  by product id
+  const loadStockById = async (id) => {
+    await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`).then((result) => {
+      console.log('results of stock in loadStockById method', result.data)
+      var arr2 = result.data;
+      setAllStock(arr2);
+      console.log('allStock in loudStockById', allStock);
+      goThroughArrt(arr2, id, product);
+    })
+  };
+
 
   //return this product by id
   const loadProductById = async (id) => {
     const result = await axios.get(`http://127.0.0.1:8000/api/products/${id}`);
     setproductB(result.data[0])
     setProduct(result.data[0])
-    console.log("product by id ",result.data[0]);
-    
+    console.log("product by id ", result.data[0]);
+
   };
 
 
@@ -135,15 +149,30 @@ export default function EditProduct() {
     setChange(true);
   };
 
+
+  const changeStockSize = (stocks, pSize, pQuantity) => {
+    console.log('allStock, size, and quantity', allStock, pSize, pQuantity);
+    var stockss = allStock;
+    stockss.map((stocket) => {
+      if (stocket.size == pSize) {
+        stocket.quantity = parseInt(pQuantity);
+      }
+    });
+    console.log('stockss', stockss);
+    setAllStock(stockss);
+  };
+
   //when type new size 
-  const handleSizeChange=event=>{
+  const handleSizeChange = event => {
     const { name, value } = event.target;
+    changeStockSize(allStock, name, value);
     setProduct({ ...product, [name]: parseInt(value) });
+    console.log('all stock',allStock);
     setChange(true);
   }
 
   //when type new price 
-  const handlePriceChange=event=>{
+  const handlePriceChange = event => {
     const { name, value } = event.target;
     setProduct({ ...product, [name]: parseInt(value) });
     setChange(true);
@@ -155,65 +184,128 @@ export default function EditProduct() {
   //   setImageSrc(URL.createObjectURL(e.target.files[0]))
   // }
 
+
+
+  const goThroughArrt = (list, productId, productsAll) => {
+
+    console.log('in the method', list);
+    const singleStock = { product_id: 0, S: 0, M: 0, L: 0, XL: 0, XXL: 0, inStock: false };
+    singleStock.product_id = productId;
+    list.map((stock) => {
+      if (stock.size == "S") {
+        singleStock.S = stock.quantity
+      } else
+        if (stock.size == "M") {
+          singleStock.M = stock.quantity
+        } else
+          if (stock.size == "L") {
+            singleStock.L = stock.quantity
+          } else
+            if (stock.size == "XL") {
+              singleStock.XL = stock.quantity
+            } else
+              if (stock.size == "XXL") {
+                singleStock.XXL = stock.quantity
+              }
+      if (stock.quantity != 0) {
+        singleStock.inStock = true;
+      }
+    }
+    );
+
+    setStock(singleStock);
+    const products = product;
+    console.log('products before fill the products', products)
+    products.S = singleStock.S;
+    products.M = singleStock.M;
+    products.L = singleStock.L;
+    products.XL = singleStock.XL;
+    products.XXL = singleStock.XXL;
+    console.log('products after fill', products);
+    setProduct(products);
+  }
+
+
   //to load the product when refresh page
-  useEffect(()=>{
+  useEffect(() => {
     loadProductById(productId);
     loadUsers();
-    console.log('product to be edited',productB)
+    loadStockById(productId);
+    console.log('product to be edited', productB);
 
-  },[])
+  }, [])
+
+
+  useEffect(() => {
+
+  }, [stock])
 
 
 
   //update product to backend 
-  const updateProducts = async (id,updateduser) => {
-    console.log('in updateUser id ',id)
-    console.log('in updateUser method',updateduser)
-    await axios.put(`http://127.0.0.1:8000/api/products/${id}`,updateduser)
-    .then(response => {
-      console.log(response.data)
-      console.error('all cat',response.data)
-    }).catch(error => {
-            console.error(error.response.data);
-          });  
+  const updateProducts = async (id, updatedproduct) => {
+    console.log('in updatedproduct id ', id)
+    console.log('in updatedproduct method', updatedproduct)
+    await axios.put(`http://127.0.0.1:8000/api/products/${id}`, updatedproduct)
+      .then(response => {
+        console.log(response.data)
+        console.error('all cat', response.data)
+      }).catch(error => {
+        console.error(error.response.data);
+      });
   };
 
 
-  const saveTutorial = () => {
-    var data = {
-      title: tutorial.title,
-      description: tutorial.description
-    };
-    setSubmitted(true);
-    console.log(submitted);
+  //update stocka to backend 
+  const updateStocks =  () => {
+    allStock.map((stockes)=>{
+    console.log('in updatedstock id ', stockes.id)
+    console.log('in updatedstock method', stockes.updatedstock)
+     axios.put(`http://127.0.0.1:8000/api/stocks/${stockes.id}`, stockes)
+      .then(response => {
+        console.log(response.data)
+        console.error('all cat', response.data)
+      }).catch(error => {
+        console.error(error.response.data);
+      });
 
+    });
   };
+
+  const sendStockToAPI=()=>{
+    allStocks.map((stockes)=>{
+      updateStocks(stockes.id,stockes);
+
+    })
+  }
+
 
 
 
   //submit when fill all data 
-  const submit = () => {
-      // e.preventDefault();
-    updateProducts(product.id,product);
-    history.push("/Admin/tutorials")
+  const submit = (event) => {
+    event.preventDefault();
+    updateProducts(product.id, product);
+    updateStocks();
+    // history.push("/Admin/HomePage")
   }
 
   //stuffs for picture to be implemented for future 
-   const onDrop = (pictureFiles, pictureDataURLs) => {
+  const onDrop = (pictureFiles, pictureDataURLs) => {
     setPictures(pictureFiles);
     console.log("picture added");
     console.log(pictureFiles);
     console.log(pictures)
   };
 
-  
+
   return (
     <div className="container" >
 
       <div className="container submit-form  mx-auto shadow p-5" style={{ backgroundColor: '#E5DBE1', width: "80%", borderRadius: "25px", marginTop: "30px" }}>
         <h2 className="text-center mb-4">Edit A Product</h2>
         <div className="container">
-          <form noValidate  className={classes.form}>
+          <form noValidate className={classes.form}>
             {/* style={{ marginLeft:'20%',marginRight:'20%'}} */}
             <TextField
               required
@@ -322,7 +414,7 @@ export default function EditProduct() {
                 onChange={handleInputChange}
               >
                 {Categories.map((cat) => (
-                  <option align="center"  value={cat.name}>{cat.name}</option>))}             
+                  <option align="center" value={cat.name}>{cat.name}</option>))}
               </Select>
             </FormControl>
 
@@ -414,10 +506,8 @@ export default function EditProduct() {
               <div>
                 <button className="btn btn-block shadow"
                   style={{ backgroundColor: 'rgb(240, 18, 155)', color: 'black' }}
-                  // onClick={() => { history.push("/Admin/tutorials") }}
                   onClick={submit}
-                // {() =>Edit
-                  // history.push("/Admin/tutorials")} 
+                
                 >
                   Update
                 </button>

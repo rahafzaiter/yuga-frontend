@@ -38,6 +38,12 @@ const TutorialsList = () => {
     loadProducts();  
   };
 
+   //to delete selected product
+   const deleteStock = async id => {
+    await axios.delete(`http://127.0.0.1:8000/api/stocks/${id}`);
+    loadProducts();  
+  };
+
   useEffect(()=>{
     loadProducts();
   },[])
@@ -89,6 +95,7 @@ const TutorialsList = () => {
                     onClick={(e)=>{
                       e.preventDefault()
                       localStorage.setItem('product',JSON.stringify({product}))
+                      localStorage.setItem('productId',JSON.stringify(product.id));
                       history.push(`/Admin/ViewProduct`)
                     }}                 
                   >
@@ -108,7 +115,11 @@ const TutorialsList = () => {
                   </Link>
                   <Link
                     class="btn btn-outline-danger ml-3"
-                    onClick={() => deleteUser(product.id)}
+                    onClick={(e) =>{
+                      e.preventDefault()
+                       deleteUser(product.id)
+                    deleteStock(product.id)
+                    }}
                   >
                     Delete
                   </Link>

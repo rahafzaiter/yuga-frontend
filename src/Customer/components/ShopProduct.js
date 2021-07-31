@@ -180,6 +180,7 @@ var productsAll=[];
   //return stock  by product id
   const loadStockById = async (id) => {
     await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`).then((result) => {
+      console.log('results of stock in loadStockById method',result.data)
       var arr2 = result.data;
       var prodId = id;
       goThroughArrt(arr2, prodId,productsAll);    
