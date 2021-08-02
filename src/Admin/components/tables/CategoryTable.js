@@ -5,8 +5,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -39,17 +37,12 @@ function CategoryTable(props) {
   useEffect(() => {
     loadUsers();
   }, [props.refresh]);
-  // useEffect(()=>{
-
-
-  // },[refresh])
 
 
   const deleteUser = async id => {
     await axios.delete(`http://127.0.0.1:8000/api/categories/${id}`);
     props.setRefresh(!props.refresh);
     loadUsers();
-
   };
 
 
@@ -57,12 +50,7 @@ function CategoryTable(props) {
   return (
     <div Container style={{ minHeight: "900px", marginTop: "20px" }}>
       <React.Fragment>
-        {/* <Typography className=" py-2 shadow" component="h2" variant="h6"  gutterBottom>
-     Categories
-    </Typography> */}
-
         <TableContainer component={Paper}>
-
           <Table className={classes.table} aria-label="simple table">
             <TableHead style={{ backgroundColor: '#5e5e5e', color: "white" }}>
               <TableRow>
@@ -80,7 +68,6 @@ function CategoryTable(props) {
                     <TableCell align="center" >{user.name}</TableCell>
                     <TableCell align="center">
                       <Button
-                        // className="button muted-button"
                         class="btn btn-outline-primary ml-3"
                         onClick={() => props.editRow(user)}
                       >
@@ -90,7 +77,6 @@ function CategoryTable(props) {
                     <TableCell align="center">
                       <Button
                         class="btn btn-outline-danger ml-3"
-                        // className="button muted-button"
                         onClick={() => deleteUser(user.id)}
                       >
                         Delete

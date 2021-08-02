@@ -353,7 +353,6 @@ export default function EditProduct() {
               required
               id="outlined-required"
               label="Color"
-              // defaultValue="color"
               variant="outlined"
               value={product.color}
               onChange={handleInputChange}
@@ -393,8 +392,8 @@ export default function EditProduct() {
                 value={product.collection}
                 onChange={handleInputChange}
               >
-                <option align="center" value="light" >lighto</option>
-                <option align="center" value="dark">darko</option>
+                <option align="center" value="light" >light</option>
+                <option align="center" value="dark">dark</option>
               </Select>
             </FormControl>
 

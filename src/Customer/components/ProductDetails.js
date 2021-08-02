@@ -61,6 +61,7 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
+
 export default function ProductDetails({ additem, user, cart }) {
   const [alignment, setAlignment] = React.useState('left');
 

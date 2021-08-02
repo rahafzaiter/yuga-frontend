@@ -70,7 +70,7 @@ export default function ViewProduct({ additem, user }) {
 
 
   // var lists = [];
-  const goThroughArrt = (list, productId, productsAll) => {
+  const goThroughArrt = (list, productId) => {
 
     console.log('in the method', list);
     const singleStock = { product_id: 0, S: 0, M: 0, L: 0, XL: 0, XXL: 0, inStock: false };
@@ -98,15 +98,6 @@ export default function ViewProduct({ additem, user }) {
     );
 
     setStock(singleStock);
-    // const products = Product;
-    // console.log('products before fill the products', products)
-    // products.S = singleStock.S;
-    // products.M = singleStock.M;
-    // products.L = singleStock.L;
-    // products.XL = singleStock.XL;
-    // products.XXL = singleStock.XXL;
-    // console.log('products after fill', products);
-    // setProduct(products);
   }
 
   //return stock  by product id
@@ -114,25 +105,16 @@ export default function ViewProduct({ additem, user }) {
     await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`).then((result) => {
       console.log('results of stock in loadStockById method', result.data)
       var arr2 = result.data;
-      goThroughArrt(arr2, id, Product);
+      goThroughArrt(arr2, id);
     })
   };
-
-
-
-  //when fill size 
-  const handleChangeSize = (event) => {
-    setSize(event.target.value)
-    const { name, value } = event.target;
-    setItem({ ...item, size: value });
-  };
-
 
 
   useEffect(() => {
     loadStockById(Product.id);
   }, []);
 
+  
   useEffect(() => {
 
   }, [stock])

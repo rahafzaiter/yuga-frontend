@@ -97,8 +97,7 @@ function ShoppingCart({ cart, setCart }) {
     //to remove everything from cart when checkout
     const remove = () => {
         localStorage.removeItem("cartItems");
-        localStorage.removeItem("cartTotalPrice");
-      
+        localStorage.removeItem("cartTotalPrice");   
     };
 
     //related to modal

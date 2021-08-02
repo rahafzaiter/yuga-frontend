@@ -175,12 +175,12 @@ export default function Feedback(props) {
             </Modal>
         } else {
             const data = { rate: parseInt(rate), comment: comment, user_Id: id, category_name: state.selectedCategory };
-            addFeedback(data);
+           
             // const db = firebase.firestore();
             ref.add({
-                    rate: 1,
-                    comment:"yeey",
-                    category_name:"Dresses"
+                    rate: data.rate,
+                    comment:data.comment,
+                    category_name:data.category_name
                     //sender:"me",
                 })
                 .then(() => {
@@ -189,6 +189,8 @@ export default function Feedback(props) {
                 .catch((error) => {
                     console.log("Error written", error);
                 });
+                
+                addFeedback(data);
             <Modal
                 open={open}
                 onClose={handleClose}

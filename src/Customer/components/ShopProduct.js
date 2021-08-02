@@ -96,14 +96,12 @@ export default function Album(props) {
   const [newProductC, setnewProductC] = useState([]);
   const [product, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [state, setState] = useState({
-    price: '',
-    collection: '',
-    categories: props.cat,
-    selectedCategory: " ",
-    // inStock: true
-
-  });
+  // const [state, setState] = useState({
+  //   price: '',
+  //   collection: '',
+  //   categories: props.cat,
+  //   selectedCategory: " ",
+  // });
 
 
   //sort products by id 
@@ -114,28 +112,15 @@ export default function Album(props) {
   }
 
 
-var productsAll=[];
-
-  //get All products
-  const loadProducts = async () => {
-    const result = await axios.get("http://127.0.0.1:8000/api/products/");
-    setProduct(result.data.sort(dynamicSort('id')));
-    setnewProductC(result.data.sort(dynamicSort('id')));
-    productsAll=result.data.sort(dynamicSort('id'));
-    
-    console.log(result.data.reverse());
-    result.data.map((product) => {
-      loadStockById(product.id)
-    })
-  };
+  var productsAll = [];
 
 
-  var lists = [];
-  const goThroughArrt = (list, productId,productsAll) => {
-
-    console.log('in the method', list);
+  //is used to fill singleStock = { product_id: 0, S: 0, M: 0, L: 0, XL: 0, XXL: 0, inStock: false }; and save items of products with the new stock
+  const goThroughArrt = (list, productId) => {
     const singleStock = { product_id: 0, S: 0, M: 0, L: 0, XL: 0, XXL: 0, inStock: false };
     singleStock.product_id = productId;
+
+    //this map fills the singleStock from the list given from stock api 
     list.map((stock) => {
       if (stock.size == "S") {
         singleStock.S = stock.quantity
@@ -158,34 +143,46 @@ var productsAll=[];
     }
     );
 
-    productsAll.map((products)=>{
-      if(products.id==singleStock.product_id){
-        products.S=singleStock.S;
-        products.M=singleStock.M;
-        products.L=singleStock.L;
-        products.XL=singleStock.XL;
-        products.XXL=singleStock.XXL;
 
+    productsAll.map((products) => {
+      if (products.id == singleStock.product_id) {
+        products.S = singleStock.S;
+        products.M = singleStock.M;
+        products.L = singleStock.L;
+        products.XL = singleStock.XL;
+        products.XXL = singleStock.XXL;
       };
     });
 
     setProduct(productsAll);
     setnewProductC(productsAll);
-    lists.push(singleStock);
   }
 
 
-  
+
 
   //return stock  by product id
   const loadStockById = async (id) => {
     await axios.get(`http://127.0.0.1:8000/api/stocks/${id}`).then((result) => {
-      console.log('results of stock in loadStockById method',result.data)
-      var arr2 = result.data;
-      var prodId = id;
-      goThroughArrt(arr2, prodId,productsAll);    
+      let arr2 = result.data;
+      let prodId = id;
+      goThroughArrt(arr2, prodId);
     })
   };
+
+
+
+  //get All products
+  const loadProducts = async () => {
+    const result = await axios.get("http://127.0.0.1:8000/api/products/");
+    setProduct(result.data.sort(dynamicSort('id')));
+    setnewProductC(result.data.sort(dynamicSort('id')));
+    productsAll = result.data.sort(dynamicSort('id'));
+    productsAll.map((prod) => {
+      loadStockById(prod.id)
+    })
+  };
+
 
 
 
@@ -196,80 +193,61 @@ var productsAll=[];
   };
 
 
+
+
   //to filter the products based on color
   const Add = async (collection) => {
-    var List = []
-    const addProducts = item => {
-      const newList = List.concat(item);
-      List = newList;
-      setProduct(newList)
-    };
-
     if (collection == "All") {
-      newProductC.map((item) => {
-        addProducts(item);
-      })
+      setProduct(newProductC);
+      return ;
     }
-
     else {
-      newProductC.map((item) => {
-        if (collection == item.collection) {
-          console.log("collection in map", item.collection)
-          addProducts(item);
-        }
-      })
+      const newProduct=newProductC.filter(prod => prod.collection==collection);
+      setProduct(newProduct);
+      return ;   
     }
-    setProduct(List);
   }
+
+
 
 
   //To filter products based on category:
   const AddCatagery = async (category) => {
-    var List = []
-    const addProducts = item => {
-      const newList = List.concat(item);
-      List = newList;
-      setProduct(newList)
-    };
-
     if (category == "All") {
-      newProductC.map((item) => {
-        addProducts(item);
-      })
+      setProduct(newProductC);
+      return ;
     }
-
     else {
-      newProductC.map((item) => {
-        if (category == item.name) {
-          console.log("collection in map", item.collection)
-          addProducts(item);
-        }
-      })
+      const newProduct=newProductC.filter(prod => prod.name==category);
+      setProduct(newProduct);
+      return ;   
     }
-    setProduct(List);
   }
+
 
   const handleChangeColor = (event) => {
     Add(event.target.value)
-    setState({
-      ...state,
-      collection: event.target.value,
-    });
-
+    // setState({
+    //   ...state,
+    //   collection: event.target.value,
+    // });
   };
 
+
   const NumberFormatPrice = (y) => {
-    var price = new Intl.NumberFormat();
+    let price = new Intl.NumberFormat();
     return price.format(y);
   }
 
+
   const handleChangeCategory = (e) => {
     AddCatagery(e.target.value)
-    setState({
-      ...state,
-      selectedCategory: e.target.value
-    });
+    // setState({
+    //   ...state,
+    //   selectedCategory: e.target.value
+    // });
   };
+
 
 
   const remove = () => {
@@ -278,12 +256,10 @@ var productsAll=[];
 
 
 
-  useEffect(()=>{
+  useEffect(() => {
     loadCategories();
     loadProducts();
-  },[]);
-
- 
+  }, []);
 
 
 
@@ -330,7 +306,7 @@ var productsAll=[];
 
                 <FormControl component="fieldset" className={classes.formControl}>
                   <FormLabel component="legend">Choose Category</FormLabel>
-                  <RadioGroup aria-label="category" name="gender1" value={state.selectedCategory} onChange={handleChangeCategory} className="circle">
+                  <RadioGroup aria-label="category" name="gender1"  onChange={handleChangeCategory} className="circle">
                     <FormControlLabel value="All" control={<Radio />} label="All" />
 
                     {categories.map(category => {
@@ -346,8 +322,6 @@ var productsAll=[];
                       )
                     })
                     }
-
-
                   </RadioGroup>
                 </FormControl>
               </Box>

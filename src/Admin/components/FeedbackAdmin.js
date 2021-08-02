@@ -52,39 +52,47 @@ export default function FeedbackAdmin() {
   //get All feedbacks
   const loadFeedbacks = async () => {
     const result = await axios.get("http://127.0.0.1:8000/api/feedbacks/");
-    // name=result.data.sort(dynamicSort('id'));
     setFeedbacks(result.data.sort(dynamicSort('id')));
     console.log(result.data.reverse());
   };
 
   function getNotification() {
     const ref =db.firestore().collection('feedback');
-		// const db = firebase.firestore();
 
 	ref.get()
 			.then((snapshot) => {
 				const n = [];
+        if(snapshot.length!=0){
+          console.log("snapshot",snapshot)
 				snapshot.forEach((doc) => {
 					const data = doc.data();
 					n.push(data);
+         
 				});
-				setMyNotifications(n);
+
+        console.log('n',n);
+        if(n.length!=0){
+        setMyNotifications(n);
         console.log('notifications',n[0])
         console.log('notifications category',n[0].category_name)
-        if(n[0].category_name){
+        // if(feedbacks.length!=0){
           var z=n[0].category_name
           alert( n[0].category_name + ' is recommended to be added in latest feedback by a customer  ')
          
         }
-        // alert('you got a new feedback to add ',n[0].category_name)
-			});
+        }
+			
+		//	}
+    }
+      );
 	}
    
 
   useEffect(() => {
-    getNotification();
     loadFeedbacks();
-    console.log('notifications',myNotifications[0])
+    getNotification();
+    
+    // console.log('notifications',myNotifications[0])
     // alert('you got a new feedback to add ',myNotifications[0].category_name)
   }, [])
 

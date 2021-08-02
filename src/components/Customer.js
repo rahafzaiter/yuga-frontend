@@ -98,7 +98,6 @@ export default function Customer() {
     const loadProducts = async () => {
         const result = await axios.get("http://127.0.0.1:8000/api/products/");
         setProducts(result.data.sort(dynamicSort('id')))
-        // console.log(result.data.reverse())
       };
 
       
@@ -107,9 +106,7 @@ export default function Customer() {
     useEffect(()=>{
         if(localStorage.getItem("user")!=null){
         setUser(JSON.parse(window.localStorage.getItem("user")));
-         //console.log("in Customer Part useEffect",JSON.parse(window.localStorage.getItem("user")));
         }
-        //console.log("orders in home",orders)
     },[window.localStorage.getItem("user"),orders])
 
     useEffect(()=>{

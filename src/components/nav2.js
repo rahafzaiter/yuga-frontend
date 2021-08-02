@@ -90,7 +90,7 @@ function Navigation(props) {
           <NavLink activeClassName="active"  className={currentRoute.includes("custorders") ? "navC" : "navD"}  to="/Customer/CustOrders"  >My Orders</NavLink>
           <NavDropdown  activeClassName="active" className="navC"  color="dark" title="My Account" id="basic-nav-dropdown">
           <NavDropdown.Item href="/Customer/Profile">Profile</NavDropdown.Item>
-          <NavDropdown.Item href="/Customer/Password">Password</NavDropdown.Item> 
+          {/* <NavDropdown.Item href="/Customer/Password">Password</NavDropdown.Item>  */}
         </NavDropdown>
 
         <NavLink activeClassName="active"  className={currentRoute.includes("custshipping") ? "navC" : "navD"} to="/Customer/CustShipping"  >Shipping Policies</NavLink>

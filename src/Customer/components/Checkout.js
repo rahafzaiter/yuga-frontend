@@ -68,8 +68,9 @@ function getStepContent(step, user, address, setAddress, fname, setfName, lname,
 export default function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [fname, setfName] = useState(JSON.parse(localStorage.getItem("inCart")).firstname)
-  const [lname, setlName] = useState(JSON.parse(localStorage.getItem("inCart")).lasttname)
+  const [customer, setCustomer] = useState(JSON.parse(localStorage.getItem("customer")));
+  const [fname, setfName] = useState(JSON.parse(localStorage.getItem("customer")).firstname);
+  const [lname, setlName] = useState(JSON.parse(localStorage.getItem("customer")).lastname);
   const [ordId, setId] = useState(0);
   const [address, setAddress] = useState({
     city: '',
@@ -148,6 +149,7 @@ export default function Checkout(props) {
   };
 
 
+
   const handleNext = async () => {
     setActiveStep(activeStep + 1);
     if (activeStep === steps.length - 1) {
@@ -165,9 +167,11 @@ export default function Checkout(props) {
     }
   };
 
+
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
 
   //when submit call addOrder method and call remove to clear cart 
   useEffect(() => {
@@ -180,11 +184,15 @@ export default function Checkout(props) {
     }
   }, [order]);
 
+
+
   useEffect(() => {
     if (ordId != 0) {
       addOrderItems();
     }
   }, [ordId]);
+
+
 
   return (
     <React.Fragment>
@@ -214,7 +222,7 @@ export default function Checkout(props) {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep, props.user.user, address, setAddress, fname, setfName, lname, setlName)}
+                {getStepContent(activeStep, customer, address, setAddress, fname, setfName, lname, setlName)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
